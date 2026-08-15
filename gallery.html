@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PH'EAST | Gallery - Moments at PH'EAST</title>
+  <meta name="description" content="A look at the food, the people, and the good times.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background-color: #000000 !important; color: #ffffff !important; }
+    .gallery-grid img { border: 2px solid #0B0C10; }
+    .main-footer { background: #000000 !important; }
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/PHEAST-logo-transparent.png" alt="PH'EAST Food Hall" style="height: 52px; width: auto; object-fit: contain;" class="logo-main">
+      </a>
+      <nav class="nav-menu">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="vendor.html" class="nav-link">Vendors</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="gallery.html" class="nav-link active">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
+        <button class="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero-backdrop">
+        <img src="assets/food-flatlay.jpg" alt="Food Flatlay">
+        <div class="overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">GALLERY</h1>
+        <p class="hero-subtitle">MOMENTS @ PH'EAST</p>
+        <p class="hero-subtitle" style="font-size: 1.1rem; max-width: 600px; margin: 0 auto; animation-delay: 0.7s;">A look at the food, the people, and the good times.</p>
+      </div>
+    </section>
+
+    <section class="gallery-section container" style="padding: 60px 20px;">
+      <div class="gallery-filters">
+        <button class="filter-pill active" onclick="filterGallery('all')">All</button>
+        <button class="filter-pill" onclick="filterGallery('food')">Food</button>
+        <button class="filter-pill" onclick="filterGallery('events')">Events</button>
+        <button class="filter-pill" onclick="filterGallery('people')">People</button>
+        <button class="filter-pill" onclick="filterGallery('drinks')">Drinks</button>
+      </div>
+
+      <div style="width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 31, 60, 0.6), transparent); margin: 35px 0 40px 0;"></div>
+
+      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; grid-auto-rows: 200px;">
+        
+        <div class="gallery-item reveal-element reveal-scale" data-category="food" style="grid-row-end: span 2;">
+          <img src="assets/food-flatlay.jpg" alt="Food Flatlay" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="events">
+          <img src="assets/foodhall-interior.jpg" alt="Interior" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="food" style="grid-row-end: span 2;">
+          <img src="assets/gourmet.jpg" alt="Gourmet Dish" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="drinks">
+          <img src="assets/boba-tea.jpg" alt="Boba Tea" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="events">
+          <img src="assets/venue-exterior.jpg" alt="Exterior" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="events" style="grid-row-end: span 2;">
+          <img src="assets/events-live.jpg" alt="Live Event" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="food">
+          <img src="assets/ramen-bowl.jpg" alt="Ramen" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="food">
+          <img src="assets/streetfood.jpg" alt="Street Food" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item reveal-element reveal-scale" data-category="people">
+          <img src="assets/real_gallery_1.jpg" alt="People at PH'EAST" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <button class="btn btn-outline" style="padding: 10px 30px; color: #ffffff; border: 2px solid #D41F3C; background: transparent;">Load More</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container" style="max-width: 1180px;">
+      <div class="footer-grid-layout">
+        <!-- Col 1: Logo & Newsletter -->
+        <div class="footer-col">
+          <img src="assets/PHEAST-logo-white-removebg-preview.png" alt="PH'EAST - A Far East Street Feast" class="footer-brand-logo">
+          <h4 class="footer-heading">STAY UPDATED</h4>
+          <p class="footer-subtext">Join our mailing list for the latest news!</p>
+          <div class="footer-form" style="margin-top: 12px;">
+            <input type="email" id="newsletter-email" placeholder="Enter your email" class="footer-input-box">
+          </div>
+        </div>
+
+        <!-- Col 2: The Battery Atlanta Address -->
+        <div class="footer-col">
+          <div class="footer-header-with-icon">
+            <svg class="footer-red-icon" width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0C5.37 0 0 5.37 0 12C0 21 12 28 12 28C12 28 24 21 24 12C24 5.37 18.63 0 12 0ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" fill="#D41F3C"/>
+            </svg>
+            <div>
+              <h4 class="footer-heading">THE BATTERY ATLANTA</h4>
+              <p class="footer-info-text">
+                925 Battery Ave SE Ste. 1100,<br>
+                Atlanta, GA 30339
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 3: Hours -->
+        <div class="footer-col">
+          <div class="footer-header-with-icon">
+            <svg class="footer-red-icon" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="13" cy="13" r="11.5" stroke="#D41F3C" stroke-width="2.5"/>
+              <path d="M13 6V13L18 16" stroke="#D41F3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <h4 class="footer-heading">HOURS</h4>
+              <p class="footer-info-text">
+                Sun - Thurs: 11 AM - Midnight<br>
+                Fri & Sat: 11 AM - 1 AM
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: Follow PH'EAST -->
+        <div class="footer-col">
+          <h4 class="footer-heading">FOLLOW<br>PH'EAST</h4>
+          <div class="footer-social-row">
+            <a href="#" class="social-circle-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-circle-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-circle-btn" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="order-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h2>Order Online</h2>
+      <p style="margin-top: 10px;">Choose your vendor:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-outline" onclick="selectOrderVendor('Kung Fu Tea')">🧋 Kung Fu Tea</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Lifting Noodles')">🍜 Lifting Noodles</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Poke Burri')">🍣 Poke Burri</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('26 Thai')">🍲 26 Thai Kitchen</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Fan T Asia')">🥟 Fan T'Asia</button>
+        <button class="btn btn-ghost" onclick="closeOrderModal()" style="margin-top: 10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast-notification" class="toast hidden"><span id="toast-text"></span></div>
+  <script src="app.js"></script>
+</body>
+</html>

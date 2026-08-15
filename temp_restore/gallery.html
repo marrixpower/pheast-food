@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PH'EAST | Gallery - Moments at PH'EAST</title>
+  <meta name="description" content="A look at the food, the people, and the good times.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="theme-switcher-bar">
+    <div class="switcher-container">
+      <span class="switcher-label"><i class="fa-solid fa-palette"></i> <strong>Select Concept:</strong></span>
+      <div class="switcher-buttons">
+        <button class="theme-btn active" data-target-theme="bold" onclick="switchTheme('bold')">⚡ Bold & Dynamic</button>
+        <button class="theme-btn" data-target-theme="minimal" onclick="switchTheme('minimal')">🏮 Zen Garden</button>
+        <button class="theme-btn" data-target-theme="app" onclick="switchTheme('app')">💜 Neon Pop</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-main">🥢 PH'EAST</span>
+      </a>
+      <nav class="nav-menu">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="vendor.html" class="nav-link">Vendors</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="gallery.html" class="nav-link active">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
+        <button class="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero-backdrop">
+        <img src="assets/food-flatlay.jpg" alt="Food Flatlay">
+        <div class="overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">GALLERY</h1>
+        <p class="hero-subtitle">MOMENTS @ PH'EAST</p>
+        <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">A look at the food, the people, and the good times.</p>
+      </div>
+    </section>
+
+    <section class="gallery-section container" style="padding: 60px 20px;">
+      <div class="gallery-filters">
+        <button class="filter-pill active" onclick="filterGallery('all')">All</button>
+        <button class="filter-pill" onclick="filterGallery('food')">Food</button>
+        <button class="filter-pill" onclick="filterGallery('events')">Events</button>
+        <button class="filter-pill" onclick="filterGallery('people')">People</button>
+        <button class="filter-pill" onclick="filterGallery('drinks')">Drinks</button>
+      </div>
+
+      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; grid-auto-rows: 200px;">
+        
+        <div class="gallery-item" data-category="food" style="grid-row-end: span 2;">
+          <img src="assets/food-flatlay.jpg" alt="Food Flatlay" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="events">
+          <img src="assets/foodhall-interior.jpg" alt="Interior" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="food" style="grid-row-end: span 2;">
+          <img src="assets/gourmet.jpg" alt="Gourmet Dish" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="drinks">
+          <img src="assets/boba-tea.jpg" alt="Boba Tea" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="events">
+          <img src="assets/venue-exterior.jpg" alt="Exterior" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="events" style="grid-row-end: span 2;">
+          <img src="assets/events-live.jpg" alt="Live Event" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="food">
+          <img src="assets/ramen-bowl.jpg" alt="Ramen" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+        <div class="gallery-item" data-category="food">
+          <img src="assets/streetfood.jpg" alt="Street Food" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <button class="btn btn-outline" style="padding: 10px 30px;">Load More</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 15px;">🥢 PH'EAST</h3>
+        <p class="footer-tagline">A Far East Street Feast</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">Stay Updated</p>
+        <div class="newsletter-form" style="margin-top: 10px; display: flex; gap: 10px;">
+          <input type="email" id="newsletter-email" placeholder="Enter your email" class="form-control" style="flex: 1; padding: 10px;">
+          <button class="btn btn-primary" onclick="submitNewsletter()">Join</button>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 15px;">📍 The Battery Atlanta</h4>
+        <p>925 Battery Ave SE Ste. 1100<br>Atlanta, GA 30339</p>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 15px;">🕐 Hours</h4>
+        <p>Sun - Thurs: 11 AM - Midnight<br>Fri & Sat: 11 AM - 1 AM</p>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 15px;">Follow PH'EAST</h4>
+        <div class="social-links" style="display: flex; gap: 15px; font-size: 1.5rem;">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 PH'EAST Food Hall. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="order-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h2>Order Online</h2>
+      <p style="margin-top: 10px;">Choose your vendor:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-outline" onclick="selectOrderVendor('Kung Fu Tea')">🧋 Kung Fu Tea</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Lifting Noodles')">🍜 Lifting Noodles</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Poke Burri')">🍣 Poke Burri</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('26 Thai')">🍲 26 Thai Kitchen</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Fan T Asia')">🥟 Fan T'Asia</button>
+        <button class="btn btn-ghost" onclick="closeOrderModal()" style="margin-top: 10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast-notification" class="toast hidden"><span id="toast-text"></span></div>
+  <script src="app.js"></script>
+</body>
+</html>

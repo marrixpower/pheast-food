@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="bold">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kung Fu Tea @ PH'EAST | Boba, Tea & Desserts in Atlanta</title>
+  <meta name="description" content="Explore Kung Fu Tea at PH'EAST Food Hall in The Battery Atlanta. Handcrafted bubble tea, milk tea, fruit tea, and desserts brewed with tradition.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@800;900&family=Fredoka:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- THEME SWITCHER BAR -->
+
+  <!-- NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/PHEAST-logo-transparent.png" alt="PH'EAST Food Hall" style="height: 52px; width: auto; object-fit: contain;" class="logo-main">
+      </a>
+      <nav class="nav-menu">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="vendor.html" class="nav-link active">Vendors</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
+    </div>
+  </header>
+
+  <!-- KUNG FU TEA HERO SECTION -->
+  <section class="vendor-hero-section" style="position: relative; height: 100vh; min-height: 100vh; display: flex; align-items: center; background: linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.25) 100%), url('assets/kungfu_hero_bg_real.jpg?v=2') center/cover no-repeat;">
+    <div class="container" style="max-width: 1180px; width: 100%; position: relative; z-index: 2; padding: 40px 20px;">
+      <div style="max-width: 580px;">
+        <!-- Title with Stamp Logo -->
+        <div style="margin-bottom: 20px;">
+          <h1 style="margin: 0; line-height: 0.88; font-family: 'Outfit', 'Fredoka', 'Inter', sans-serif; font-weight: 900; font-size: 5.8rem; text-transform: uppercase;">
+            <span style="display: block; color: #E30638; letter-spacing: 1px;">KUNG</span>
+            <span style="display: block; color: #E30638; letter-spacing: 1px;">FU</span>
+            <span style="display: block; color: #ffffff; letter-spacing: 1px; position: relative; width: fit-content;">
+              TEA
+              <img src="assets/Kung Fu Tea logo symbol.png" alt="Kung Fu Tea Symbol" style="position: absolute; left: calc(100% + 20px); top: 50%; transform: translateY(-50%); height: 185px; width: auto; display: block; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); pointer-events: none;">
+            </span>
+          </h1>
+        </div>
+
+        <!-- Subtitle & Tagline -->
+        <h2 style="color: #ffffff; font-family: 'Outfit', 'Inter', sans-serif; font-weight: 800; font-size: 1.55rem; letter-spacing: 1px; margin: 70px 0 8px 0; text-transform: uppercase;">BOBA. TEA. DESSERTS.</h2>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.05rem; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 2.5px; margin-bottom: 28px;">Taiwanese tea culture in Atlanta.</p>
+
+        <!-- CTA Buttons -->
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="openOrderModal()" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; background: #E30638; border: 2px solid #E30638; color: #ffffff; padding: 0 20px; font-family: 'Outfit', 'Inter', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; cursor: pointer; box-sizing: border-box;">ORDER ONLINE</button>
+          <a href="#vendor-menu" class="btn btn-outline" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; background: #000000; padding: 0 20px; font-family: 'Outfit', 'Inter', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; text-decoration: none; box-sizing: border-box;">VIEW MENU</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT KUNG FU TEA SECTION -->
+  <section class="section" style="padding: 70px 0; background: #000000;">
+    <div class="container" style="max-width: 1180px;">
+      <div style="display: grid; grid-template-columns: 340px 1fr; gap: 50px; align-items: start;">
+        <!-- Left: Framed Storefront Photo -->
+        <div>
+          <div style="border: 2.5px solid #D41F3C; border-radius: 14px; padding: 10px; background: rgba(0, 0, 0, 0.6);">
+            <img src="assets/real_kungfu__71A6036.jpg" alt="Kung Fu Tea Storefront Detail at PH'EAST" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: center; display: block; border-radius: 6px;">
+          </div>
+        </div>
+
+        <!-- Right: Description Text -->
+        <div style="padding-top: 10px;">
+          <h2 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1.05; margin: 0 0 25px 0; letter-spacing: 1px; text-transform: uppercase;">
+            BREWED WITH TRADITION.<br>
+            SERVED WITH STYLE.
+          </h2>
+          <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; line-height: 1.7; font-family: 'Inter', sans-serif; margin-bottom: 20px;">
+            At Kung Fu Tea, we adhere to the spirit of Kung Fu with every handcrafted beverage. Our discipline and patience has allowed us to create a first-rate brewing process. We are totally committed to this ritual to guarantee an authentic taste.
+          </p>
+          <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; line-height: 1.7; font-family: 'Inter', sans-serif;">
+            At PH'EAST, we're proud to bring that same passion to Atlanta-one cup at a time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR DRINKS & MENU HIGHLIGHTS -->
+  <section id="vendor-menu" class="section" style="padding: 80px 0; background: #000000; color: #ffffff;">
+    <div class="container" style="max-width: 1180px;">
+      <div style="text-align: center; margin-bottom: 50px;">
+        <span style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; font-weight: 700;">POPULAR DRINKS</span>
+        <h2 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3rem; margin: 0; text-transform: uppercase;">KUNG FU TEA MENU HIGHLIGHTS</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px;">
+        <!-- Item 1 -->
+        <div style="background: #000000; border: 2px solid #D41F3C; border-radius: 10px; padding: 25px; transition: transform 0.3s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0;">CLASSIC MILK TEA</h3>
+            <span style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.6rem;">$5.50</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 1.05rem; font-weight: 500; margin: 0;">Earl Grey black tea with creamy milk and chewy tapioca boba pearls.</p>
+        </div>
+
+        <!-- Item 2 -->
+        <div style="background: #000000; border: 2px solid #D41F3C; border-radius: 10px; padding: 25px; transition: transform 0.3s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0;">TARO MILK TEA</h3>
+            <span style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.6rem;">$6.00</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 1.05rem; font-weight: 500; margin: 0;">Sweet, nutty taro root blended into a velvet-smooth purple milk tea.</p>
+        </div>
+
+        <!-- Item 3 -->
+        <div style="background: #000000; border: 2px solid #D41F3C; border-radius: 10px; padding: 25px; transition: transform 0.3s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0;">PASSION FRUIT GREEN TEA</h3>
+            <span style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.6rem;">$5.75</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 1.05rem; font-weight: 500; margin: 0;">Jasmine green tea infused with tangy passion fruit and coconut jelly.</p>
+        </div>
+
+        <!-- Item 4 -->
+        <div style="background: #000000; border: 2px solid #D41F3C; border-radius: 10px; padding: 25px; transition: transform 0.3s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0;">MANGO SLUSH</h3>
+            <span style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.6rem;">$6.25</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 1.05rem; font-weight: 500; margin: 0;">Real mango purée ice slushie topped with mango popping boba.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-secondary-section" style="padding: 80px 0; background: #ffffff;">
+    <div class="container" style="max-width: 1180px;">
+      <div class="section-header" style="text-align: left; margin-bottom: 40px; padding-left: 20px;">
+        <h2 style="color: #000000; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.2rem; margin: 0; text-transform: uppercase;"><span style="color: #D41F3C;">FIVE FLAVORS.</span> ONE ROOF.</h2>
+      </div>
+
+      <div class="carousel-track-container">
+        <!-- Carousel Controls -->
+        <div class="carousel-controls">
+          <button class="carousel-btn prev" onclick="slideCarousel(-1)" aria-label="Previous Slide">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="45" fill="#000000"/>
+              <path d="M68 52 C55 51 45 49 32 49" stroke="white" stroke-width="5" stroke-linecap="round"/>
+              <path d="M48 37 C42 41 37 45 30 49 C36 53 41 57 47 62" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="carousel-btn next" onclick="slideCarousel(1)" aria-label="Next Slide">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="45" fill="#000000"/>
+              <path d="M32 52 C45 51 55 49 68 49" stroke="white" stroke-width="5" stroke-linecap="round"/>
+              <path d="M52 37 C58 41 63 45 70 49 C64 53 59 57 53 62" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Track with Other Vendors -->
+        <div class="vendors-grid carousel-track">
+          <div class="vendor-card" style="border-color: #000000;">
+            <img src="assets/logo_taps.png?v=6" alt="TAPs @ PH'EAST" style="width: 100%; height: auto; display: block;">
+          </div>
+          <div class="vendor-card" style="border-color: #000000;">
+            <a href="kungfutea.html" style="display: block; text-decoration: none; cursor: pointer;">
+              <img src="assets/logo_kungfutea.png?v=6" alt="Kung Fu Tea" style="width: 100%; height: auto; display: block;">
+            </a>
+          </div>
+          <div class="vendor-card" style="border-color: #000000;">
+            <img src="assets/logo_pokeburri.png?v=6" alt="Poke Burri" style="width: 100%; height: auto; display: block;">
+          </div>
+          <div class="vendor-card" style="border-color: #000000;">
+            <img src="assets/logo_liftingnoodles.png?v=6" alt="Lifting Noodles Ramen" style="width: 100%; height: auto; display: block;">
+          </div>
+          <div class="vendor-card" style="border-color: #000000;">
+            <img src="assets/logo_26thai.png?v=6" alt="26 Thai Kitchen & Bar" style="width: 100%; height: auto; display: block;">
+          </div>
+          <div class="vendor-card" style="border-color: #000000;">
+            <img src="assets/logo_fantasia.png?v=6" alt="Fan T'Asia" style="width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container" style="max-width: 1180px;">
+      <div class="footer-grid-layout">
+        <!-- Col 1: Logo & Newsletter -->
+        <div class="footer-col">
+          <img src="assets/PHEAST-logo-white-removebg-preview.png" alt="PH'EAST - A Far East Street Feast" class="footer-brand-logo">
+          <h4 class="footer-heading">STAY UPDATED</h4>
+          <p class="footer-subtext">Join our mailing list for the latest news!</p>
+          <div class="footer-form" style="margin-top: 12px;">
+            <input type="email" id="newsletter-email" placeholder="Enter your email" class="footer-input-box">
+          </div>
+        </div>
+
+        <!-- Col 2: The Battery Atlanta Address -->
+        <div class="footer-col">
+          <div class="footer-header-with-icon">
+            <svg class="footer-red-icon" width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0C5.37 0 0 5.37 0 12C0 21 12 28 12 28C12 28 24 21 24 12C24 5.37 18.63 0 12 0ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" fill="#D41F3C"/>
+            </svg>
+            <div>
+              <h4 class="footer-heading">THE BATTERY ATLANTA</h4>
+              <p class="footer-info-text">
+                925 Battery Ave SE Ste. 1100,<br>
+                Atlanta, GA 30339
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 3: Hours -->
+        <div class="footer-col">
+          <div class="footer-header-with-icon">
+            <svg class="footer-red-icon" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="13" cy="13" r="11.5" stroke="#D41F3C" stroke-width="2.5"/>
+              <path d="M13 6V13L18 16" stroke="#D41F3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <h4 class="footer-heading">HOURS</h4>
+              <p class="footer-info-text">
+                Sun - Thurs: 11 AM - Midnight<br>
+                Fri &amp; Sat: 11 AM - 1 AM
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: Follow PH'EAST -->
+        <div class="footer-col">
+          <h4 class="footer-heading">FOLLOW<br>PH'EAST</h4>
+          <div class="footer-social-row">
+            <a href="#" class="social-circle-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-circle-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-circle-btn" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div id="order-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h2>Order Online</h2>
+      <p style="margin-top: 10px;">Choose your vendor:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-outline" onclick="selectOrderVendor('Kung Fu Tea')">🧋 Kung Fu Tea</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Lifting Noodles')">🍜 Lifting Noodles</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Poke Burri')">🍣 Poke Burri</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('26 Thai')">🍲 26 Thai Kitchen</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Fan T Asia')">🥟 Fan T'Asia</button>
+        <button class="btn btn-ghost" onclick="closeOrderModal()" style="margin-top: 10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-notification" class="toast hidden">
+    <span id="toast-text"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

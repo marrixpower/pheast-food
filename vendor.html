@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="bold">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendors @ PH'EAST | Asian Food Hall in The Battery Atlanta</title>
+  <meta name="description" content="Discover all 6 Asian street food vendors inside PH'EAST Food Hall at The Battery Atlanta. TAPs, Kung Fu Tea, Poke Burri, Lifting Noodles, 26 Thai & Fan T'Asia.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- THEME SWITCHER BAR -->
+
+  <!-- NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/PHEAST-logo-transparent.png" alt="PH'EAST Food Hall" style="height: 52px; width: auto; object-fit: contain;" class="logo-main">
+      </a>
+      <nav class="nav-menu">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="vendor.html" class="nav-link active">Vendors</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section" style="min-height: 420px;">
+    <div class="hero-backdrop">
+      <img src="assets/gourmet.jpg" alt="Vendors Hero">
+      <div class="overlay"></div>
+    </div>
+    <div class="hero-content" style="max-width: 900px; padding: 60px 20px;">
+      <span class="hero-subtitle" style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 5px; animation-delay: 0.2s;">EXPLORE THE FOOD HALL</span>
+      <h1 class="hero-title" style="font-size: 4.5rem; margin: 0 0 15px 0;">SIX FLAVORS. ONE ROOF.</h1>
+      <p class="hero-subtitle" style="font-size: 1.15rem; font-family: 'Inter', sans-serif; max-width: 680px; margin: 0 auto; animation-delay: 0.5s;">From craft beer and boba tea to sushi burritos and authentic ramen, discover our curated lineup of Asian street food vendors at The Battery Atlanta.</p>
+    </div>
+  </section>
+
+  <!-- ALL VENDORS DIRECTORY SECTION -->
+  <section class="section" style="padding: 80px 0; background: #000000;">
+    <div class="container" style="max-width: 1180px;">
+      <div style="text-align: center; margin-bottom: 50px;">
+        <h2 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3rem; margin: 0; text-transform: uppercase;">MEET OUR VENDORS</h2>
+        <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 5px;">Click any vendor card to learn more &amp; view featured menus.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+        <!-- Vendor 1: TAPs -->
+        <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease;">
+          <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img src="assets/logo_taps.png?v=6" alt="TAPs @ PH'EAST" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+          </div>
+          <div style="padding: 25px;">
+            <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">BAR &amp; BEVERAGES</span>
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;">TAPs @ PH'EAST</h3>
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Pouring Asian craft beers, local brews on tap, Japanese sakes, specialty cocktails, and wine pairings.</p>
+            <button class="btn btn-outline" onclick="openOrderModal()" style="width: 100%; border: 1px solid #D41F3C; color: #ffffff;">ORDER FROM TAPs</button>
+          </div>
+        </div>
+
+        <!-- Vendor 2: Kung Fu Tea -->
+        <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease;">
+          <a href="kungfutea.html" style="display: block; text-decoration: none;">
+            <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+              <img src="assets/logo_kungfutea.png?v=6" alt="Kung Fu Tea" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+            </div>
+          </a>
+          <div style="padding: 25px;">
+            <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">BOBA &amp; TEA</span>
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;">KUNG FU TEA</h3>
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Handcrafted milk teas, fruit teas, slushies, and authentic Taiwanese boba cooked fresh every 2 hours.</p>
+            <a href="kungfutea.html" class="btn btn-primary" style="display: block; text-align: center; width: 100%; background: #D41F3C; border-color: #D41F3C;">VIEW KUNG FU TEA PAGE</a>
+          </div>
+        </div>
+
+        <!-- Vendor 3: Poke Burri -->
+        <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease;">
+          <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img src="assets/logo_pokeburri.png?v=6" alt="Poke Burri" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+          </div>
+          <div style="padding: 25px;">
+            <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">SUSHI &amp; POKE</span>
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;">POKE BURRI</h3>
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">World-famous sushi burritos, fresh poke bowls, sushi donuts, and secret menu fusion creations.</p>
+            <button class="btn btn-outline" onclick="openOrderModal()" style="width: 100%; border: 1px solid #D41F3C; color: #ffffff;">ORDER FROM POKE BURRI</button>
+          </div>
+        </div>
+
+        <!-- Vendor 4: Lifting Noodles -->
+        <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease;">
+          <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img src="assets/logo_liftingnoodles.png?v=6" alt="Lifting Noodles Ramen" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+          </div>
+          <div style="padding: 25px;">
+            <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">RAMEN &amp; NOODLES</span>
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;">LIFTING NOODLES RAMEN</h3>
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Rich, slow-simmered tonkotsu ramen broths, handmade noodles, pork chashu, and pan-fried gyoza.</p>
+            <button class="btn btn-outline" onclick="openOrderModal()" style="width: 100%; border: 1px solid #D41F3C; color: #ffffff;">ORDER FROM LIFTING NOODLES</button>
+          </div>
+        </div>
+
+        <!-- Vendor 5: 26 Thai -->
+        <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease;">
+          <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img src="assets/logo_26thai.png?v=6" alt="26 Thai Kitchen & Bar" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+          </div>
+          <div style="padding: 25px;">
+            <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">THAI CUISINE</span>
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;">26 THAI KITCHEN &amp; BAR</h3>
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Authentic Thai curries, sizzling Pad Thai, spicy basil stir-fries, and handcrafted tropical cocktails.</p>
+            <button class="btn btn-outline" onclick="openOrderModal()" style="width: 100%; border: 1px solid #D41F3C; color: #ffffff;">ORDER FROM 26 THAI</button>
+          </div>
+        </div>
+
+        <!-- Vendor 6: Fan T'Asia -->
+        <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease;">
+          <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img src="assets/logo_fantasia.png?v=6" alt="Fan T'Asia" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+          </div>
+          <div style="padding: 25px;">
+            <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">PAN-ASIAN STREET FOOD</span>
+            <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;">FAN T'ASIA</h3>
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">Bao buns, crispy dim sum dumplings, Taiwanese popcorn chicken, and wok-tossed street snacks.</p>
+            <button class="btn btn-outline" onclick="openOrderModal()" style="width: 100%; border: 1px solid #D41F3C; color: #ffffff;">ORDER FROM FAN T'ASIA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container" style="max-width: 1180px;">
+      <div class="footer-grid-layout">
+        <!-- Col 1: Logo & Newsletter -->
+        <div class="footer-col">
+          <img src="assets/PHEAST-logo-white-removebg-preview.png" alt="PH'EAST - A Far East Street Feast" class="footer-brand-logo">
+          <h4 class="footer-heading">STAY UPDATED</h4>
+          <p class="footer-subtext">Join our mailing list for the latest news!</p>
+          <div class="footer-form" style="margin-top: 12px;">
+            <input type="email" id="newsletter-email" placeholder="Enter your email" class="footer-input-box">
+          </div>
+        </div>
+
+        <!-- Col 2: The Battery Atlanta Address -->
+        <div class="footer-col">
+          <div class="footer-header-with-icon">
+            <svg class="footer-red-icon" width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0C5.37 0 0 5.37 0 12C0 21 12 28 12 28C12 28 24 21 24 12C24 5.37 18.63 0 12 0ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" fill="#D41F3C"/>
+            </svg>
+            <div>
+              <h4 class="footer-heading">THE BATTERY ATLANTA</h4>
+              <p class="footer-info-text">
+                925 Battery Ave SE Ste. 1100,<br>
+                Atlanta, GA 30339
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 3: Hours -->
+        <div class="footer-col">
+          <div class="footer-header-with-icon">
+            <svg class="footer-red-icon" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="13" cy="13" r="11.5" stroke="#D41F3C" stroke-width="2.5"/>
+              <path d="M13 6V13L18 16" stroke="#D41F3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <h4 class="footer-heading">HOURS</h4>
+              <p class="footer-info-text">
+                Sun - Thurs: 11 AM - Midnight<br>
+                Fri &amp; Sat: 11 AM - 1 AM
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: Follow PH'EAST -->
+        <div class="footer-col">
+          <h4 class="footer-heading">FOLLOW<br>PH'EAST</h4>
+          <div class="footer-social-row">
+            <a href="#" class="social-circle-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-circle-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-circle-btn" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div id="order-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h2>Order Online</h2>
+      <p style="margin-top: 10px;">Choose your vendor:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-outline" onclick="selectOrderVendor('Kung Fu Tea')">🧋 Kung Fu Tea</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Lifting Noodles')">🍜 Lifting Noodles</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Poke Burri')">🍣 Poke Burri</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('26 Thai')">🍲 26 Thai Kitchen</button>
+        <button class="btn btn-outline" onclick="selectOrderVendor('Fan T Asia')">🥟 Fan T'Asia</button>
+        <button class="btn btn-ghost" onclick="closeOrderModal()" style="margin-top: 10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-notification" class="toast hidden">
+    <span id="toast-text"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
