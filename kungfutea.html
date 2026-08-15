@@ -27,7 +27,10 @@
         <a href="gallery.html" class="nav-link">Gallery</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
-      <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
+        <button class="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
   </header>
 
@@ -63,7 +66,7 @@
   <!-- ABOUT KUNG FU TEA SECTION -->
   <section class="section" style="padding: 70px 0; background: #000000;">
     <div class="container" style="max-width: 1180px;">
-      <div style="display: grid; grid-template-columns: 340px 1fr; gap: 50px; align-items: start;">
+      <div class="about-kungfu-grid">
         <!-- Left: Framed Storefront Photo -->
         <div>
           <div style="border: 2.5px solid #D41F3C; border-radius: 14px; padding: 10px; background: rgba(0, 0, 0, 0.6);">

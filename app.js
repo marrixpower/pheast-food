@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize premium scroll animations
   initScrollAnimations();
+
+  // Initialize auto-scrolling vendor carousel
+  initAutoCarousel();
 });
 
 /**
@@ -173,14 +176,14 @@ function slideCarousel(direction) {
   if (!card) return;
 
   const style = window.getComputedStyle(track);
-  const gap = parseFloat(style.gap) || 20;
+  const gap = parseFloat(style.gap) || 14;
   const step = card.offsetWidth + gap;
 
   const maxScroll = track.scrollWidth - track.clientWidth;
   const currentScroll = track.scrollLeft;
 
   // Cyclic Loop: If at end and clicking Next -> Loop to start (left: 0)
-  if (direction > 0 && currentScroll >= maxScroll - 10) {
+  if (direction > 0 && currentScroll >= maxScroll - 20) {
     track.scrollTo({
       left: 0,
       behavior: 'smooth'
@@ -189,7 +192,7 @@ function slideCarousel(direction) {
   }
 
   // Cyclic Loop: If at start and clicking Prev -> Loop to end (left: maxScroll)
-  if (direction < 0 && currentScroll <= 10) {
+  if (direction < 0 && currentScroll <= 20) {
     track.scrollTo({
       left: maxScroll,
       behavior: 'smooth'
@@ -197,14 +200,49 @@ function slideCarousel(direction) {
     return;
   }
 
-  // Otherwise calculate strict integer step
-  const targetIndex = Math.round((currentScroll + direction * step) / step);
-  const targetLeft = Math.min(maxScroll, Math.max(0, targetIndex * step));
+  // Otherwise calculate target position
+  const nextScroll = currentScroll + (direction * step);
+  const targetLeft = Math.min(maxScroll, Math.max(0, nextScroll));
 
   track.scrollTo({
     left: targetLeft,
     behavior: 'smooth'
   });
+}
+
+/**
+ * Auto-Scroll Carousel Manager for Vendor Track
+ */
+let autoCarouselTimer = null;
+
+function initAutoCarousel() {
+  const container = document.querySelector('.carousel-track-container');
+  const track = document.querySelector('.carousel-track');
+  if (!container || !track) return;
+
+  function startAutoScroll() {
+    stopAutoScroll();
+    autoCarouselTimer = setInterval(() => {
+      slideCarousel(1);
+    }, 2500); // Smooth auto-scroll every 2.5 seconds
+  }
+
+  function stopAutoScroll() {
+    if (autoCarouselTimer) {
+      clearInterval(autoCarouselTimer);
+      autoCarouselTimer = null;
+    }
+  }
+
+  startAutoScroll();
+
+  // Pause on hover or user touch interaction for smooth UX
+  container.addEventListener('mouseenter', stopAutoScroll);
+  container.addEventListener('mouseleave', startAutoScroll);
+  container.addEventListener('touchstart', stopAutoScroll, { passive: true });
+  container.addEventListener('touchend', () => {
+    setTimeout(startAutoScroll, 3000);
+  }, { passive: true });
 }
 
 /**
