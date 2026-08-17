@@ -2312,6 +2312,37 @@ html, body {
     flex-direction: column;
     gap: 30px;
   }
+
+  /* Mobile Gallery Filter Loop Carousel */
+  .gallery-filters {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 12px !important;
+    padding: 10px 15px !important;
+    margin-bottom: 30px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .gallery-filters::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .gallery-filters .filter-pill {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 10px 22px !important;
+    font-size: 0.9rem !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+  }
 }
 
 @media (max-width: 480px), (max-width: 393px) {
@@ -3047,11 +3078,11 @@ html, body {
 }
 
 .footer-brand-logo {
-  max-width: 140px;
+  max-width: 150px;
   width: 100%;
   height: auto;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   object-fit: contain;
 }
 
@@ -3072,19 +3103,66 @@ html, body {
   font-family: 'Inter', sans-serif;
 }
 
-.footer-input-box {
+/* Newsletter Connected Input Group */
+.footer-form {
+  margin-top: 10px;
   width: 100%;
-  padding: 4px 8px;
-  background: transparent;
-  border: 1px solid #D41F3C;
-  border-radius: 2px;
-  color: #ffffff;
-  font-size: 0.8rem;
-  outline: none;
 }
 
-.footer-input-box::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+.footer-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 280px;
+  border: 1.5px solid #D41F3C;
+  border-radius: 6px;
+  overflow: hidden;
+  background: transparent;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-input-group:focus-within {
+  border-color: #ff3b5c;
+  box-shadow: 0 0 12px rgba(212, 31, 60, 0.45);
+}
+
+.footer-input-group .footer-input-box {
+  flex: 1;
+  width: 100%;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 8px 12px !important;
+  color: #ffffff;
+  font-size: 0.85rem !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.footer-input-group .footer-input-box::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.footer-input-group .footer-submit-btn {
+  background-color: #D41F3C;
+  color: #ffffff;
+  border: none;
+  padding: 0 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.footer-input-group .footer-submit-btn:hover {
+  background-color: #ff2a5f;
+}
+
+.footer-input-group .footer-submit-btn:active {
+  transform: scale(0.95);
 }
 
 .footer-header-with-icon {
@@ -3146,6 +3224,30 @@ html, body {
   }
   .footer-col::after {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-col:first-child {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .footer-brand-logo {
+    margin: 0 auto 12px auto !important;
+    display: block !important;
+  }
+
+  .footer-form,
+  .footer-input-group {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 10px auto 0 auto !important;
+  }
+
+  .footer-heading .footer-br,
+  .footer-heading br {
+    display: none !important;
   }
 }
 

@@ -331,9 +331,14 @@
           <img src="assets/PHEAST-logo-white-removebg-preview.png" alt="PH'EAST - A Far East Street Feast" class="footer-brand-logo">
           <h4 class="footer-heading">STAY UPDATED</h4>
           <p class="footer-subtext">Join our mailing list for the latest news!</p>
-          <div class="footer-form" style="margin-top: 12px;">
-            <input type="email" id="newsletter-email" placeholder="Enter your email" class="footer-input-box">
-          </div>
+          <form class="footer-form" onsubmit="handleNewsletterSubmit(event)">
+            <div class="footer-input-group">
+              <input type="email" id="newsletter-email" placeholder="Enter your email" class="footer-input-box" required>
+              <button type="submit" class="footer-submit-btn" aria-label="Subscribe">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
         </div>
 
         <!-- Col 2: The Battery Atlanta Address -->
@@ -371,7 +376,7 @@
 
         <!-- Col 4: Follow PH'EAST -->
         <div class="footer-col">
-          <h4 class="footer-heading">FOLLOW<br>PH'EAST</h4>
+          <h4 class="footer-heading">FOLLOW <br class="footer-br">PH'EAST</h4>
           <div class="footer-social-row">
             <a href="#" class="social-circle-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social-circle-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

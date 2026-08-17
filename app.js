@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize hero scroll down indicator
   initScrollIndicator();
+
+  // Initialize mobile gallery filter carousel
+  initGalleryFilterCarousel();
 });
 
 /**
@@ -462,4 +465,38 @@ function initScrollIndicator() {
 
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
+}
+
+/**
+ * Gallery Filter Mobile Carousel (Fixed 1-item snap, manual scroll only)
+ */
+function initGalleryFilterCarousel() {
+  const container = document.querySelector('.gallery-filters');
+  if (!container) return;
+
+  const pills = Array.from(container.querySelectorAll('.filter-pill'));
+  if (pills.length === 0) return;
+
+  // When a filter pill is clicked, center that exact pill smoothly inside the bar
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const pillOffsetLeft = pill.offsetLeft;
+      const pillWidth = pill.offsetWidth;
+      const containerWidth = container.clientWidth;
+      const targetScroll = pillOffsetLeft - (containerWidth / 2) + (pillWidth / 2);
+      container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    });
+  });
+}
+
+/**
+ * Handle Newsletter Form Submission
+ */
+function handleNewsletterSubmit(e) {
+  if (e) e.preventDefault();
+  const input = document.getElementById('newsletter-email');
+  if (input && input.value.trim()) {
+    showToast(`Thank you for subscribing!`);
+    input.value = '';
+  }
 }
