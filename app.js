@@ -161,7 +161,12 @@ function showToast(message) {
 function toggleMobileMenu() {
   const menu = document.querySelector('.nav-menu');
   if (menu) {
-    menu.classList.toggle('active');
+    const isActive = menu.classList.toggle('active');
+    if (isActive) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }
 }
 

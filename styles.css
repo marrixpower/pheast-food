@@ -937,12 +937,14 @@ html[data-theme="bold"] .marquee-wrapper {
 
 .hero-subtitle {
   font-size: 1.25rem;
-  color: rgba(255,255,255,0.8);
+  color: #ffffff;
   margin-bottom: 25px;
   opacity: 0;
   animation: heroTextReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.5s;
-  font-weight: 300;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
 }
 
 .hero-left .hero-content {
@@ -2010,6 +2012,19 @@ html, body {
   }
 }
 
+@media (min-width: 769px) {
+  .mobile-menu-close,
+  .mobile-menu-top-btn-wrap,
+  .mobile-menu-footer {
+    display: none !important;
+  }
+  .mobile-menu-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+}
+
 @media (max-width: 768px) {
   .container { max-width: 100%; padding: 0 16px; }
   
@@ -2017,23 +2032,79 @@ html, body {
     padding: 0 16px;
   }
 
+  /* Hide header bar Order Online button next to hamburger icon on mobile */
+  .header-inner > .btn-primary,
+  .header-inner > div > .btn-primary {
+    display: none !important;
+  }
+
   .nav-menu {
     display: none;
-    position: absolute;
-    top: 100% !important;
-    left: 0;
-    width: 100%;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
     background-color: #000000 !important;
-    flex-direction: column;
-    padding: 10px 0 !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 30px 20px 30px 20px !important;
     gap: 0 !important;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.95);
-    border-bottom: 3px solid #D41F3C !important;
-    z-index: 10000 !important;
+    z-index: 100000 !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+    animation: fadeIn 0.3s ease;
   }
   
   .nav-menu.active {
     display: flex !important;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 100002;
+    padding: 5px 10px;
+  }
+
+  /* Top ORDER ONLINE button inside hamburger menu */
+  .mobile-menu-top-btn-wrap {
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+
+  .mobile-menu-top-btn {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D41F3C !important;
+    border: 2px solid #D41F3C !important;
+    color: #ffffff !important;
+    font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif !important;
+    font-size: 1.4rem !important;
+    letter-spacing: 1.5px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 15px rgba(212, 31, 60, 0.6) !important;
+    cursor: pointer;
+  }
+
+  .mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    text-align: center;
   }
 
   html[data-theme] .nav-menu .nav-link,
@@ -2042,13 +2113,13 @@ html, body {
   html[data-theme="app"] .nav-menu .nav-link,
   .nav-menu .nav-link {
     font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif !important;
-    font-size: 1.65rem !important;
+    font-size: 1.85rem !important;
     color: #ffffff !important;
     text-decoration: none !important;
     text-transform: uppercase !important;
-    letter-spacing: 1.5px !important;
-    padding: 14px 24px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    letter-spacing: 2px !important;
+    padding: 10px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     text-align: center !important;
     transition: all 0.2s ease !important;
     display: block !important;
@@ -2066,6 +2137,98 @@ html, body {
   .nav-menu .nav-link.active {
     color: #D41F3C !important;
     background-color: rgba(212, 31, 60, 0.15) !important;
+    border-radius: 6px;
+  }
+
+  /* Mobile menu footer contact card */
+  .mobile-menu-footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .mobile-menu-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(212, 31, 60, 0.6);
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mobile-menu-card-label {
+    color: #D41F3C;
+    font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .mobile-menu-card-address {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .mobile-menu-card-phone {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    margin-bottom: 12px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+  }
+  .mobile-menu-card-phone:hover {
+    color: #D41F3C;
+  }
+
+  .mobile-menu-socials {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    justify-content: center;
+  }
+
+  .mobile-social-link {
+    color: #ffffff;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-social-link:hover {
+    background: #D41F3C;
+    color: #ffffff;
+  }
+
+  .mobile-menu-card-btn {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D41F3C;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    cursor: pointer;
   }
   
   .mobile-nav-toggle {
@@ -2098,15 +2261,48 @@ html, body {
   .container { width: 100%; padding: 0 14px; }
   
   /* Hero section 100vh fit for 390px */
+  .hero-left .hero-content,
+  .hero-content {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 15px !important;
+  }
+
+  .hero-left .hero-title,
+  html[data-theme="bold"] .hero-left .hero-title,
   .hero-title {
-    font-size: 2.5rem !important;
-    line-height: 1.1 !important;
-    margin-bottom: 16px !important;
+    text-align: center !important;
+    font-size: 3.4rem !important;
+    line-height: 1.02 !important;
+    margin-bottom: 18px !important;
+    letter-spacing: 0.5px !important;
   }
   
+  .hero-left .hero-subtitle,
+  .hero-subtitle,
   .hero-content p {
-    font-size: 1.05rem !important;
+    text-align: center !important;
+    font-size: 1.03rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    line-height: 1.4 !important;
     margin-bottom: 24px !important;
+  }
+
+  .hero-subtitle.text-accent,
+  .hero-tagline,
+  span.hero-subtitle {
+    color: #D41F3C !important;
+    font-size: 1.35rem !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+  }
+
+  .hero-content p span {
+    display: block !important;
   }
 
   .hero-buttons {

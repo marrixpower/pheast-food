@@ -16,11 +16,31 @@
         <img src="assets/PHEAST-logo-transparent.png" alt="PH'EAST Food Hall" style="height: 52px; width: auto; object-fit: contain;" class="logo-main">
       </a>
       <nav class="nav-menu">
-        <a href="about.html" class="nav-link active">About</a>
-        <a href="vendor.html" class="nav-link">Vendors</a>
-        <a href="events.html" class="nav-link">Events</a>
-        <a href="gallery.html" class="nav-link">Gallery</a>
-        <a href="contact.html" class="nav-link">Contact</a>
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close Menu">&times;</button>
+        <div class="mobile-menu-top-btn-wrap">
+          <button class="btn btn-primary mobile-menu-top-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+        </div>
+        <div class="mobile-menu-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link active">About</a>
+          <a href="vendor.html" class="nav-link">Vendors</a>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="gallery.html" class="nav-link">Gallery</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="mobile-menu-footer">
+          <div class="mobile-menu-card">
+            <span class="mobile-menu-card-label">CONTACT INFO</span>
+            <p class="mobile-menu-card-address">The Battery Atlanta — 925 Battery Ave SE<br>Suite 1100, Atlanta, GA 30339</p>
+            <a href="tel:4043430409" class="mobile-menu-card-phone">+1 (404) 343-0409</a>
+            <div class="mobile-menu-socials">
+              <a href="https://www.instagram.com/pheastfoodhall/" target="_blank" class="mobile-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.facebook.com/pheastfoodhall/" target="_blank" class="mobile-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="https://www.yelp.com/biz/pheast-food-hall-atlanta" target="_blank" class="mobile-social-link" aria-label="Yelp"><i class="fa-brands fa-yelp"></i></a>
+            </div>
+            <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+          </div>
+        </div>
       </nav>
       <div style="display: flex; gap: 15px; align-items: center;">
         <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>

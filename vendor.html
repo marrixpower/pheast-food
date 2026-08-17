@@ -18,11 +18,31 @@
         <img src="assets/PHEAST-logo-transparent.png" alt="PH'EAST Food Hall" style="height: 52px; width: auto; object-fit: contain;" class="logo-main">
       </a>
       <nav class="nav-menu">
-        <a href="about.html" class="nav-link">About</a>
-        <a href="vendor.html" class="nav-link active">Vendors</a>
-        <a href="events.html" class="nav-link">Events</a>
-        <a href="gallery.html" class="nav-link">Gallery</a>
-        <a href="contact.html" class="nav-link">Contact</a>
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close Menu">&times;</button>
+        <div class="mobile-menu-top-btn-wrap">
+          <button class="btn btn-primary mobile-menu-top-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+        </div>
+        <div class="mobile-menu-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="vendor.html" class="nav-link active">Vendors</a>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="gallery.html" class="nav-link">Gallery</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="mobile-menu-footer">
+          <div class="mobile-menu-card">
+            <span class="mobile-menu-card-label">CONTACT INFO</span>
+            <p class="mobile-menu-card-address">The Battery Atlanta — 925 Battery Ave SE<br>Suite 1100, Atlanta, GA 30339</p>
+            <a href="tel:4043430409" class="mobile-menu-card-phone">+1 (404) 343-0409</a>
+            <div class="mobile-menu-socials">
+              <a href="https://www.instagram.com/pheastfoodhall/" target="_blank" class="mobile-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.facebook.com/pheastfoodhall/" target="_blank" class="mobile-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="https://www.yelp.com/biz/pheast-food-hall-atlanta" target="_blank" class="mobile-social-link" aria-label="Yelp"><i class="fa-brands fa-yelp"></i></a>
+            </div>
+            <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+          </div>
+        </div>
       </nav>
       <div style="display: flex; gap: 15px; align-items: center;">
         <button class="btn btn-primary" onclick="openOrderModal()">Order Online</button>
@@ -38,9 +58,9 @@
       <div class="overlay"></div>
     </div>
     <div class="hero-content" style="max-width: 900px; padding: 60px 20px;">
-      <span class="hero-subtitle" style="color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 5px; animation-delay: 0.2s;">EXPLORE THE FOOD HALL</span>
+      <span class="hero-subtitle text-accent" style="color: #D41F3C !important; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 8px; animation-delay: 0.2s;">EXPLORE THE FOOD HALL</span>
       <h1 class="hero-title" style="font-size: 4.5rem; margin: 0 0 15px 0;">SIX FLAVORS. ONE ROOF.</h1>
-      <p class="hero-subtitle" style="font-size: 1.15rem; font-family: 'Inter', sans-serif; max-width: 680px; margin: 0 auto; animation-delay: 0.5s;">From craft beer and boba tea to sushi burritos and authentic ramen, discover our curated lineup of Asian street food vendors at The Battery Atlanta.</p>
+      <p class="hero-subtitle" style="font-size: 1.08rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.45; max-width: 680px; margin: 0 auto; color: #ffffff; animation-delay: 0.5s;">From craft beer and boba tea to sushi burritos and authentic ramen, discover our curated lineup of Asian street food vendors at The Battery Atlanta.</p>
     </div>
   </section>
 
