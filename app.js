@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize auto-scrolling vendor carousel
   initAutoCarousel();
+
+  // Initialize hero scroll down indicator
+  initScrollIndicator();
 });
 
 /**
@@ -410,4 +413,53 @@ function initScrollAnimations() {
       observer.observe(el);
     }, 150);
   });
+}
+
+/**
+ * Smooth Scroll to Next Section & Fade Hero Scroll Indicator
+ */
+function scrollToNextSection(e) {
+  if (e) e.preventDefault();
+  const hero = document.querySelector('.hero-section, .vendor-hero-section');
+  if (hero) {
+    let nextSection = hero.nextElementSibling;
+    while (nextSection && (nextSection.tagName === 'SCRIPT' || nextSection.tagName === 'STYLE' || nextSection.offsetHeight === 0)) {
+      nextSection = nextSection.nextElementSibling;
+    }
+    if (!nextSection || nextSection.tagName === 'SCRIPT') {
+      nextSection = document.querySelector('main > section:nth-of-type(2), main > div:not(.hero-section), body > section:nth-of-type(2)');
+    }
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    }
+  } else {
+    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+  }
+}
+
+function initScrollIndicator() {
+  const indicator = document.querySelector('.hero-scroll-indicator');
+  if (!indicator) return;
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    const maxScroll = 160;
+    
+    if (scrollY <= 0) {
+      indicator.style.opacity = '1';
+      indicator.style.pointerEvents = 'auto';
+    } else if (scrollY >= maxScroll) {
+      indicator.style.opacity = '0';
+      indicator.style.pointerEvents = 'none';
+    } else {
+      const opacity = 1 - (scrollY / maxScroll);
+      indicator.style.opacity = opacity.toFixed(2);
+      indicator.style.pointerEvents = opacity > 0.1 ? 'auto' : 'none';
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 }
