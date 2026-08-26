@@ -630,9 +630,21 @@ html[data-theme="app"] .theme-btn[data-target-theme="app"] {
   align-items: center;
 }
 
+.mobile-menu-close,
+.mobile-menu-top-btn-wrap,
+.mobile-menu-footer {
+  display: none;
+}
+
+.mobile-menu-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
 .nav-link {
   text-transform: uppercase;
-  font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif !important;
+  font-family: 'Oswald', 'Bebas Kai', 'Bebas Neue', sans-serif !important;
   color: #000000 !important;
   font-weight: 700;
   font-size: 1.55rem;
