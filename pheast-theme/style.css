@@ -673,7 +673,7 @@ html[data-theme="app"] .main-header {
   background-color: #ffffff !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
-@media (min-width: 1025px) {
+@media (min-width: 1201px) {
   html[data-theme="bold"] .nav-link,
   html[data-theme="minimal"] .nav-link,
   html[data-theme="app"] .nav-link {
@@ -697,7 +697,9 @@ html[data-theme="app"] .nav-link.active {
 .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   padding: 12px 24px;
   font-family: var(--font-body);
   font-weight: 700;
@@ -907,7 +909,9 @@ html[data-theme="bold"] .marquee-wrapper {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   overflow: hidden;
   padding: 0;
 }
@@ -999,7 +1003,9 @@ html[data-theme="bold"] .hero-left .hero-title {
 .hero-buttons {
   display: flex;
   gap: 15px;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   flex-wrap: wrap;
 }
 
@@ -1253,7 +1259,9 @@ html[data-theme="app"] .section-title::after {
   background-position: center;
   display: flex;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   color: #fff;
   font-family: var(--font-display);
   font-size: 2rem;
@@ -1349,7 +1357,9 @@ html[data-theme="minimal"] .vendor-desc {
   text-align: center;
 }
 html[data-theme="minimal"] .vendor-tags {
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* APP */
@@ -1395,7 +1405,9 @@ html[data-theme="app"] .vendor-header-art {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   padding: 10px 15px;
   border-radius: var(--btn-radius);
   font-family: var(--font-display);
@@ -1454,7 +1466,9 @@ html[data-theme="app"] .event-card:hover {
 
 .gallery-filters {
   display: flex;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 40px;
@@ -1713,7 +1727,9 @@ html[data-theme="app"] .faq-content-inner {
 
 .stats-row {
   display: flex;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   gap: 80px;
   padding: 40px 0;
 }
@@ -1938,7 +1954,9 @@ html[data-theme="app"] .value-title { color: #000;}
 .social-links a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
   background: rgba(255,255,255,0.1);
@@ -1974,7 +1992,9 @@ html[data-theme="app"] .value-title { color: #000;}
   z-index: 10001;
   display: none; /* Flex when active */
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   padding: 20px;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -2104,7 +2124,7 @@ html, body {
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1201px) {
   .mobile-menu-close,
   .mobile-menu-top-btn-wrap,
   .mobile-menu-footer {
@@ -2179,7 +2199,9 @@ html, body {
     height: 48px;
     display: flex;
     align-items: center;
-    justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+    justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
     background: #D41F3C !important;
     border: 2px solid #D41F3C !important;
     color: #ffffff !important;
@@ -2285,7 +2307,9 @@ html, body {
     display: flex;
     gap: 14px;
     margin-bottom: 14px;
-    justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+    justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   }
 
   .mobile-social-link {
@@ -2297,7 +2321,9 @@ html, body {
     background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+    justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
     text-decoration: none;
     transition: all 0.2s ease;
   }
@@ -2312,7 +2338,9 @@ html, body {
     height: 42px;
     display: flex;
     align-items: center;
-    justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+    justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
     background: #D41F3C;
     color: #ffffff;
     border: none;
@@ -2326,7 +2354,9 @@ html, body {
   .mobile-nav-toggle {
     display: flex !important;
     align-items: center;
-    justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+    justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
     background: transparent;
     border: none;
     color: #000000;
@@ -2710,7 +2740,9 @@ html, body {
   .carousel-controls {
     position: static;
     transform: none;
-    justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+    justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
     gap: 20px;
     margin-top: 30px;
     pointer-events: auto;
@@ -3091,7 +3123,9 @@ html, body {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .footer-col:not(:last-child)::after {
@@ -3187,7 +3221,9 @@ html, body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: background-color 0.25s ease, transform 0.15s ease;
   flex-shrink: 0;
 }
@@ -3236,7 +3272,9 @@ html, body {
   border-radius: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;\n  white-space: nowrap;\n  flex-shrink: 0;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   color: #D41F3C;
   font-size: 1.1rem;
   text-decoration: none;
@@ -3341,9 +3379,10 @@ html, body {
 .mobile-menu-links .nav-link.active {
   color: #D41F3C !important;
 }
-\n
-/* TABLET ADAPTATION FOR HEADER (1024px) */
-@media (max-width: 1024px) {
+
+
+/* TABLET ADAPTATION FOR HEADER (1200px) */
+@media (max-width: 1200px) {
   .header-inner { padding: 0 16px; }
   .header-inner > .btn-primary, .header-inner > div > .btn-primary { display: none !important; }
   .nav-menu {
@@ -3385,9 +3424,10 @@ html, body {
   .mobile-menu-card-btn { width: 100%; height: 42px; display: flex; align-items: center; justify-content: center; background: #D41F3C; color: #ffffff; border: none; border-radius: 6px; font-family: 'Bebas Kai', 'Bebas Neue', sans-serif; font-size: 1.2rem; cursor: pointer; }
   .mobile-nav-toggle { display: flex !important; align-items: center; justify-content: center; background: transparent; border: none; color: #000000; font-size: 1.6rem; cursor: pointer; }
 }
-\n
+
+
 /* Small Desktop / Large Tablet Header Compression */
-@media (min-width: 1025px) and (max-width: 1250px) {
+@media (min-width: 1201px) and (max-width: 1250px) {
   .nav-menu {
     gap: 15px !important;
   }
