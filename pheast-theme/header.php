@@ -60,19 +60,29 @@
 
         <div class="mobile-menu-footer">
           <div class="mobile-menu-card">
-            <span class="mobile-menu-card-label">CONTACT INFO</span>
-            <p class="mobile-menu-card-address"><?php echo nl2br(esc_html(get_field('global_address', 'option') ?: "The Battery Atlanta — 925 Battery Ave SE\nSuite 1100, Atlanta, GA 30339")); ?></p>
             <?php 
               $phone = get_field('contact_main_phone', 7) ?: '+1 (404) 343-0409';
               $phone_clean = preg_replace('/[^0-9+]/', '', $phone);
             ?>
-            <a href="tel:<?php echo esc_attr($phone_clean); ?>" class="mobile-menu-card-phone"><?php echo esc_html($phone); ?></a>
-            <div class="mobile-menu-socials">
-              <a href="<?php echo esc_url(get_field('global_ig', 'option') ?: 'https://www.instagram.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-              <a href="<?php echo esc_url(get_field('global_fb', 'option') ?: 'https://www.facebook.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-              <a href="<?php echo esc_url(get_field('global_yelp', 'option') ?: 'https://www.yelp.com/biz/pheast-food-hall-atlanta'); ?>" target="_blank" class="mobile-social-link" aria-label="Yelp"><i class="fa-brands fa-yelp"></i></a>
+            <div class="mobile-menu-card-col mobile-menu-card-info">
+              <span class="mobile-menu-card-label">CONTACT INFO</span>
+              <p class="mobile-menu-card-address">
+                <i class="fa-solid fa-location-dot"></i>
+                <span><?php echo nl2br(esc_html(get_field('global_address', 'option') ?: "The Battery Atlanta — 925 Battery Ave SE\nSuite 1100, Atlanta, GA 30339")); ?></span>
+              </p>
+              <a href="tel:<?php echo esc_attr($phone_clean); ?>" class="mobile-menu-card-phone">
+                <i class="fa-solid fa-phone"></i> <?php echo esc_html($phone); ?>
+              </a>
             </div>
-            <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+            <div class="mobile-menu-card-col mobile-menu-card-actions">
+              <span class="mobile-menu-card-label">CONNECT & ORDER</span>
+              <div class="mobile-menu-socials">
+                <a href="<?php echo esc_url(get_field('global_ig', 'option') ?: 'https://www.instagram.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="<?php echo esc_url(get_field('global_fb', 'option') ?: 'https://www.facebook.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="<?php echo esc_url(get_field('global_yelp', 'option') ?: 'https://www.yelp.com/biz/pheast-food-hall-atlanta'); ?>" target="_blank" class="mobile-social-link" aria-label="Yelp"><i class="fa-brands fa-yelp"></i></a>
+              </div>
+              <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+            </div>
           </div>
         </div>
       </nav>
