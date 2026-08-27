@@ -50,3 +50,7 @@ plugins/
 *.woff
 *.woff2
 
+
+purge.php
+purge_litespeed.php
+check_css.txt
