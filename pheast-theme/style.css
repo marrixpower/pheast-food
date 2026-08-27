@@ -673,7 +673,7 @@ html[data-theme="app"] .main-header {
   background-color: #ffffff !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   html[data-theme="bold"] .nav-link,
   html[data-theme="minimal"] .nav-link,
   html[data-theme="app"] .nav-link {
@@ -2104,7 +2104,7 @@ html, body {
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .mobile-menu-close,
   .mobile-menu-top-btn-wrap,
   .mobile-menu-footer {
@@ -3340,4 +3340,48 @@ html, body {
 /* OVERRIDE FOR ACTIVE LINKS */
 .mobile-menu-links .nav-link.active {
   color: #D41F3C !important;
+}
+\n
+/* TABLET ADAPTATION FOR HEADER (1024px) */
+@media (max-width: 1024px) {
+  .header-inner { padding: 0 16px; }
+  .header-inner > .btn-primary, .header-inner > div > .btn-primary { display: none !important; }
+  .nav-menu {
+    display: none; position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100vw !important; height: 100vh !important; height: 100dvh !important;
+    background-color: #000000 !important; flex-direction: column !important;
+    justify-content: space-between !important; padding: 30px 20px !important;
+    gap: 0 !important; z-index: 100000 !important; overflow-y: auto !important;
+    box-sizing: border-box !important; animation: fadeIn 0.3s ease;
+  }
+  .nav-menu.active { display: flex !important; }
+  .mobile-menu-close {
+    position: absolute; top: 15px; right: 20px; background: transparent; border: none;
+    color: #ffffff; font-size: 2.5rem; line-height: 1; cursor: pointer; z-index: 100002; padding: 5px 10px;
+  }
+  .mobile-menu-top-btn-wrap { width: 100%; margin-top: 40px; margin-bottom: 10px; display: block !important; }
+  .mobile-menu-top-btn {
+    width: 100%; height: 48px; display: flex; align-items: center; justify-content: center;
+    background: #D41F3C !important; border: 2px solid #D41F3C !important; color: #ffffff !important;
+    font-family: 'Bebas Kai', 'Bebas Neue', sans-serif !important; font-size: 1.4rem !important;
+    letter-spacing: 1.5px !important; border-radius: 8px !important; cursor: pointer;
+  }
+  .mobile-menu-links { display: flex !important; flex-direction: column; gap: 8px; margin-top: 15px; text-align: center; }
+  .nav-menu .nav-link {
+    font-family: 'Bebas Kai', 'Bebas Neue', sans-serif !important; font-size: 1.85rem !important;
+    color: #ffffff !important; text-decoration: none !important; text-transform: uppercase !important;
+    letter-spacing: 2px !important; padding: 10px 0 !important; border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    text-align: center !important; transition: all 0.2s ease !important; display: block !important;
+  }
+  .nav-menu .nav-link:last-child { border-bottom: none !important; }
+  .nav-menu .nav-link:hover, .nav-menu .nav-link.active { color: #D41F3C !important; background-color: rgba(212, 31, 60, 0.15) !important; border-radius: 6px; }
+  .mobile-menu-footer { margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.15); display: block !important; }
+  .mobile-menu-card { background: rgba(255, 255, 255, 0.04); border: 1.5px solid rgba(212, 31, 60, 0.6); border-radius: 12px; padding: 18px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .mobile-menu-card-label { color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 6px; display: block; }
+  .mobile-menu-card-address { color: rgba(255, 255, 255, 0.85); font-size: 0.85rem; line-height: 1.4; margin-bottom: 10px; font-family: 'Inter', sans-serif; }
+  .mobile-menu-card-phone { color: #ffffff; font-weight: 700; font-size: 1.1rem; text-decoration: none; margin-bottom: 12px; display: inline-block; letter-spacing: 0.5px; }
+  .mobile-menu-socials { display: flex; gap: 14px; margin-bottom: 14px; justify-content: center; }
+  .mobile-social-link { color: #ffffff; font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; text-decoration: none; }
+  .mobile-menu-card-btn { width: 100%; height: 42px; display: flex; align-items: center; justify-content: center; background: #D41F3C; color: #ffffff; border: none; border-radius: 6px; font-family: 'Bebas Kai', 'Bebas Neue', sans-serif; font-size: 1.2rem; cursor: pointer; }
+  .mobile-nav-toggle { display: flex !important; align-items: center; justify-content: center; background: transparent; border: none; color: #000000; font-size: 1.6rem; cursor: pointer; }
 }

@@ -117,7 +117,7 @@ $other_vendors = get_posts([
         font-family: 'Oswald', sans-serif !important;
         text-transform: uppercase !important;
       }
-      @media (max-width: 860px) {
+      @media (max-width: 1024px) {
         .vendor-hero-section h1 {
           font-size: 3.8rem !important;
         }
