@@ -2390,12 +2390,12 @@ html, body {
   }
   
   .hero-title {
-    font-size: 3.2rem !important;
+    font-size: calc(3.2rem - 4px) !important;
     line-height: 1.1 !important;
   }
   
   .section-title {
-    font-size: 2.4rem !important;
+    font-size: calc(2.4rem - 4px) !important;
   }
   
   .stats-row {
