@@ -3469,146 +3469,148 @@ html, body {
 }
 
 
-/* MOBILE MENU CARD REDESIGN (2-COLUMN WIDE CARD) */
-.mobile-menu-footer {
-  width: 100%;
-  margin-top: 25px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  display: block !important;
-}
+/* MOBILE MENU CARD REDESIGN (2-COLUMN WIDE CARD FOR TABLETS/MOBILE ONLY) */
+@media (max-width: 1200px) {
+  .mobile-menu-footer {
+    width: 100%;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: block !important;
+  }
 
-.mobile-menu-card {
-  width: 100%;
-  max-width: 680px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(212, 31, 60, 0.6);
-  border-radius: 16px;
-  padding: 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(212, 31, 60, 0.1);
-  box-sizing: border-box;
-}
+  .mobile-menu-card {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(212, 31, 60, 0.6);
+    border-radius: 16px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(212, 31, 60, 0.1);
+    box-sizing: border-box;
+  }
 
-.mobile-menu-card-col {
-  display: flex;
-  flex-direction: column;
-}
+  .mobile-menu-card-col {
+    display: flex;
+    flex-direction: column;
+  }
 
-.mobile-menu-card-info {
-  text-align: left;
-  gap: 8px;
-}
+  .mobile-menu-card-info {
+    text-align: left;
+    gap: 8px;
+  }
 
-.mobile-menu-card-actions {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
-  padding-left: 24px;
-}
+  .mobile-menu-card-actions {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    padding-left: 24px;
+  }
 
-.mobile-menu-card-label {
-  color: #D41F3C;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
+  .mobile-menu-card-label {
+    color: #D41F3C;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
 
-.mobile-menu-card-address {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.9rem;
-  line-height: 1.45;
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
+  .mobile-menu-card-address {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
 
-.mobile-menu-card-address i {
-  color: #D41F3C;
-  margin-top: 3px;
-  font-size: 1rem;
-}
+  .mobile-menu-card-address i {
+    color: #D41F3C;
+    margin-top: 3px;
+    font-size: 1rem;
+  }
 
-.mobile-menu-card-phone {
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1.05rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  transition: color 0.2s ease;
-}
+  .mobile-menu-card-phone {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    transition: color 0.2s ease;
+  }
 
-.mobile-menu-card-phone i {
-  color: #D41F3C;
-}
+  .mobile-menu-card-phone i {
+    color: #D41F3C;
+  }
 
-.mobile-menu-card-phone:hover {
-  color: #D41F3C;
-}
+  .mobile-menu-card-phone:hover {
+    color: #D41F3C;
+  }
 
-.mobile-menu-socials {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
+  .mobile-menu-socials {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
 
-.mobile-social-link {
-  color: #ffffff;
-  font-size: 1.1rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
+  .mobile-social-link {
+    color: #ffffff;
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
 
-.mobile-social-link:hover {
-  background: #D41F3C;
-  border-color: #D41F3C;
-  transform: translateY(-2px);
-}
+  .mobile-social-link:hover {
+    background: #D41F3C;
+    border-color: #D41F3C;
+    transform: translateY(-2px);
+  }
 
-.mobile-menu-card-btn {
-  width: 100%;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #D41F3C;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.25rem;
-  letter-spacing: 1px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+  .mobile-menu-card-btn {
+    width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D41F3C;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
-.mobile-menu-card-btn:hover {
-  background: #ff2a5f;
-  box-shadow: 0 0 15px rgba(212, 31, 60, 0.6);
+  .mobile-menu-card-btn:hover {
+    background: #ff2a5f;
+    box-shadow: 0 0 15px rgba(212, 31, 60, 0.6);
+  }
 }
 
 @media (max-width: 580px) {
