@@ -18,7 +18,7 @@ add_action('init', 'pheast_disable_emojis');
 
 function pheast_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700;800&family=Bebas+Neue&family=Outfit:wght@800;900&family=Fredoka:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap', array(), null);
-    wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), '1.1');
+    wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), filemtime(get_stylesheet_directory() . '/style.css'));
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
     wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), '1.1', true);
 }
