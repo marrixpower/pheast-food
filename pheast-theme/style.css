@@ -2140,6 +2140,10 @@ html, body {
 @media (max-width: 768px) {
   .container { max-width: 100%; padding: 0 16px; }
   
+  .about-grid-section h2 {
+    font-size: calc(3.5rem - 4px) !important;
+  }
+  
   .header-inner {
     padding: 0 16px;
   }
