@@ -5,7 +5,7 @@ get_header();
 $hero_bg = get_field('events_hero_bg') ?: get_template_directory_uri() . '/assets/events-live.jpg';
 $hero_title = get_field('events_hero_title') ?: "EVENTS @ PH'EAST";
 $hero_subtitle = get_field('events_hero_subtitle') ?: "ALWAYS SOMETHING HAPPENING.";
-$hero_desc = get_field('events_hero_desc') ?: "From live music to game nights and special collabs. There's always a reason to gather at PH'EAST.";
+$hero_desc = get_field('events_hero_desc') ?: "From live music to game nights & special collabs.<br>There's always a reason to gather at PH'EAST.";
 ?>
   <main>
     <!-- HERO SECTION -->
@@ -17,7 +17,7 @@ $hero_desc = get_field('events_hero_desc') ?: "From live music to game nights an
       <div class="hero-content">
         <h1 class="hero-title"><?php echo esc_html($hero_title); ?></h1>
         <p class="hero-subtitle" style="font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #D41F3C;"><?php echo esc_html($hero_subtitle); ?></p>
-        <p class="hero-subtitle" style="font-size: 1.08rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.45; max-width: 680px; margin: 0 auto; color: #ffffff; animation-delay: 0.7s;"><?php echo esc_html($hero_desc); ?></p>
+        <p class="hero-subtitle hero-desc" style="font-size: 1.08rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.45; max-width: 680px; margin: 0 auto; color: #ffffff; animation-delay: 0.7s;"><?php echo wp_kses_post($hero_desc); ?></p>
       </div>
       <a href="#next-section" class="hero-scroll-indicator" onclick="scrollToNextSection(event)" aria-label="Scroll to next section">
         <i class="fa-solid fa-chevron-down"></i>

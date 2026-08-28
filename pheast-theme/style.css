@@ -2396,7 +2396,7 @@ html, body {
   
   .hero-title {
     text-align: center !important;
-    font-size: 3.2rem !important;
+    font-size: calc(3.2rem - 5px) !important;
     line-height: 1.05 !important;
     margin-bottom: 16px !important;
     letter-spacing: 0.5px !important;
@@ -2404,20 +2404,22 @@ html, body {
     width: 100% !important;
     overflow-wrap: break-word !important;
     word-break: normal !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
     box-sizing: border-box !important;
   }
   
   .hero-subtitle {
     text-align: center !important;
-    font-size: clamp(0.85rem, 3.6vw, 1.1rem) !important;
-    line-height: 1.4 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.6px !important;
     max-width: 100% !important;
+    white-space: normal !important;
     overflow-wrap: break-word !important;
-    word-break: break-word !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    word-break: normal !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
     box-sizing: border-box !important;
   }
   
@@ -2484,7 +2486,7 @@ html, body {
   html[data-theme="bold"] .hero-left .hero-title,
   .hero-title {
     text-align: center !important;
-    font-size: 3.2rem !important;
+    font-size: calc(3.2rem - 5px) !important;
     line-height: 1.05 !important;
     margin-bottom: 18px !important;
     letter-spacing: 0.5px !important;
@@ -2492,8 +2494,8 @@ html, body {
     width: 100% !important;
     overflow-wrap: break-word !important;
     word-break: normal !important;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
     box-sizing: border-box !important;
   }
   
@@ -2501,12 +2503,19 @@ html, body {
   .hero-subtitle,
   .hero-content p {
     text-align: center !important;
-    font-size: 1.03rem !important;
+    font-size: 0.95rem !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.8px !important;
-    line-height: 1.4 !important;
-    margin-bottom: 24px !important;
+    letter-spacing: 0.6px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 20px !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
   }
 
   .hero-subtitle.text-accent,
