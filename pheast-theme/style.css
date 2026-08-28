@@ -1076,6 +1076,11 @@ html[data-theme="bold"] .hero-title {
   text-align: center;
   text-shadow: 0 0 15px rgba(255,42,95,0.8);
   color: #fff;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 /* MINIMAL */
@@ -2390,12 +2395,39 @@ html, body {
   }
   
   .hero-title {
-    font-size: calc(3.2rem - 4px) !important;
-    line-height: 1.1 !important;
+    text-align: center !important;
+    font-size: clamp(1.9rem, 7.5vw, 3.2rem) !important;
+    line-height: 1.08 !important;
+    margin-bottom: 16px !important;
+    letter-spacing: 0.5px !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .hero-subtitle {
+    text-align: center !important;
+    font-size: clamp(0.85rem, 3.6vw, 1.1rem) !important;
+    line-height: 1.4 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    box-sizing: border-box !important;
   }
   
   .section-title {
-    font-size: calc(2.4rem - 4px) !important;
+    text-align: center !important;
+    font-size: clamp(1.7rem, 6vw, 2.4rem) !important;
+    line-height: 1.15 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    box-sizing: border-box !important;
   }
   
   .stats-row {
@@ -2451,10 +2483,16 @@ html, body {
   html[data-theme="bold"] .hero-left .hero-title,
   .hero-title {
     text-align: center !important;
-    font-size: 3.4rem !important;
-    line-height: 1.02 !important;
+    font-size: clamp(2.1rem, 8.5vw, 3.2rem) !important;
+    line-height: 1.05 !important;
     margin-bottom: 18px !important;
     letter-spacing: 0.5px !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    box-sizing: border-box !important;
   }
   
   .hero-left .hero-subtitle,

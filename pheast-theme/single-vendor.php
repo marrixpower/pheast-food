@@ -119,7 +119,10 @@ $other_vendors = get_posts([
       }
       @media (max-width: 1024px) {
         .vendor-hero-section h1 {
-          font-size: 3.8rem !important;
+          font-size: clamp(2.2rem, 7vw, 3.8rem) !important;
+          max-width: 100% !important;
+          word-break: break-word !important;
+          overflow-wrap: break-word !important;
         }
         .vendor-stamp-img {
           height: 110px !important;
@@ -135,7 +138,7 @@ $other_vendors = get_posts([
       }
       @media (max-width: 480px) {
         .vendor-hero-section h1 {
-          font-size: 2.9rem !important;
+          font-size: clamp(1.8rem, 8vw, 2.7rem) !important;
         }
         .vendor-stamp-img {
           height: 85px !important;

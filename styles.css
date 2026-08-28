@@ -1035,6 +1035,11 @@ html[data-theme="bold"] .hero-title {
   text-align: center;
   text-shadow: 0 0 15px rgba(255,42,95,0.8);
   color: #fff;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 /* MINIMAL */
@@ -2361,10 +2366,16 @@ html, body {
   html[data-theme="bold"] .hero-left .hero-title,
   .hero-title {
     text-align: center !important;
-    font-size: 3.4rem !important;
-    line-height: 1.02 !important;
+    font-size: clamp(2.1rem, 8.5vw, 3.2rem) !important;
+    line-height: 1.05 !important;
     margin-bottom: 18px !important;
     letter-spacing: 0.5px !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    box-sizing: border-box !important;
   }
   
   .hero-left .hero-subtitle,
