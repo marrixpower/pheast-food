@@ -27,7 +27,8 @@ if (empty($title_accent) && empty($title_white)) {
 $cuisine = get_field('vendor_cuisine') ?: 'BOBA. TEA. DESSERTS.';
 $tagline = get_field('vendor_tagline') ?: 'Taiwanese tea culture in Atlanta.';
 $btn1_text = get_field('vendor_hero_btn1_text') ?: 'ORDER ONLINE';
-$btn1_link = get_field('vendor_hero_btn1_link') ?: get_field('vendor_order_modal_link');
+$raw_btn1_link = get_field('vendor_hero_btn1_link');
+$btn1_link = (!empty($raw_btn1_link) && filter_var($raw_btn1_link, FILTER_VALIDATE_URL)) ? $raw_btn1_link : '';
 $btn2_text = get_field('vendor_hero_btn2_text') ?: 'VIEW MENU';
 $btn2_link = get_field('vendor_hero_btn2_link') ?: '#vendor-menu';
 
@@ -177,7 +178,7 @@ $other_vendors = get_posts([
             <?php if (!empty($btn1_link)): ?>
               <a href="<?php echo esc_url($btn1_link); ?>" target="_blank" class="btn btn-primary" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; background: #E30638; border: 2px solid #E30638; color: #ffffff; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; text-decoration: none; cursor: pointer; box-sizing: border-box;"><?php echo esc_html($btn1_text); ?></a>
             <?php else: ?>
-              <button class="btn btn-primary" onclick="openOrderModal()" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; background: #E30638; border: 2px solid #E30638; color: #ffffff; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; cursor: pointer; box-sizing: border-box;"><?php echo esc_html($btn1_text); ?></button>
+              <button type="button" class="btn btn-primary" onclick="openOrderModal('<?php echo esc_js($vendor_title); ?>')" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; background: #E30638; border: 2px solid #E30638; color: #ffffff; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; cursor: pointer; box-sizing: border-box;"><?php echo esc_html($btn1_text); ?></button>
             <?php endif; ?>
             <a href="<?php echo esc_attr($btn2_link); ?>" class="btn btn-outline" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; background: #000000; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; text-decoration: none; box-sizing: border-box;"><?php echo esc_html($btn2_text); ?></a>
           </div>

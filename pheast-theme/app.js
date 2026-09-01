@@ -90,10 +90,28 @@ function filterGallery(category) {
 }
 
 /**
- * Open/Close Order Modal
+ * Open/Close Order Modal & Contact Form
  */
-function openOrderModal() {
+function openOrderModal(vendorName) {
   const modal = document.getElementById('order-modal');
+  const formWrap = document.getElementById('order-modal-form-wrap');
+  const successWrap = document.getElementById('order-modal-success');
+  const vendorSelect = document.getElementById('order-cust-vendor');
+
+  if (formWrap) formWrap.style.display = 'block';
+  if (successWrap) successWrap.style.display = 'none';
+
+  if (vendorSelect && vendorName) {
+    const cleanTarget = vendorName.toLowerCase().replace(/[^a-z0-9]/g, '');
+    for (let i = 0; i < vendorSelect.options.length; i++) {
+      const optClean = vendorSelect.options[i].value.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (optClean.includes(cleanTarget) || cleanTarget.includes(optClean)) {
+        vendorSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
   if (modal) modal.classList.add('active');
 }
 
@@ -102,17 +120,25 @@ function closeOrderModal() {
   if (modal) modal.classList.remove('active');
 }
 
-function selectOrderVendor(vendorName, url) {
-  closeOrderModal();
-  if (url && url !== '') {
-    window.location.href = url;
-  } else {
-    showToast(`Opening ${vendorName}...`);
-  }
-}
+function handleOrderModalSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById('order-cust-name') ? document.getElementById('order-cust-name').value.trim() : '';
+  const phone = document.getElementById('order-cust-phone') ? document.getElementById('order-cust-phone').value.trim() : '';
+  const vendor = document.getElementById('order-cust-vendor') ? document.getElementById('order-cust-vendor').value : '';
+  
+  const formWrap = document.getElementById('order-modal-form-wrap');
+  const successWrap = document.getElementById('order-modal-success');
+  const successMsg = document.getElementById('order-modal-success-msg');
 
-function quickSelectVendor(vendorId) {
-  openOrderModal();
+  if (formWrap && successWrap) {
+    formWrap.style.display = 'none';
+    successWrap.style.display = 'block';
+    if (successMsg) {
+      successMsg.innerHTML = `Дякуємо, <strong>${name || 'Гість'}</strong>!<br>Ваш запит для <strong>${vendor}</strong> отримано.<br>Ми зв'яжемося з вами за телефоном <strong>${phone}</strong> найближчим часом!`;
+    }
+  }
+
+  showToast(`Дякуємо, ${name}! Запит надіслано. Очікуйте на дзвінок.`);
 }
 
 /**

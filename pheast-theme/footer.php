@@ -81,53 +81,73 @@
     </div>
   </footer>
 
-  <!-- MODAL: ORDER ONLINE (DYNAMIC VENDORS) -->
-  <div id="order-modal" class="modal-overlay">
-    <div class="modal-card">
-      <h2>Order Online</h2>
-      <p style="margin-top: 10px;">Choose your vendor:</p>
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-        <?php
-        $modal_vendors = new WP_Query(array(
-            'post_type'      => 'vendor',
-            'posts_per_page' => -1,
-            'orderby'        => 'menu_order',
-            'order'          => 'ASC'
-        ));
+  <!-- MODAL: ORDER ONLINE / CONTACT FORM POPUP -->
+  <div id="order-modal" class="modal-overlay" onclick="if(event.target===this) closeOrderModal()">
+    <div class="modal-card" style="max-width: 520px; width: 100%; border: 2.5px solid #E30638; box-shadow: 0 0 40px rgba(227, 6, 56, 0.4); background: #0c0c0c; padding: 35px 28px; position: relative; border-radius: 12px; box-sizing: border-box;">
+      <button class="modal-close" onclick="closeOrderModal()" aria-label="Close Modal" style="position: absolute; top: 15px; right: 18px; font-size: 1.8rem; color: #fff; background: none; border: none; cursor: pointer; line-height: 1; transition: color 0.2s ease;">&times;</button>
+      
+      <div id="order-modal-form-wrap">
+        <h2 style="font-family: 'Oswald', sans-serif !important; font-size: 2.2rem; margin: 0 0 6px 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">ORDER ONLINE</h2>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.4;">Залиште ваші дані та деталі замовлення — наша команда зв'яжеться з вами найближчим часом!</p>
         
-        $rendered_any = false;
-        
-        if ($modal_vendors->have_posts()):
-            while ($modal_vendors->have_posts()): $modal_vendors->the_post();
-                $show = get_field('vendor_order_modal_show');
-                // If show is null or true (default to true)
-                if ($show === null || $show === '' || $show === true || $show == 1):
-                    $rendered_any = true;
-                    $btn_label = get_field('vendor_order_modal_text');
-                    if (empty($btn_label)) {
-                        $btn_label = get_the_title();
-                    }
-                    $order_link = get_field('vendor_order_modal_link') ?: get_permalink();
-                    $vendor_name = esc_js(get_the_title());
-                    $link_attr = "'" . esc_js(esc_url($order_link)) . "'";
-        ?>
-          <button class="btn btn-outline reveal-element reveal-scale" onclick="selectOrderVendor('<?php echo $vendor_name; ?>', <?php echo $link_attr; ?>)"><?php echo esc_html($btn_label); ?></button>
-        <?php
-                endif;
-            endwhile;
-            wp_reset_postdata();
-        endif;
-
-        if (!$rendered_any):
-        ?>
-          <button class="btn btn-outline" onclick="selectOrderVendor('Kung Fu Tea')">🧋 Kung Fu Tea</button>
-          <button class="btn btn-outline" onclick="selectOrderVendor('Lifting Noodles')">🍜 Lifting Noodles</button>
-          <button class="btn btn-outline" onclick="selectOrderVendor('Poke Burri')">🍣 Poke Burri</button>
-          <button class="btn btn-outline" onclick="selectOrderVendor('26 Thai')">🍲 26 Thai Kitchen</button>
-          <button class="btn btn-outline" onclick="selectOrderVendor('Fan T Asia')">🥟 Fan T'Asia</button>
-        <?php endif; ?>
-        
-        <button class="btn btn-ghost reveal-element reveal-scale" onclick="closeOrderModal()" style="margin-top: 10px;">Cancel</button>
+        <form id="order-inquiry-form" onsubmit="handleOrderModalSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Your Name (Ваше ім'я) *</label>
+            <input type="text" id="order-cust-name" required placeholder="John Doe" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Phone (Телефон) *</label>
+              <input type="tel" id="order-cust-phone" required placeholder="(678) 000-0000" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Email (Пошта)</label>
+              <input type="email" id="order-cust-email" placeholder="name@email.com" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
+            </div>
+          </div>
+          
+          <div>
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Select Vendor (Оберіть заклад)</label>
+            <select id="order-cust-vendor" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; cursor: pointer;">
+              <option value="General PH'EAST Food Hall">PH'EAST Food Hall (All / General)</option>
+              <?php
+              $modal_vendors = new WP_Query(array(
+                  'post_type'      => 'vendor',
+                  'posts_per_page' => -1,
+                  'orderby'        => 'menu_order',
+                  'order'          => 'ASC'
+              ));
+              if ($modal_vendors->have_posts()):
+                  while ($modal_vendors->have_posts()): $modal_vendors->the_post();
+                      $v_title = get_the_title();
+              ?>
+                <option value="<?php echo esc_attr($v_title); ?>"><?php echo esc_html($v_title); ?></option>
+              <?php
+                  endwhile;
+                  wp_reset_postdata();
+              endif;
+              ?>
+            </select>
+          </div>
+          
+          <div>
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Order Details / Questions (Замовлення / Повідомлення)</label>
+            <textarea id="order-cust-notes" rows="3" placeholder="Describe what you want to order or your question..." class="footer-input-box" style="width: 100%; background: #181818; border: 1px solid #333; color: #fff; padding: 10px 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; resize: vertical;"></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%; height: 48px; background: #E30638; border: 2px solid #E30638; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.1rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; border-radius: 4px; cursor: pointer; margin-top: 6px; transition: all 0.3s ease;">SUBMIT / НАДІСЛАТИ</button>
+        </form>
+      </div>
+      
+      <!-- SUCCESS MESSAGE STATE (HIDDEN INITIALLY) -->
+      <div id="order-modal-success" style="display: none; text-align: center; padding: 25px 10px;">
+        <div style="width: 60px; height: 60px; background: rgba(227,6,56,0.15); border: 2px solid #E30638; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto;">
+          <i class="fa-solid fa-check" style="color: #E30638; font-size: 1.8rem;"></i>
+        </div>
+        <h3 style="font-family: 'Oswald', sans-serif !important; font-size: 2rem; color: #fff; text-transform: uppercase; margin: 0 0 10px 0;">THANK YOU!</h3>
+        <p id="order-modal-success-msg" style="color: rgba(255,255,255,0.85); font-size: 1rem; line-height: 1.6; margin-bottom: 22px;">Ваш запит отримано. Наша команда зв'яжеться з вами найближчим часом!</p>
+        <button type="button" class="btn btn-primary" onclick="closeOrderModal()" style="padding: 10px 32px; background: #E30638; border: 2px solid #E30638; color: #fff; font-family: 'Oswald', sans-serif !important; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer;">CLOSE / ЗАКРИТИ</button>
       </div>
     </div>
   </div>
