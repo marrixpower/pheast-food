@@ -110,7 +110,7 @@
             <div>
               <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Phone Number *</label>
               <input type="tel" id="order-cust-phone" required placeholder="(678) 000-0000" inputmode="tel" minlength="7" maxlength="20" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; transition: border-color 0.2s ease;">
-              <span id="order-phone-error" style="display: none; color: #ff4757; font-size: 0.75rem; font-weight: 600; margin-top: 3px;">Please enter a valid phone number (9 to 15 digits)</span>
+              <span id="order-phone-error" style="display: none; color: #ff4757; font-size: 0.75rem; font-weight: 600; margin-top: 3px;">Please enter a valid phone number (7 to 15 digits)</span>
             </div>
             <div>
               <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Email Address (Optional)</label>

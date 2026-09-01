@@ -148,20 +148,19 @@ function handleOrderModalSubmit(event) {
     nameInput.style.borderColor = '#333';
   }
 
-  // 2. Strict Phone Validation (9-15 digits, no repeated fake numbers like 999999999)
+  // 2. Pure Digit Count Validation (allows any format, e.g. (678) 123-4567, as long as 7-15 digits)
   const digitsOnly = phone.replace(/[^0-9]/g, '');
-  const isRepeated = /^(\d)\1+$/.test(digitsOnly);
 
-  if (digitsOnly.length < 9 || digitsOnly.length > 15 || isRepeated) {
+  if (digitsOnly.length < 7 || digitsOnly.length > 15) {
     if (phoneError) {
-      phoneError.textContent = 'Please enter a valid phone number (9 to 15 digits, e.g. (678) 123-4567)';
+      phoneError.textContent = 'Please enter a valid phone number (7 to 15 digits).';
       phoneError.style.display = 'block';
     }
     if (phoneInput) {
       phoneInput.style.borderColor = '#ff4757';
       phoneInput.focus();
     }
-    showToast('Please enter a valid phone number.');
+    showToast('Please enter a valid phone number (7 to 15 digits).');
     return;
   } else {
     if (phoneError) phoneError.style.display = 'none';

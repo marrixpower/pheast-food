@@ -144,12 +144,10 @@ function pheast_handle_order_submission() {
         wp_send_json_error(array('message' => 'Please provide a valid name (at least 2 letters).'));
     }
 
-    // Validate Phone Number
+    // Validate Phone Number (purely by digit count: 7 to 15 digits)
     $digits = preg_replace('/[^0-9]/', '', $phone);
-    $is_repeated = (bool) preg_match('/^(\d)\1+$/', $digits);
-
-    if (empty($phone) || strlen($digits) < 9 || strlen($digits) > 15 || $is_repeated) {
-        wp_send_json_error(array('message' => 'Please provide a valid phone number (e.g. (678) 123-4567 or international format).'));
+    if (empty($phone) || strlen($digits) < 7 || strlen($digits) > 15) {
+        wp_send_json_error(array('message' => 'Please provide a valid phone number (7 to 15 digits).'));
     }
 
     // 1. Save to WordPress Database (Order Inquiries CPT)
