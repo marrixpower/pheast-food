@@ -81,12 +81,63 @@
     </div>
   </footer>
 
-  <!-- MODAL: ORDER ONLINE / CONTACT FORM POPUP -->
+  <!-- MODAL: ORDER ONLINE (VENDOR LIST FOR HEADER + CONTACT FORM FOR SINGLE VENDOR) -->
   <div id="order-modal" class="modal-overlay" onclick="if(event.target===this) closeOrderModal()">
     <div class="modal-card" style="max-width: 520px; width: 100%; border: 2.5px solid #E30638; box-shadow: 0 0 40px rgba(227, 6, 56, 0.4); background: #0c0c0c; padding: 35px 28px; position: relative; border-radius: 12px; box-sizing: border-box;">
       <button class="modal-close" onclick="closeOrderModal()" aria-label="Close Modal" style="position: absolute; top: 15px; right: 18px; font-size: 1.8rem; color: #fff; background: none; border: none; cursor: pointer; line-height: 1; transition: color 0.2s ease;">&times;</button>
       
-      <div id="order-modal-form-wrap">
+      <!-- 1. VENDOR BUTTONS LIST (SHOWN FOR HEADER ORDER ONLINE BUTTON) -->
+      <div id="order-modal-vendor-list">
+        <h2 style="font-family: 'Oswald', sans-serif !important; font-size: 2.2rem; margin: 0 0 6px 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">ORDER ONLINE</h2>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 22px; line-height: 1.4;">Choose your vendor to place an order or view options:</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <?php
+          $modal_vendors = new WP_Query(array(
+              'post_type'      => 'vendor',
+              'posts_per_page' => -1,
+              'orderby'        => 'menu_order',
+              'order'          => 'ASC'
+          ));
+          
+          $rendered_any = false;
+          
+          if ($modal_vendors->have_posts()):
+              while ($modal_vendors->have_posts()): $modal_vendors->the_post();
+                  $show = get_field('vendor_order_modal_show');
+                  if ($show === null || $show === '' || $show === true || $show == 1):
+                      $rendered_any = true;
+                      $btn_label = get_field('vendor_order_modal_text') ?: get_the_title();
+                      $order_link = get_field('vendor_order_modal_link');
+                      $vendor_title = get_the_title();
+                      
+                      if (!empty($order_link) && filter_var($order_link, FILTER_VALIDATE_URL)):
+          ?>
+            <a href="<?php echo esc_url($order_link); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.05rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-radius: 4px; box-sizing: border-box; transition: all 0.3s ease;"><?php echo esc_html($btn_label); ?></a>
+          <?php       else: ?>
+            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('<?php echo esc_js($vendor_title); ?>')" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.05rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-radius: 4px; box-sizing: border-box; cursor: pointer; transition: all 0.3s ease;"><?php echo esc_html($btn_label); ?></button>
+          <?php
+                      endif;
+                  endif;
+              endwhile;
+              wp_reset_postdata();
+          endif;
+
+          if (!$rendered_any):
+          ?>
+            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Kung Fu Tea')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🧋 KUNG FU TEA</button>
+            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Poke Burri')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🍣 POKE BURRI</button>
+            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Lifting Noodles')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🍜 LIFTING NOODLES</button>
+            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('26 Thai Kitchen')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🍲 26 THAI KITCHEN</button>
+            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Fan T\'Asia')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🥟 FAN T'ASIA</button>
+          <?php endif; ?>
+          
+          <button type="button" class="btn btn-ghost" onclick="closeOrderModal()" style="margin-top: 6px; width: 100%; height: 44px; color: rgba(255,255,255,0.7); background: transparent; border: 1px solid #333; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer;">CANCEL</button>
+        </div>
+      </div>
+
+      <!-- 2. CONTACT INQUIRY FORM (SHOWN WHEN OPENED FROM VENDOR PAGE OR SPECIFIC VENDOR) -->
+      <div id="order-modal-form-wrap" style="display: none;">
         <h2 style="font-family: 'Oswald', sans-serif !important; font-size: 2.2rem; margin: 0 0 6px 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">ORDER ONLINE</h2>
         <p style="color: rgba(255,255,255,0.75); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.4;">Leave your contact details and order inquiry below — our team will get in touch with you shortly!</p>
         
@@ -95,7 +146,7 @@
             <i class="fa-solid fa-store" style="color: #E30638;"></i>
             <span id="order-modal-vendor-label">PH'EAST FOOD HALL</span>
           </div>
-          <span style="color: rgba(255,255,255,0.4); font-size: 0.8rem; font-weight: 600;">Direct Inquiry</span>
+          <button type="button" onclick="showOrderModalVendorList()" style="background: none; border: none; color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: underline;">&larr; All Vendors</button>
         </div>
         
         <form id="order-inquiry-form" onsubmit="handleOrderModalSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
@@ -127,7 +178,7 @@
         </form>
       </div>
       
-      <!-- SUCCESS MESSAGE STATE (HIDDEN INITIALLY) -->
+      <!-- 3. SUCCESS MESSAGE STATE (HIDDEN INITIALLY) -->
       <div id="order-modal-success" style="display: none; text-align: center; padding: 25px 10px;">
         <div style="width: 60px; height: 60px; background: rgba(227,6,56,0.15); border: 2px solid #E30638; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto;">
           <i class="fa-solid fa-check" style="color: #E30638; font-size: 1.8rem;"></i>

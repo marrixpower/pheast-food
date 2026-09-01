@@ -94,29 +94,51 @@ function filterGallery(category) {
  */
 function openOrderModal(vendorName) {
   const modal = document.getElementById('order-modal');
+  const vendorListView = document.getElementById('order-modal-vendor-list');
   const formWrap = document.getElementById('order-modal-form-wrap');
   const successWrap = document.getElementById('order-modal-success');
   const vendorInput = document.getElementById('order-cust-vendor');
   const vendorLabel = document.getElementById('order-modal-vendor-label');
 
-  if (formWrap) formWrap.style.display = 'block';
   if (successWrap) successWrap.style.display = 'none';
 
-  // Auto-detect vendor if not passed explicitly
-  let targetVendor = vendorName;
-  if (!targetVendor || targetVendor === '') {
-    const singleVendorTitle = document.querySelector('.vendor-hero-section h1');
-    if (singleVendorTitle) {
-      targetVendor = singleVendorTitle.innerText.replace(/\s+/g, ' ').trim();
-    } else {
-      targetVendor = "PH'EAST Food Hall";
-    }
+  if (!vendorName || vendorName === '') {
+    // Header call (no vendor specified): Show vendor buttons list as before!
+    if (vendorListView) vendorListView.style.display = 'block';
+    if (formWrap) formWrap.style.display = 'none';
+  } else {
+    // Specific vendor call (e.g. single vendor page): Show direct contact inquiry form
+    if (vendorListView) vendorListView.style.display = 'none';
+    if (formWrap) formWrap.style.display = 'block';
+
+    if (vendorInput) vendorInput.value = vendorName;
+    if (vendorLabel) vendorLabel.textContent = vendorName;
   }
 
-  if (vendorInput) vendorInput.value = targetVendor;
-  if (vendorLabel) vendorLabel.textContent = targetVendor;
-
   if (modal) modal.classList.add('active');
+}
+
+function openVendorInquiryFromModal(vendorName) {
+  const vendorListView = document.getElementById('order-modal-vendor-list');
+  const formWrap = document.getElementById('order-modal-form-wrap');
+  const vendorInput = document.getElementById('order-cust-vendor');
+  const vendorLabel = document.getElementById('order-modal-vendor-label');
+
+  if (vendorListView) vendorListView.style.display = 'none';
+  if (formWrap) formWrap.style.display = 'block';
+
+  if (vendorInput) vendorInput.value = vendorName || "PH'EAST Food Hall";
+  if (vendorLabel) vendorLabel.textContent = vendorName || "PH'EAST FOOD HALL";
+}
+
+function showOrderModalVendorList() {
+  const vendorListView = document.getElementById('order-modal-vendor-list');
+  const formWrap = document.getElementById('order-modal-form-wrap');
+  const successWrap = document.getElementById('order-modal-success');
+
+  if (vendorListView) vendorListView.style.display = 'block';
+  if (formWrap) formWrap.style.display = 'none';
+  if (successWrap) successWrap.style.display = 'none';
 }
 
 function closeOrderModal() {
