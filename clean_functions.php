@@ -139,8 +139,9 @@ function pheast_handle_order_submission() {
     $vendor = isset($_POST['vendor']) ? sanitize_text_field($_POST['vendor']) : "PH'EAST Food Hall";
     $notes = isset($_POST['notes']) ? sanitize_textarea_field($_POST['notes']) : '';
 
-    if (empty($phone) && empty($email)) {
-        wp_send_json_error(array('message' => 'Please provide a valid phone number.'));
+    $digits = preg_replace('/[^0-9]/', '', $phone);
+    if (empty($phone) || strlen($digits) < 7 || strlen($digits) > 15) {
+        wp_send_json_error(array('message' => 'Будь ласка, вкажіть коректний номер телефону (від 7 до 15 цифр).'));
     }
 
     // 1. Save to WordPress Database (Order Inquiries CPT)

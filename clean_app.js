@@ -128,11 +128,28 @@ function handleOrderModalSubmit(event) {
   event.preventDefault();
   const form = event.target;
   const name = document.getElementById('order-cust-name') ? document.getElementById('order-cust-name').value.trim() : '';
-  const phone = document.getElementById('order-cust-phone') ? document.getElementById('order-cust-phone').value.trim() : '';
+  const phoneInput = document.getElementById('order-cust-phone');
+  const phoneError = document.getElementById('order-phone-error');
+  const phone = phoneInput ? phoneInput.value.trim() : '';
   const email = document.getElementById('order-cust-email') ? document.getElementById('order-cust-email').value.trim() : '';
   const vendor = document.getElementById('order-cust-vendor') ? document.getElementById('order-cust-vendor').value.trim() : "PH'EAST Food Hall";
   const notes = document.getElementById('order-cust-notes') ? document.getElementById('order-cust-notes').value.trim() : '';
   
+  // Basic Phone Validation: extract digits only
+  const digitsOnly = phone.replace(/[^0-9]/g, '');
+  if (digitsOnly.length < 7 || digitsOnly.length > 15) {
+    if (phoneError) phoneError.style.display = 'block';
+    if (phoneInput) {
+      phoneInput.style.borderColor = '#ff4757';
+      phoneInput.focus();
+    }
+    showToast('Будь ласка, введіть коректний номер телефону (від 7 до 15 цифр).');
+    return;
+  } else {
+    if (phoneError) phoneError.style.display = 'none';
+    if (phoneInput) phoneInput.style.borderColor = '#333';
+  }
+
   const submitBtn = form.querySelector('button[type="submit"]');
   if (submitBtn) {
     submitBtn.disabled = true;
