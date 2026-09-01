@@ -143,7 +143,6 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_vendor_hero_title_accent', 'label' => 'Hero Title Red Accent Part (e.g. KUNG<br>FU)', 'name' => 'vendor_hero_title_accent', 'type' => 'text', 'instructions' => 'Upper red accent words. Leave empty to auto-split post title.'),
             array('key' => 'field_vendor_hero_title_white', 'label' => 'Hero Title White Part (e.g. TEA)', 'name' => 'vendor_hero_title_white', 'type' => 'text', 'instructions' => 'Lower white title words beside the stamp icon.'),
             array('key' => 'field_vendor_stamp_logo', 'label' => 'Stamp / Symbol Icon (Beside Title)', 'name' => 'vendor_stamp_logo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Symbol stamp placed next to the white title word (e.g. Kung Fu Tea stamp).'),
-            array('key' => 'field_vendor_cuisine', 'label' => 'Cuisine Type / Red Subtitle (e.g. BOBA. TEA. DESSERTS.)', 'name' => 'vendor_cuisine', 'type' => 'text', 'default_value' => 'BOBA. TEA. DESSERTS.'),
             array('key' => 'field_vendor_tagline', 'label' => 'Tagline (e.g. Taiwanese tea culture in Atlanta.)', 'name' => 'vendor_tagline', 'type' => 'text', 'default_value' => 'Taiwanese tea culture in Atlanta.'),
             array('key' => 'field_vendor_hero_btn1_text', 'label' => 'Button 1 Text', 'name' => 'vendor_hero_btn1_text', 'type' => 'text', 'default_value' => 'ORDER ONLINE'),
             array('key' => 'field_vendor_hero_btn1_link', 'label' => 'Button 1 Link (Optional)', 'name' => 'vendor_hero_btn1_link', 'type' => 'text', 'instructions' => 'Leave empty to open the Order Online popup modal.'),
@@ -203,14 +202,22 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_vendor_logo', 'label' => 'Vendor Logo Image', 'name' => 'vendor_logo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Logo shown on directory card and other vendors carousel.'),
             array('key' => 'field_vendor_card_show', 'label' => 'Show Vendor Card on Website?', 'name' => 'vendor_card_show', 'type' => 'true_false', 'default_value' => 1, 'ui' => 1, 'instructions' => 'Toggle OFF to hide this vendor card from directory and home page.'),
             array('key' => 'field_vendor_card_title', 'label' => 'Card Display Title (Optional)', 'name' => 'vendor_card_title', 'type' => 'text', 'instructions' => 'Title shown on vendor card. Leave empty to use main title.'),
+            array('key' => 'field_vendor_cuisine', 'label' => 'Cuisine Type / Red Subtitle (e.g. BOBA. TEA. DESSERTS.)', 'name' => 'vendor_cuisine', 'type' => 'text', 'default_value' => 'BOBA. TEA. DESSERTS.', 'instructions' => 'Cuisine / category shown on directory cards and vendor page.'),
             array('key' => 'field_vendor_btn_text', 'label' => 'Card Button Text', 'name' => 'vendor_btn_text', 'type' => 'text', 'default_value' => 'ORDER ONLINE'),
-            array('key' => 'field_vendor_order_modal_show', 'label' => 'Show in "Order Online" Modal?', 'name' => 'vendor_order_modal_show', 'type' => 'true_false', 'default_value' => 1, 'ui' => 1, 'instructions' => 'Toggle OFF to hide this vendor from Order Online popup list.'),
-            array('key' => 'field_vendor_order_modal_link', 'label' => 'External Direct Order Link (Optional)', 'name' => 'vendor_order_modal_link', 'type' => 'text', 'instructions' => 'If filled, clicking this vendor in modal navigates to this external order URL directly.'),
             array('key' => 'field_vendor_hours', 'label' => 'Operating Hours (Optional)', 'name' => 'vendor_hours', 'type' => 'text'),
             array('key' => 'field_vendor_website', 'label' => 'Official Website URL (Optional)', 'name' => 'vendor_website', 'type' => 'url'),
 
-            // TAB 6: Order Online Button Text (ONLY 1 FIELD)
+            // TAB 6: Order Online Button & Modal Settings
             array('key' => 'field_vendor_tab_order_btn', 'label' => '6. Order Online Button', 'type' => 'tab'),
+            array(
+                'key' => 'field_vendor_order_modal_show',
+                'label' => 'Show in "Order Online" Modal?',
+                'name' => 'vendor_order_modal_show',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'instructions' => 'Toggle OFF to hide this vendor from Order Online popup list.'
+            ),
             array(
                 'key' => 'field_vendor_order_modal_text',
                 'label' => 'Order Button Text (Текст на кнопці в меню Order Online)',
@@ -218,6 +225,13 @@ function my_acf_add_local_field_groups() {
                 'type' => 'text',
                 'placeholder' => 'e.g. 🧋 KUNG FU TEA',
                 'instructions' => 'Введіть текст та емодзі, які відображатимуться на кнопці в спливаючому вікні «ORDER ONLINE» (наприклад: 🧋 KUNG FU TEA, 🍣 POKE BURRI, 🍜 LIFTING NOODLES).'
+            ),
+            array(
+                'key' => 'field_vendor_order_modal_link',
+                'label' => 'External Direct Order Link (Optional)',
+                'name' => 'vendor_order_modal_link',
+                'type' => 'text',
+                'instructions' => 'If filled, clicking this vendor in modal navigates to this external order URL directly.'
             ),
         ),
         'location' => array(
