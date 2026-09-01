@@ -90,7 +90,17 @@
         <h2 style="font-family: 'Oswald', sans-serif !important; font-size: 2.2rem; margin: 0 0 6px 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">ORDER ONLINE</h2>
         <p style="color: rgba(255,255,255,0.75); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.4;">Залиште ваші дані та деталі замовлення — наша команда зв'яжеться з вами найближчим часом!</p>
         
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div id="order-modal-vendor-tag" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(227,6,56,0.15); border: 1.5px solid #E30638; color: #ffffff; padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="fa-solid fa-store" style="color: #E30638;"></i>
+            <span id="order-modal-vendor-label">PH'EAST FOOD HALL</span>
+          </div>
+          <span style="color: rgba(255,255,255,0.4); font-size: 0.8rem; font-weight: 600;">Direct Inquiry</span>
+        </div>
+        
         <form id="order-inquiry-form" onsubmit="handleOrderModalSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+          <input type="hidden" id="order-cust-vendor" name="vendor" value="PH'EAST Food Hall">
+          
           <div>
             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Your Name (Ваше ім'я) *</label>
             <input type="text" id="order-cust-name" required placeholder="John Doe" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
@@ -105,30 +115,6 @@
               <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Email (Пошта)</label>
               <input type="email" id="order-cust-email" placeholder="name@email.com" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
             </div>
-          </div>
-          
-          <div>
-            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Select Vendor (Оберіть заклад)</label>
-            <select id="order-cust-vendor" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; cursor: pointer;">
-              <option value="General PH'EAST Food Hall">PH'EAST Food Hall (All / General)</option>
-              <?php
-              $modal_vendors = new WP_Query(array(
-                  'post_type'      => 'vendor',
-                  'posts_per_page' => -1,
-                  'orderby'        => 'menu_order',
-                  'order'          => 'ASC'
-              ));
-              if ($modal_vendors->have_posts()):
-                  while ($modal_vendors->have_posts()): $modal_vendors->the_post();
-                      $v_title = get_the_title();
-              ?>
-                <option value="<?php echo esc_attr($v_title); ?>"><?php echo esc_html($v_title); ?></option>
-              <?php
-                  endwhile;
-                  wp_reset_postdata();
-              endif;
-              ?>
-            </select>
           </div>
           
           <div>

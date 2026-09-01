@@ -18,9 +18,12 @@ add_action('init', 'pheast_disable_emojis');
 
 function pheast_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700;800&family=Bebas+Neue&family=Outfit:wght@800;900&family=Fredoka:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap', array(), null);
-    wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), '1.1');
+    wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), filemtime(get_stylesheet_directory() . '/style.css'));
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
-    wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), '1.1', true);
+    wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), '1.2', true);
+    wp_localize_script('pheast-app', 'pheast_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php')
+    ));
 }
 add_action('wp_enqueue_scripts', 'pheast_enqueue_scripts');
 add_theme_support('title-tag');
@@ -127,6 +130,63 @@ function pheast_acf_op_init() {
         ));
     }
 }
+
+// AJAX Handler for Order Inquiry Submissions
+function pheast_handle_order_submission() {
+    $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : 'Guest';
+    $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
+    $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+    $vendor = isset($_POST['vendor']) ? sanitize_text_field($_POST['vendor']) : "PH'EAST Food Hall";
+    $notes = isset($_POST['notes']) ? sanitize_textarea_field($_POST['notes']) : '';
+
+    if (empty($phone) && empty($email)) {
+        wp_send_json_error(array('message' => 'Please provide a valid phone number.'));
+    }
+
+    // 1. Save to WordPress Database (Order Inquiries CPT)
+    $post_title = $name . ' — ' . $vendor . ' (' . current_time('M j, Y H:i') . ')';
+    $post_id = wp_insert_post(array(
+        'post_title'   => $post_title,
+        'post_type'    => 'order_inquiry',
+        'post_status'  => 'publish',
+        'post_content' => $notes,
+    ));
+
+    if ($post_id && !is_wp_error($post_id)) {
+        update_post_meta($post_id, '_inquiry_customer_name', $name);
+        update_post_meta($post_id, '_inquiry_phone', $phone);
+        update_post_meta($post_id, '_inquiry_email', $email);
+        update_post_meta($post_id, '_inquiry_vendor', $vendor);
+        update_post_meta($post_id, '_inquiry_notes', $notes);
+    }
+
+    // 2. Send Email Notification to Admin
+    $admin_email = get_option('admin_email');
+    $subject = "[PH'EAST] New Order Inquiry for " . $vendor . " from " . $name;
+    $body = "New Order Inquiry received on PH'EAST website:\n\n"
+          . "Customer: " . $name . "\n"
+          . "Phone: " . $phone . "\n"
+          . "Email: " . ($email ?: 'N/A') . "\n"
+          . "Vendor: " . $vendor . "\n"
+          . "Order Notes / Details:\n" . ($notes ?: 'None') . "\n\n"
+          . "View in WP Admin: " . admin_url('edit.php?post_type=order_inquiry');
+
+    $headers = array('Content-Type: text/plain; charset=UTF-8');
+    if (!empty($email)) {
+        $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+    }
+
+    @wp_mail($admin_email, $subject, $body, $headers);
+
+    wp_send_json_success(array(
+        'message' => 'Your inquiry has been submitted successfully!',
+        'name'    => $name,
+        'vendor'  => $vendor,
+        'phone'   => $phone
+    ));
+}
+add_action('wp_ajax_submit_pheast_order', 'pheast_handle_order_submission');
+add_action('wp_ajax_nopriv_submit_pheast_order', 'pheast_handle_order_submission');
 
 require_once get_template_directory() . '/inc/custom-setup.php';
 ?>

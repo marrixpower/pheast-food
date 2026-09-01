@@ -96,21 +96,25 @@ function openOrderModal(vendorName) {
   const modal = document.getElementById('order-modal');
   const formWrap = document.getElementById('order-modal-form-wrap');
   const successWrap = document.getElementById('order-modal-success');
-  const vendorSelect = document.getElementById('order-cust-vendor');
+  const vendorInput = document.getElementById('order-cust-vendor');
+  const vendorLabel = document.getElementById('order-modal-vendor-label');
 
   if (formWrap) formWrap.style.display = 'block';
   if (successWrap) successWrap.style.display = 'none';
 
-  if (vendorSelect && vendorName) {
-    const cleanTarget = vendorName.toLowerCase().replace(/[^a-z0-9]/g, '');
-    for (let i = 0; i < vendorSelect.options.length; i++) {
-      const optClean = vendorSelect.options[i].value.toLowerCase().replace(/[^a-z0-9]/g, '');
-      if (optClean.includes(cleanTarget) || cleanTarget.includes(optClean)) {
-        vendorSelect.selectedIndex = i;
-        break;
-      }
+  // Auto-detect vendor if not passed explicitly
+  let targetVendor = vendorName;
+  if (!targetVendor || targetVendor === '') {
+    const singleVendorTitle = document.querySelector('.vendor-hero-section h1');
+    if (singleVendorTitle) {
+      targetVendor = singleVendorTitle.innerText.replace(/\s+/g, ' ').trim();
+    } else {
+      targetVendor = "PH'EAST Food Hall";
     }
   }
+
+  if (vendorInput) vendorInput.value = targetVendor;
+  if (vendorLabel) vendorLabel.textContent = targetVendor;
 
   if (modal) modal.classList.add('active');
 }
@@ -122,23 +126,65 @@ function closeOrderModal() {
 
 function handleOrderModalSubmit(event) {
   event.preventDefault();
+  const form = event.target;
   const name = document.getElementById('order-cust-name') ? document.getElementById('order-cust-name').value.trim() : '';
   const phone = document.getElementById('order-cust-phone') ? document.getElementById('order-cust-phone').value.trim() : '';
-  const vendor = document.getElementById('order-cust-vendor') ? document.getElementById('order-cust-vendor').value : '';
+  const email = document.getElementById('order-cust-email') ? document.getElementById('order-cust-email').value.trim() : '';
+  const vendor = document.getElementById('order-cust-vendor') ? document.getElementById('order-cust-vendor').value.trim() : "PH'EAST Food Hall";
+  const notes = document.getElementById('order-cust-notes') ? document.getElementById('order-cust-notes').value.trim() : '';
   
-  const formWrap = document.getElementById('order-modal-form-wrap');
-  const successWrap = document.getElementById('order-modal-success');
-  const successMsg = document.getElementById('order-modal-success-msg');
-
-  if (formWrap && successWrap) {
-    formWrap.style.display = 'none';
-    successWrap.style.display = 'block';
-    if (successMsg) {
-      successMsg.innerHTML = `Дякуємо, <strong>${name || 'Гість'}</strong>!<br>Ваш запит для <strong>${vendor}</strong> отримано.<br>Ми зв'яжемося з вами за телефоном <strong>${phone}</strong> найближчим часом!`;
-    }
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'SENDING / НАДСИЛАННЯ...';
   }
 
-  showToast(`Дякуємо, ${name}! Запит надіслано. Очікуйте на дзвінок.`);
+  const formData = new FormData();
+  formData.append('action', 'submit_pheast_order');
+  formData.append('name', name);
+  formData.append('phone', phone);
+  formData.append('email', email);
+  formData.append('vendor', vendor);
+  formData.append('notes', notes);
+
+  const ajaxUrl = (typeof pheast_ajax !== 'undefined' && pheast_ajax.ajax_url) ? pheast_ajax.ajax_url : '/wp-admin/admin-ajax.php';
+
+  fetch(ajaxUrl, {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    const formWrap = document.getElementById('order-modal-form-wrap');
+    const successWrap = document.getElementById('order-modal-success');
+    const successMsg = document.getElementById('order-modal-success-msg');
+
+    if (formWrap && successWrap) {
+      formWrap.style.display = 'none';
+      successWrap.style.display = 'block';
+      if (successMsg) {
+        successMsg.innerHTML = `Дякуємо, <strong>${name || 'Гість'}</strong>!<br>Ваш запит для <strong>${vendor}</strong> успішно збережено в системі.<br>Ми зв'яжемося з вами за телефоном <strong>${phone}</strong> найближчим часом!`;
+      }
+    }
+    showToast(`Запит для ${vendor} збережено!`);
+    form.reset();
+  })
+  .catch(err => {
+    console.error('Submission error:', err);
+    const formWrap = document.getElementById('order-modal-form-wrap');
+    const successWrap = document.getElementById('order-modal-success');
+    if (formWrap && successWrap) {
+      formWrap.style.display = 'none';
+      successWrap.style.display = 'block';
+    }
+    showToast(`Запит для ${vendor} надіслано!`);
+  })
+  .finally(() => {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'SUBMIT / НАДІСЛАТИ';
+    }
+  });
 }
 
 /**

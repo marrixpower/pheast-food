@@ -72,8 +72,63 @@ function pheast_register_cpts() {
         'rewrite'     => array('slug' => 'events'),
         'show_in_rest'=> false
     ));
+
+    // Register Order Inquiries Post Type
+    register_post_type('order_inquiry', array(
+        'labels'      => array(
+            'name'          => 'Order Inquiries',
+            'singular_name' => 'Order Inquiry',
+            'all_items'     => 'All Inquiries',
+            'edit_item'     => 'View Inquiry',
+        ),
+        'public'      => false,
+        'show_ui'     => true,
+        'show_in_menu'=> true,
+        'menu_icon'   => 'dashicons-email-alt2',
+        'menu_position' => 26,
+        'supports'    => array('title'),
+        'capability_type' => 'post',
+        'capabilities' => array(
+            'create_posts' => 'do_not_allow',
+        ),
+        'map_meta_cap' => true,
+    ));
 }
 add_action('init', 'pheast_register_cpts');
+
+// Custom Columns for Order Inquiries in WP Admin
+add_filter('manage_order_inquiry_posts_columns', function($columns) {
+    return array(
+        'cb'       => '<input type="checkbox" />',
+        'title'    => 'Customer Name',
+        'vendor'   => 'Target Vendor',
+        'phone'    => 'Phone Number',
+        'email'    => 'Email',
+        'notes'    => 'Order / Inquiry Details',
+        'date'     => 'Date Received'
+    );
+});
+
+add_action('manage_order_inquiry_posts_custom_column', function($column, $post_id) {
+    switch ($column) {
+        case 'vendor':
+            $v = get_post_meta($post_id, '_inquiry_vendor', true);
+            echo '<span style="color:#D41F3C; font-weight:bold;">' . esc_html($v ?: "PH'EAST General") . '</span>';
+            break;
+        case 'phone':
+            $p = get_post_meta($post_id, '_inquiry_phone', true);
+            echo $p ? '<a href="tel:' . esc_attr($p) . '">' . esc_html($p) . '</a>' : '—';
+            break;
+        case 'email':
+            $e = get_post_meta($post_id, '_inquiry_email', true);
+            echo $e ? '<a href="mailto:' . esc_attr($e) . '">' . esc_html($e) . '</a>' : '—';
+            break;
+        case 'notes':
+            $n = get_post_meta($post_id, '_inquiry_notes', true);
+            echo esc_html(wp_trim_words($n, 12, '...'));
+            break;
+    }
+}, 10, 2);
 
 // Register ACF Fields
 function my_acf_add_local_field_groups() {
