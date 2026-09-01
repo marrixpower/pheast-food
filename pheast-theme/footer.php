@@ -88,7 +88,7 @@
       
       <div id="order-modal-form-wrap">
         <h2 style="font-family: 'Oswald', sans-serif !important; font-size: 2.2rem; margin: 0 0 6px 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">ORDER ONLINE</h2>
-        <p style="color: rgba(255,255,255,0.75); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.4;">Залиште ваші дані та деталі замовлення — наша команда зв'яжеться з вами найближчим часом!</p>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.4;">Leave your contact details and order inquiry below — our team will get in touch with you shortly!</p>
         
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
           <div id="order-modal-vendor-tag" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(227,6,56,0.15); border: 1.5px solid #E30638; color: #ffffff; padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -102,28 +102,28 @@
           <input type="hidden" id="order-cust-vendor" name="vendor" value="PH'EAST Food Hall">
           
           <div>
-            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Your Name (Ваше ім'я) *</label>
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Your Name *</label>
             <input type="text" id="order-cust-name" required placeholder="John Doe" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
           </div>
           
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div>
-              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Phone (Телефон) *</label>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Phone Number *</label>
               <input type="tel" id="order-cust-phone" required placeholder="(678) 000-0000" inputmode="tel" minlength="7" maxlength="20" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; transition: border-color 0.2s ease;">
-              <span id="order-phone-error" style="display: none; color: #ff4757; font-size: 0.75rem; font-weight: 600; margin-top: 3px;">Введіть коректний номер (від 7 до 15 цифр)</span>
+              <span id="order-phone-error" style="display: none; color: #ff4757; font-size: 0.75rem; font-weight: 600; margin-top: 3px;">Please enter a valid phone number (9 to 15 digits)</span>
             </div>
             <div>
-              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Email (Пошта)</label>
+              <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Email Address (Optional)</label>
               <input type="email" id="order-cust-email" placeholder="name@email.com" class="footer-input-box" style="width: 100%; height: 44px; background: #181818; border: 1px solid #333; color: #fff; padding: 0 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem;">
             </div>
           </div>
           
           <div>
-            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Order Details / Questions (Замовлення / Повідомлення)</label>
-            <textarea id="order-cust-notes" rows="3" placeholder="Describe what you want to order or your question..." class="footer-input-box" style="width: 100%; background: #181818; border: 1px solid #333; color: #fff; padding: 10px 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; resize: vertical;"></textarea>
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #E30638; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Order Details / Questions</label>
+            <textarea id="order-cust-notes" rows="3" placeholder="Describe what you would like to order or ask..." class="footer-input-box" style="width: 100%; background: #181818; border: 1px solid #333; color: #fff; padding: 10px 14px; border-radius: 4px; box-sizing: border-box; font-size: 0.95rem; resize: vertical;"></textarea>
           </div>
           
-          <button type="submit" class="btn btn-primary" style="width: 100%; height: 48px; background: #E30638; border: 2px solid #E30638; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.1rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; border-radius: 4px; cursor: pointer; margin-top: 6px; transition: all 0.3s ease;">SUBMIT / НАДІСЛАТИ</button>
+          <button type="submit" class="btn btn-primary" style="width: 100%; height: 48px; background: #E30638; border: 2px solid #E30638; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.1rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; border-radius: 4px; cursor: pointer; margin-top: 6px; transition: all 0.3s ease;">SUBMIT ORDER</button>
         </form>
       </div>
       
@@ -133,8 +133,8 @@
           <i class="fa-solid fa-check" style="color: #E30638; font-size: 1.8rem;"></i>
         </div>
         <h3 style="font-family: 'Oswald', sans-serif !important; font-size: 2rem; color: #fff; text-transform: uppercase; margin: 0 0 10px 0;">THANK YOU!</h3>
-        <p id="order-modal-success-msg" style="color: rgba(255,255,255,0.85); font-size: 1rem; line-height: 1.6; margin-bottom: 22px;">Ваш запит отримано. Наша команда зв'яжеться з вами найближчим часом!</p>
-        <button type="button" class="btn btn-primary" onclick="closeOrderModal()" style="padding: 10px 32px; background: #E30638; border: 2px solid #E30638; color: #fff; font-family: 'Oswald', sans-serif !important; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer;">CLOSE / ЗАКРИТИ</button>
+        <p id="order-modal-success-msg" style="color: rgba(255,255,255,0.85); font-size: 1rem; line-height: 1.6; margin-bottom: 22px;">Your inquiry has been received. Our team will contact you shortly!</p>
+        <button type="button" class="btn btn-primary" onclick="closeOrderModal()" style="padding: 10px 32px; background: #E30638; border: 2px solid #E30638; color: #fff; font-family: 'Oswald', sans-serif !important; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer;">CLOSE</button>
       </div>
     </div>
   </div>

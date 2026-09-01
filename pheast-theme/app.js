@@ -142,7 +142,7 @@ function handleOrderModalSubmit(event) {
       nameInput.style.borderColor = '#ff4757';
       nameInput.focus();
     }
-    showToast("Будь ласка, введіть дійсне ім'я (мінімум 2 літери).");
+    showToast("Please enter a valid name (at least 2 letters).");
     return;
   } else if (nameInput) {
     nameInput.style.borderColor = '#333';
@@ -154,14 +154,14 @@ function handleOrderModalSubmit(event) {
 
   if (digitsOnly.length < 9 || digitsOnly.length > 15 || isRepeated) {
     if (phoneError) {
-      phoneError.textContent = 'Введіть дійсний номер (від 9 до 15 цифр, напр. (678) 123-4567)';
+      phoneError.textContent = 'Please enter a valid phone number (9 to 15 digits, e.g. (678) 123-4567)';
       phoneError.style.display = 'block';
     }
     if (phoneInput) {
       phoneInput.style.borderColor = '#ff4757';
       phoneInput.focus();
     }
-    showToast('Будь ласка, введіть дійсний номер телефону.');
+    showToast('Please enter a valid phone number.');
     return;
   } else {
     if (phoneError) phoneError.style.display = 'none';
@@ -171,7 +171,7 @@ function handleOrderModalSubmit(event) {
   const submitBtn = form.querySelector('button[type="submit"]');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.textContent = 'SENDING / НАДСИЛАННЯ...';
+    submitBtn.textContent = 'SENDING...';
   }
 
   const formData = new FormData();
@@ -191,7 +191,7 @@ function handleOrderModalSubmit(event) {
   .then(res => res.json())
   .then(data => {
     if (!data.success) {
-      const errorMsg = (data.data && data.data.message) ? data.data.message : 'Помилка валідації даних.';
+      const errorMsg = (data.data && data.data.message) ? data.data.message : 'Validation error occurred.';
       if (phoneError) {
         phoneError.textContent = errorMsg;
         phoneError.style.display = 'block';
@@ -212,20 +212,20 @@ function handleOrderModalSubmit(event) {
       formWrap.style.display = 'none';
       successWrap.style.display = 'block';
       if (successMsg) {
-        successMsg.innerHTML = `Дякуємо, <strong>${name}</strong>!<br>Ваш запит для <strong>${vendor}</strong> успішно збережено в системі.<br>Ми зв'яжемося з вами за телефоном <strong>${phone}</strong> найближчим часом!`;
+        successMsg.innerHTML = `Thank you, <strong>${name}</strong>!<br>Your inquiry for <strong>${vendor}</strong> has been received.<br>Our team will contact you at <strong>${phone}</strong> shortly!`;
       }
     }
-    showToast(`Запит для ${vendor} збережено!`);
+    showToast(`Inquiry for ${vendor} submitted successfully!`);
     form.reset();
   })
   .catch(err => {
     console.error('Submission error:', err);
-    showToast('Помилка з\'єднання. Спробуйте ще раз.');
+    showToast('Connection error. Please try again.');
   })
   .finally(() => {
     if (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'SUBMIT / НАДІСЛАТИ';
+      submitBtn.textContent = 'SUBMIT ORDER';
     }
   });
 }

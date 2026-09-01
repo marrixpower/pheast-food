@@ -141,7 +141,7 @@ function pheast_handle_order_submission() {
 
     // Validate Name
     if (empty($name) || mb_strlen($name) < 2 || preg_match('/^[\d\W]+$/u', $name)) {
-        wp_send_json_error(array('message' => "Будь ласка, введіть дійсне ім'я (мінімум 2 літери)."));
+        wp_send_json_error(array('message' => 'Please provide a valid name (at least 2 letters).'));
     }
 
     // Validate Phone Number
@@ -149,7 +149,7 @@ function pheast_handle_order_submission() {
     $is_repeated = (bool) preg_match('/^(\d)\1+$/', $digits);
 
     if (empty($phone) || strlen($digits) < 9 || strlen($digits) > 15 || $is_repeated) {
-        wp_send_json_error(array('message' => 'Будь ласка, вкажіть дійсний номер телефону (напр. (678) 123-4567 або +380...).'));
+        wp_send_json_error(array('message' => 'Please provide a valid phone number (e.g. (678) 123-4567 or international format).'));
     }
 
     // 1. Save to WordPress Database (Order Inquiries CPT)

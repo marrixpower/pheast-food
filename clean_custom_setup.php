@@ -212,33 +212,33 @@ function my_acf_add_local_field_groups() {
 
             // TAB 3: Menu Highlights Section
             array('key' => 'field_vendor_tab_menu', 'label' => '3. Menu Highlights', 'type' => 'tab'),
-            array('key' => 'field_vendor_menu_label', 'label' => 'Menu Subtitle (Червоний надзаголовок e.g. POPULAR DRINKS)', 'name' => 'vendor_menu_label', 'type' => 'text', 'default_value' => 'POPULAR DRINKS'),
-            array('key' => 'field_vendor_menu_title', 'label' => 'Menu Main Heading (Головна назва меню)', 'name' => 'vendor_menu_title', 'type' => 'text', 'placeholder' => 'e.g. KUNG FU TEA MENU HIGHLIGHTS', 'instructions' => 'Головний заголовок блоку меню. Якщо залишити порожнім, автоматично підтягується назва закладу + MENU HIGHLIGHTS.'),
+            array('key' => 'field_vendor_menu_label', 'label' => 'Menu Subtitle (Red Subheading e.g. POPULAR DRINKS)', 'name' => 'vendor_menu_label', 'type' => 'text', 'default_value' => 'POPULAR DRINKS'),
+            array('key' => 'field_vendor_menu_title', 'label' => 'Menu Main Heading', 'name' => 'vendor_menu_title', 'type' => 'text', 'placeholder' => 'e.g. KUNG FU TEA MENU HIGHLIGHTS', 'instructions' => 'Main heading for menu section. If left empty, defaults to Vendor Name + MENU HIGHLIGHTS.'),
             array(
                 'key' => 'field_vendor_menu_items',
-                'label' => 'Menu Items List (Позиції меню: Назва, Ціна, Опис)',
+                'label' => 'Menu Items List (Item Name, Price, Description)',
                 'name' => 'vendor_menu_items',
                 'type' => 'repeater',
                 'layout' => 'table',
-                'button_label' => '+ Add Menu Item (Додати страву)',
+                'button_label' => '+ Add Menu Item',
                 'sub_fields' => array(
                     array(
                         'key' => 'field_vmenu_item_name',
-                        'label' => 'Item Name (Назва)',
+                        'label' => 'Item Name',
                         'name' => 'item_name',
                         'type' => 'text',
                         'placeholder' => 'e.g. CLASSIC MILK TEA',
                     ),
                     array(
                         'key' => 'field_vmenu_item_price',
-                        'label' => 'Price (Ціна)',
+                        'label' => 'Price',
                         'name' => 'item_price',
                         'type' => 'text',
                         'placeholder' => 'e.g. $5.50',
                     ),
                     array(
                         'key' => 'field_vmenu_item_desc',
-                        'label' => 'Item Description (Опис)',
+                        'label' => 'Item Description',
                         'name' => 'item_description',
                         'type' => 'textarea',
                         'rows' => 3,
@@ -275,11 +275,11 @@ function my_acf_add_local_field_groups() {
             ),
             array(
                 'key' => 'field_vendor_order_modal_text',
-                'label' => 'Order Button Text (Текст на кнопці в меню Order Online)',
+                'label' => 'Order Button Text',
                 'name' => 'vendor_order_modal_text',
                 'type' => 'text',
                 'placeholder' => 'e.g. 🧋 KUNG FU TEA',
-                'instructions' => 'Введіть текст та емодзі, які відображатимуться на кнопці в спливаючому вікні «ORDER ONLINE» (наприклад: 🧋 KUNG FU TEA, 🍣 POKE BURRI, 🍜 LIFTING NOODLES).'
+                'instructions' => 'Enter text and emoji displayed on the Order Online button (e.g. 🧋 KUNG FU TEA, 🍣 POKE BURRI, 🍜 LIFTING NOODLES).'
             ),
             array(
                 'key' => 'field_vendor_order_modal_link',
