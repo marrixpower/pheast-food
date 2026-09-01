@@ -154,12 +154,12 @@ $other_vendors = get_posts([
         <div style="max-width: 580px;">
           <!-- Title with Stamp Logo -->
           <div style="margin-bottom: 20px;">
-            <h1 style="margin: 0; line-height: 0.88; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 5.8rem; text-transform: uppercase;">
+            <h1 style="margin: 0; line-height: 0.92; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: clamp(2.8rem, 6.2vw, 5.2rem); text-transform: uppercase; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
               <?php if (!empty($title_accent)): ?>
-                <span style="display: block; color: #E30638; letter-spacing: 1px;"><?php echo wp_kses_post($title_accent); ?></span>
+                <span style="display: block; color: #E30638; letter-spacing: 1px; word-break: break-word;"><?php echo wp_kses_post($title_accent); ?></span>
               <?php endif; ?>
               <?php if (!empty($title_white)): ?>
-                <span style="display: block; color: #ffffff; letter-spacing: 1px; position: relative; width: fit-content;">
+                <span style="display: block; color: #ffffff; letter-spacing: 1px; position: relative; width: fit-content; max-width: 100%; word-break: break-word;">
                   <?php echo esc_html($title_white); ?>
                   <?php if (!empty($stamp_logo)): ?>
                     <img src="<?php echo esc_url($stamp_logo); ?>" alt="<?php the_title_attribute(); ?> Symbol" class="vendor-stamp-img" style="position: absolute; left: calc(100% + 20px); top: 50%; transform: translateY(-50%); height: 185px; width: auto; max-width: none; display: block; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); pointer-events: none; object-fit: contain;">

@@ -1992,17 +1992,18 @@ html[data-theme="app"] .value-title { color: #000;}
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   backdrop-filter: blur(8px);
   z-index: 10001;
   display: none; /* Flex when active */
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
+  white-space: normal !important;
   flex-shrink: 0;
   padding: 20px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  overflow-y: auto;
 }
 
 .modal-overlay.active {
@@ -2011,23 +2012,52 @@ html[data-theme="app"] .value-title { color: #000;}
 }
 
 .modal-card {
-  background-color: #000000 !important;
+  background-color: #0c0c0c !important;
   color: var(--text-main);
-  padding: 40px;
-  border-radius: var(--card-radius);
-  max-width: 600px;
+  padding: 35px 28px;
+  border-radius: 12px;
+  max-width: 520px;
   width: 100%;
   position: relative;
   transform: translateY(20px);
   transition: transform 0.3s ease;
-  border: 4px solid var(--accent-primary);
-  box-shadow: 0 0 20px rgba(212,31,60,0.3);
+  border: 2.5px solid #E30638;
+  box-shadow: 0 0 35px rgba(227, 6, 56, 0.35);
+  box-sizing: border-box !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.modal-card h2,
+.modal-card h3,
+.modal-card p,
+.modal-card label,
+.modal-card span {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.modal-card input,
+.modal-card textarea,
+.modal-card select,
+.modal-card button {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 580px) {
+  .modal-card {
+    padding: 25px 18px !important;
+    max-width: 95vw !important;
+  }
 }
 
 .modal-card h2 {
   font-family: var(--font-display);
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
   letter-spacing: 1px;
 }
 
