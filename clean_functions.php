@@ -20,7 +20,7 @@ function pheast_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700;800&family=Bebas+Neue&family=Outfit:wght@800;900&family=Fredoka:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap', array(), null);
     wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), filemtime(get_stylesheet_directory() . '/style.css'));
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
-    wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), '1.2', true);
+    wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), filemtime(get_stylesheet_directory() . '/app.js'), true);
     wp_localize_script('pheast-app', 'pheast_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php')
     ));
@@ -133,15 +133,23 @@ function pheast_acf_op_init() {
 
 // AJAX Handler for Order Inquiry Submissions
 function pheast_handle_order_submission() {
-    $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : 'Guest';
-    $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
-    $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
-    $vendor = isset($_POST['vendor']) ? sanitize_text_field($_POST['vendor']) : "PH'EAST Food Hall";
-    $notes = isset($_POST['notes']) ? sanitize_textarea_field($_POST['notes']) : '';
+    $name = isset($_POST['name']) ? sanitize_text_field(trim($_POST['name'])) : '';
+    $phone = isset($_POST['phone']) ? sanitize_text_field(trim($_POST['phone'])) : '';
+    $email = isset($_POST['email']) ? sanitize_email(trim($_POST['email'])) : '';
+    $vendor = isset($_POST['vendor']) ? sanitize_text_field(trim($_POST['vendor'])) : "PH'EAST Food Hall";
+    $notes = isset($_POST['notes']) ? sanitize_textarea_field(trim($_POST['notes'])) : '';
 
+    // Validate Name
+    if (empty($name) || mb_strlen($name) < 2 || preg_match('/^[\d\W]+$/u', $name)) {
+        wp_send_json_error(array('message' => "Будь ласка, введіть дійсне ім'я (мінімум 2 літери)."));
+    }
+
+    // Validate Phone Number
     $digits = preg_replace('/[^0-9]/', '', $phone);
-    if (empty($phone) || strlen($digits) < 7 || strlen($digits) > 15) {
-        wp_send_json_error(array('message' => 'Будь ласка, вкажіть коректний номер телефону (від 7 до 15 цифр).'));
+    $is_repeated = (bool) preg_match('/^(\d)\1+$/', $digits);
+
+    if (empty($phone) || strlen($digits) < 9 || strlen($digits) > 15 || $is_repeated) {
+        wp_send_json_error(array('message' => 'Будь ласка, вкажіть дійсний номер телефону (напр. (678) 123-4567 або +380...).'));
     }
 
     // 1. Save to WordPress Database (Order Inquiries CPT)

@@ -127,7 +127,8 @@ function closeOrderModal() {
 function handleOrderModalSubmit(event) {
   event.preventDefault();
   const form = event.target;
-  const name = document.getElementById('order-cust-name') ? document.getElementById('order-cust-name').value.trim() : '';
+  const nameInput = document.getElementById('order-cust-name');
+  const name = nameInput ? nameInput.value.trim() : '';
   const phoneInput = document.getElementById('order-cust-phone');
   const phoneError = document.getElementById('order-phone-error');
   const phone = phoneInput ? phoneInput.value.trim() : '';
@@ -135,15 +136,32 @@ function handleOrderModalSubmit(event) {
   const vendor = document.getElementById('order-cust-vendor') ? document.getElementById('order-cust-vendor').value.trim() : "PH'EAST Food Hall";
   const notes = document.getElementById('order-cust-notes') ? document.getElementById('order-cust-notes').value.trim() : '';
   
-  // Basic Phone Validation: extract digits only
+  // 1. Validate Name (min 2 chars, cannot be just digits)
+  if (!name || name.length < 2 || /^[\d\W]+$/.test(name)) {
+    if (nameInput) {
+      nameInput.style.borderColor = '#ff4757';
+      nameInput.focus();
+    }
+    showToast("Будь ласка, введіть дійсне ім'я (мінімум 2 літери).");
+    return;
+  } else if (nameInput) {
+    nameInput.style.borderColor = '#333';
+  }
+
+  // 2. Strict Phone Validation (9-15 digits, no repeated fake numbers like 999999999)
   const digitsOnly = phone.replace(/[^0-9]/g, '');
-  if (digitsOnly.length < 7 || digitsOnly.length > 15) {
-    if (phoneError) phoneError.style.display = 'block';
+  const isRepeated = /^(\d)\1+$/.test(digitsOnly);
+
+  if (digitsOnly.length < 9 || digitsOnly.length > 15 || isRepeated) {
+    if (phoneError) {
+      phoneError.textContent = 'Введіть дійсний номер (від 9 до 15 цифр, напр. (678) 123-4567)';
+      phoneError.style.display = 'block';
+    }
     if (phoneInput) {
       phoneInput.style.borderColor = '#ff4757';
       phoneInput.focus();
     }
-    showToast('Будь ласка, введіть коректний номер телефону (від 7 до 15 цифр).');
+    showToast('Будь ласка, введіть дійсний номер телефону.');
     return;
   } else {
     if (phoneError) phoneError.style.display = 'none';
@@ -172,6 +190,20 @@ function handleOrderModalSubmit(event) {
   })
   .then(res => res.json())
   .then(data => {
+    if (!data.success) {
+      const errorMsg = (data.data && data.data.message) ? data.data.message : 'Помилка валідації даних.';
+      if (phoneError) {
+        phoneError.textContent = errorMsg;
+        phoneError.style.display = 'block';
+      }
+      if (phoneInput) {
+        phoneInput.style.borderColor = '#ff4757';
+        phoneInput.focus();
+      }
+      showToast(errorMsg);
+      return;
+    }
+
     const formWrap = document.getElementById('order-modal-form-wrap');
     const successWrap = document.getElementById('order-modal-success');
     const successMsg = document.getElementById('order-modal-success-msg');
@@ -180,7 +212,7 @@ function handleOrderModalSubmit(event) {
       formWrap.style.display = 'none';
       successWrap.style.display = 'block';
       if (successMsg) {
-        successMsg.innerHTML = `Дякуємо, <strong>${name || 'Гість'}</strong>!<br>Ваш запит для <strong>${vendor}</strong> успішно збережено в системі.<br>Ми зв'яжемося з вами за телефоном <strong>${phone}</strong> найближчим часом!`;
+        successMsg.innerHTML = `Дякуємо, <strong>${name}</strong>!<br>Ваш запит для <strong>${vendor}</strong> успішно збережено в системі.<br>Ми зв'яжемося з вами за телефоном <strong>${phone}</strong> найближчим часом!`;
       }
     }
     showToast(`Запит для ${vendor} збережено!`);
@@ -188,13 +220,7 @@ function handleOrderModalSubmit(event) {
   })
   .catch(err => {
     console.error('Submission error:', err);
-    const formWrap = document.getElementById('order-modal-form-wrap');
-    const successWrap = document.getElementById('order-modal-success');
-    if (formWrap && successWrap) {
-      formWrap.style.display = 'none';
-      successWrap.style.display = 'block';
-    }
-    showToast(`Запит для ${vendor} надіслано!`);
+    showToast('Помилка з\'єднання. Спробуйте ще раз.');
   })
   .finally(() => {
     if (submitBtn) {
