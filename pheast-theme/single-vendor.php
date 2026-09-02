@@ -107,7 +107,16 @@ $other_vendors = get_posts([
         gap: 50px;
         align-items: center;
       }
-      .vendor-hero-section h1,
+      .vendor-hero-section h1 {
+        line-height: 1.08 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+      .vendor-hero-section h1 span {
+        line-height: 1.08 !important;
+        display: block !important;
+      }
       .vendor-hero-subtitle,
       .about-kungfu-grid h2,
       #vendor-menu h2,
@@ -153,13 +162,13 @@ $other_vendors = get_posts([
       <div class="container" style="max-width: 1180px; width: 100%; position: relative; z-index: 2; padding: 40px 20px;">
         <div style="max-width: 580px;">
           <!-- Title with Stamp Logo -->
-          <div style="margin-bottom: 20px;">
-            <h1 style="margin: 0; line-height: 0.92; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: clamp(2.8rem, 6.2vw, 5.2rem); text-transform: uppercase; word-break: break-word; overflow-wrap: break-word; max-width: 100%;">
+          <div style="margin-bottom: 25px;">
+            <h1 style="margin: 0; line-height: 1.08; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: clamp(2.8rem, 6.2vw, 5.2rem); text-transform: uppercase; word-break: break-word; overflow-wrap: break-word; max-width: 100%; display: flex; flex-direction: column; gap: 8px;">
               <?php if (!empty($title_accent)): ?>
-                <span style="display: block; color: #E30638; letter-spacing: 1px; word-break: break-word;"><?php echo wp_kses_post($title_accent); ?></span>
+                <span style="display: block; color: #E30638; letter-spacing: 1px; word-break: break-word; line-height: 1.08;"><?php echo wp_kses_post($title_accent); ?></span>
               <?php endif; ?>
               <?php if (!empty($title_white)): ?>
-                <span style="display: block; color: #ffffff; letter-spacing: 1px; position: relative; width: fit-content; max-width: 100%; word-break: break-word;">
+                <span style="display: block; color: #ffffff; letter-spacing: 1px; position: relative; width: fit-content; max-width: 100%; word-break: break-word; line-height: 1.08;">
                   <?php echo esc_html($title_white); ?>
                   <?php if (!empty($stamp_logo)): ?>
                     <img src="<?php echo esc_url($stamp_logo); ?>" alt="<?php the_title_attribute(); ?> Symbol" class="vendor-stamp-img" style="position: absolute; left: calc(100% + 20px); top: 50%; transform: translateY(-50%); height: 185px; width: auto; max-width: none; display: block; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6)); pointer-events: none; object-fit: contain;">
