@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize background video autoplay for iOS / Mobile Safari
   initHeroVideoAutoplay();
+
+  // Initialize gallery pagination & batching
+  initGalleryPagination();
 });
 
 /**
@@ -74,22 +77,71 @@ function filterVendors(category) {
   });
 }
 
-function filterGallery(category) {
-  const pills = document.querySelectorAll('.gallery-filters .filter-pill');
-  pills.forEach(p => p.classList.remove('active'));
-  if (event && event.target) {
-    event.target.classList.add('active');
-  }
+let galleryCurrentCategory = 'all';
+let galleryVisibleCount = 18;
+const GALLERY_BATCH_SIZE = 18;
 
-  const items = document.querySelectorAll('.gallery-item');
+function updateGalleryDisplay(animate = false) {
+  const items = Array.from(document.querySelectorAll('.gallery-grid .gallery-item'));
+  if (!items.length) return;
+
+  const loadMoreBtnWrap = document.getElementById('gallery-load-more-wrap');
+  let matchedCount = 0;
+
   items.forEach(item => {
-    if (category === 'all' || item.getAttribute('data-category') === category) {
-      item.style.display = 'block';
-      item.style.animation = 'fadeIn 0.4s ease';
+    const cat = item.getAttribute('data-category');
+    const matches = (galleryCurrentCategory === 'all' || cat === galleryCurrentCategory);
+    
+    if (matches) {
+      matchedCount++;
+      if (matchedCount <= galleryVisibleCount) {
+        if (item.style.display === 'none' || !item.style.display) {
+          item.style.display = 'block';
+          if (animate) {
+            item.style.animation = 'fadeIn 0.35s ease';
+          }
+        }
+      } else {
+        item.style.display = 'none';
+      }
     } else {
       item.style.display = 'none';
     }
   });
+
+  if (loadMoreBtnWrap) {
+    if (galleryVisibleCount >= matchedCount) {
+      loadMoreBtnWrap.style.display = 'none';
+    } else {
+      loadMoreBtnWrap.style.display = 'block';
+    }
+  }
+}
+
+function filterGallery(category) {
+  galleryCurrentCategory = category;
+  galleryVisibleCount = GALLERY_BATCH_SIZE;
+
+  const pills = document.querySelectorAll('.gallery-filters .filter-pill');
+  pills.forEach(p => p.classList.remove('active'));
+  if (window.event && window.event.target) {
+    const target = window.event.target.closest('.filter-pill');
+    if (target) target.classList.add('active');
+  }
+
+  updateGalleryDisplay(true);
+}
+
+function loadMoreGallery() {
+  galleryVisibleCount += GALLERY_BATCH_SIZE;
+  updateGalleryDisplay(true);
+}
+
+function initGalleryPagination() {
+  const galleryGrid = document.querySelector('.gallery-grid');
+  if (galleryGrid) {
+    updateGalleryDisplay(false);
+  }
 }
 
 /**

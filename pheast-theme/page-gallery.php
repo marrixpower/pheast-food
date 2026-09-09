@@ -49,8 +49,7 @@ get_header(); ?>
         $gallery_query = new WP_Query([
             'post_type'      => 'gallery_item',
             'posts_per_page' => -1,
-            'orderby'        => 'menu_order',
-            'order'          => 'ASC'
+            'orderby'        => 'rand',
         ]);
         
         if ($gallery_query->have_posts()): 
@@ -99,13 +98,13 @@ get_header(); ?>
                 }
         ?>
         <div class="gallery-item reveal-element reveal-scale" data-category="<?php echo esc_attr($cat_slug); ?>"<?php echo $style; ?>>
-          <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+          <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
         </div>
         <?php endwhile; wp_reset_postdata(); endif; ?>
       </div>
 
-      <div style="text-align: center; margin-top: 40px;">
-        <button class="btn btn-outline" style="padding: 10px 30px; color: #ffffff; border: 2px solid #D41F3C; background: transparent;">Load More</button>
+      <div id="gallery-load-more-wrap" style="text-align: center; margin-top: 45px;">
+        <button id="gallery-load-more-btn" class="btn btn-outline" onclick="loadMoreGallery()" style="padding: 12px 38px; color: #ffffff; border: 2px solid #D41F3C; background: #000000; font-family: 'Oswald', sans-serif !important; font-size: 1.1rem; font-weight: 700 !important; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.3s ease;">MORE</button>
       </div>
     </section>
   </main>

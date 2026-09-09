@@ -96,6 +96,19 @@ function pheast_register_cpts() {
 }
 add_action('init', 'pheast_register_cpts');
 
+// Add direct link to edit Events Page under Events CPT menu
+add_action('admin_menu', function() {
+    $events_page = get_page_by_path('events');
+    $events_page_id = $events_page ? $events_page->ID : 8;
+    add_submenu_page(
+        'edit.php?post_type=event',
+        'Events Page Settings',
+        'Events Page Settings',
+        'edit_pages',
+        'post.php?post=' . $events_page_id . '&action=edit'
+    );
+});
+
 // Custom Columns for Order Inquiries in WP Admin
 add_filter('manage_order_inquiry_posts_columns', function($columns) {
     return array(
@@ -309,6 +322,107 @@ function my_acf_add_local_field_groups() {
         'location' => array(
             array( array('param' => 'post_type', 'operator' => '==', 'value' => 'event') ),
         ),
+    ));
+
+    // EVENTS PAGE SETTINGS (HERO & SECTIONS)
+    acf_add_local_field_group(array(
+        'key' => 'group_events_page',
+        'title' => 'Events Page Settings',
+        'fields' => array(
+            // TAB 1: Hero Section
+            array('key' => 'field_events_tab_hero', 'label' => '1. Hero Section', 'type' => 'tab'),
+            array(
+                'key' => 'field_events_hero_video',
+                'label' => 'Hero Background Video (Фонове відео)',
+                'name' => 'events_hero_video',
+                'type' => 'file',
+                'instructions' => 'Завантажте відео-файл (MP4 або WebM) для фону першого екрана. Якщо поле порожнє, показуватиметься фонове фото.',
+                'return_format' => 'url',
+                'mime_types' => 'mp4,webm,mov,m4v',
+            ),
+            array(
+                'key' => 'field_events_hero_video_url',
+                'label' => 'Hero Video URL (Посилання на відео, якщо зовнішнє)',
+                'name' => 'events_hero_video_url',
+                'type' => 'url',
+                'instructions' => 'Або вставте пряме посилання на MP4/WebM відео.',
+            ),
+            array(
+                'key' => 'field_events_hero_bg',
+                'label' => 'Hero Background Image (Фонове фото / Постер)',
+                'name' => 'events_hero_bg',
+                'type' => 'image',
+                'instructions' => 'Фонове фото першого екрана (або постер перед запуском відео).',
+                'return_format' => 'url'
+            ),
+            array(
+                'key' => 'field_events_hero_title',
+                'label' => 'Hero Title (Головний заголовок)',
+                'name' => 'events_hero_title',
+                'type' => 'text',
+                'default_value' => "EVENTS @ PH'EAST",
+                'instructions' => 'Головний великий білий заголовок у першому екрані.'
+            ),
+            array(
+                'key' => 'field_events_hero_subtitle',
+                'label' => 'Hero Red Accent Subtitle (Червоний підзаголовок)',
+                'name' => 'events_hero_subtitle',
+                'type' => 'text',
+                'default_value' => 'ALWAYS SOMETHING HAPPENING.',
+                'instructions' => 'Червоний підзаголовок під головним заголовком.'
+            ),
+            array(
+                'key' => 'field_events_hero_desc',
+                'label' => 'Hero Description (Опис)',
+                'name' => 'events_hero_desc',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => "From live music to game nights & special collabs.<br>There's always a reason to gather at PH'EAST.",
+                'instructions' => 'Текст опису під червоним підзаголовком. Підтримує переносу рядків <br>.'
+            ),
+
+            // TAB 2: Upcoming Events Section
+            array('key' => 'field_events_tab_upcoming', 'label' => '2. Upcoming Events Section', 'type' => 'tab'),
+            array(
+                'key' => 'field_events_sec_title',
+                'label' => 'Upcoming Events Heading',
+                'name' => 'events_sec_title',
+                'type' => 'text',
+                'default_value' => 'UPCOMING EVENTS',
+                'instructions' => 'Червоний заголовок над каруселлю подій.'
+            ),
+
+            // TAB 3: Private Events & Bookings
+            array('key' => 'field_events_tab_private', 'label' => '3. Private Events & Bookings', 'type' => 'tab'),
+            array(
+                'key' => 'field_events_private_title',
+                'label' => 'Private Events Title',
+                'name' => 'events_private_title',
+                'type' => 'text',
+                'default_value' => 'PRIVATE EVENTS & GROUP BOOKINGS',
+            ),
+            array(
+                'key' => 'field_events_private_desc',
+                'label' => 'Private Events Description',
+                'name' => 'events_private_desc',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => "Planning a party, team outing, or special celebration? We've got the space and the flavor.",
+            ),
+            array(
+                'key' => 'field_events_book_link',
+                'label' => 'Book Event Button Link',
+                'name' => 'events_book_link',
+                'type' => 'text',
+                'default_value' => '/contact',
+                'instructions' => 'Посилання для кнопки бронювання заходу (за замовчуванням /contact).',
+            ),
+        ),
+        'location' => array(
+            array( array('param' => 'page_template', 'operator' => '==', 'value' => 'page-events.php') ),
+            array( array('param' => 'page', 'operator' => '==', 'value' => '8') ),
+        ),
+        'hide_on_screen' => array('the_content'),
     ));
 
     // HOME PAGE SETTINGS (WITH TABS)

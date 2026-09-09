@@ -2,16 +2,33 @@
 /* Template Name: Events Page */
 get_header();
 
-$hero_bg = get_field('events_hero_bg') ?: get_template_directory_uri() . '/assets/events-live.jpg';
-$hero_title = get_field('events_hero_title') ?: "EVENTS @ PH'EAST";
-$hero_subtitle = get_field('events_hero_subtitle') ?: "ALWAYS SOMETHING HAPPENING.";
-$hero_desc = get_field('events_hero_desc') ?: "From live music to game nights & special collabs.<br>There's always a reason to gather at PH'EAST.";
+$events_page = get_page_by_path('events');
+$page_id = $events_page ? $events_page->ID : (get_the_ID() ?: 8);
+
+$hero_video = get_field('events_hero_video', $page_id) ?: get_field('events_hero_video');
+$hero_video_url = get_field('events_hero_video_url', $page_id) ?: get_field('events_hero_video_url');
+$video_src = !empty($hero_video) ? (is_array($hero_video) ? $hero_video['url'] : $hero_video) : (!empty($hero_video_url) ? $hero_video_url : '');
+
+$hero_bg = get_field('events_hero_bg', $page_id) ?: (get_field('events_hero_bg') ?: get_template_directory_uri() . '/assets/events-live.jpg');
+$hero_title = get_field('events_hero_title', $page_id) ?: (get_field('events_hero_title') ?: "EVENTS @ PH'EAST");
+$hero_subtitle = get_field('events_hero_subtitle', $page_id) ?: (get_field('events_hero_subtitle') ?: "ALWAYS SOMETHING HAPPENING.");
+$hero_desc = get_field('events_hero_desc', $page_id) ?: (get_field('events_hero_desc') ?: "From live music to game nights & special collabs.<br>There's always a reason to gather at PH'EAST.");
+$sec_title = get_field('events_sec_title', $page_id) ?: (get_field('events_sec_title') ?: "UPCOMING EVENTS");
+$private_title = get_field('events_private_title', $page_id) ?: (get_field('events_private_title') ?: "PRIVATE EVENTS & GROUP BOOKINGS");
+$private_desc = get_field('events_private_desc', $page_id) ?: (get_field('events_private_desc') ?: "Planning a party, team outing, or special celebration? We've got the space and the flavor.");
+$book_link = get_field('events_book_link', $page_id) ?: (get_field('events_book_link') ?: home_url('/contact'));
 ?>
   <main>
     <!-- HERO SECTION -->
     <section class="hero-section">
       <div class="hero-backdrop">
-        <img src="<?php echo esc_url($hero_bg); ?>" alt="Events Live">
+        <?php if (!empty($video_src)): ?>
+          <video class="hero-bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="<?php echo esc_url($hero_bg); ?>" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; pointer-events: none;">
+            <source src="<?php echo esc_url($video_src); ?>" type="video/mp4">
+          </video>
+        <?php else: ?>
+          <img src="<?php echo esc_url($hero_bg); ?>" alt="Events Live">
+        <?php endif; ?>
         <div class="overlay"></div>
       </div>
       <div class="hero-content">
@@ -30,7 +47,7 @@ $hero_desc = get_field('events_hero_desc') ?: "From live music to game nights & 
         <!-- Header -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
           <h2 style="margin: 0; font-size: 3.2rem; color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 1px;">
-            <?php echo esc_html(get_field('events_sec_title') ?: "UPCOMING EVENTS"); ?>
+            <?php echo esc_html($sec_title); ?>
           </h2>
           <a href="<?php echo home_url('/events'); ?>" style="color: #000000; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 1.5px;">
             VIEW ALL EVENTS
@@ -122,10 +139,10 @@ $hero_desc = get_field('events_hero_desc') ?: "From live music to game nights & 
     <section class="private-events" style="background: #000000; color: #ffffff; padding: 60px 20px; text-align: center;">
       <div class="container" style="max-width: 1180px;">
         <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; text-transform: uppercase;">
-          <?php echo esc_html(get_field('events_private_title') ?: "PRIVATE EVENTS & GROUP BOOKINGS"); ?>
+          <?php echo esc_html($private_title); ?>
         </h2>
         <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; color: rgba(255, 255, 255, 0.85);">
-          <?php echo esc_html(get_field('events_private_desc') ?: "Planning a party, team outing, or special celebration? We've got the space and the flavor."); ?>
+          <?php echo esc_html($private_desc); ?>
         </p>
         
         <div class="private-events-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 40px;">
@@ -162,7 +179,6 @@ $hero_desc = get_field('events_hero_desc') ?: "From live music to game nights & 
           </div>
         </div>
 
-        <?php $book_link = get_field('events_book_link') ?: home_url('/contact'); ?>
         <a href="<?php echo esc_url($book_link); ?>" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px; background: #D41F3C; border-color: #D41F3C; color: #ffffff; display: inline-block; text-decoration: none;">Book An Event</a>
       </div>
     </section>
