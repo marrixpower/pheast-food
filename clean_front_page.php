@@ -1,11 +1,21 @@
-<?php get_header(); ?>
+<?php 
+get_header(); 
 
-
+$hero_video = get_field('home_hero_video_url') ?: get_field('home_hero_video');
+$hero_bg = get_field('home_hero_bg') ?: (get_template_directory_uri() . '/assets/_71A5775-HDR.jpg');
+?>
 
   <!-- HERO -->
   <section class="hero-section hero-left">
     <div class="hero-backdrop">
-      <img src="<?php echo get_template_directory_uri(); ?>/assets/_71A5775-HDR.jpg" alt="PH'EAST Exterior">
+      <?php if (!empty($hero_video)): ?>
+        <video class="hero-bg-video" autoplay loop muted playsinline webkit-playsinline="true" preload="auto" disablepictureinpicture disableremoteplayback poster="<?php echo esc_url($hero_bg); ?>">
+          <source src="<?php echo esc_url($hero_video); ?>" type="video/mp4">
+          <img src="<?php echo esc_url($hero_bg); ?>" alt="PH'EAST Exterior">
+        </video>
+      <?php else: ?>
+        <img src="<?php echo esc_url($hero_bg); ?>" alt="PH'EAST Exterior">
+      <?php endif; ?>
       <div class="overlay"></div>
     </div>
     <div class="hero-content">
@@ -78,26 +88,12 @@
         $btn_link = get_field('vendor_btn_link');
         
         $is_kft = (stripos(get_the_title(), 'Kung Fu') !== false);
-        if ($is_kft && empty($btn_link)) {
-            $btn_link = home_url('/kungfutea/');
-        }
+        $vendor_link = $is_kft ? home_url('/kungfutea/') : get_permalink();
     ?>
-    <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease; display: flex; flex-direction: column; height: 100%;">
-      <a href="<?php the_permalink(); ?>" style="display: block; text-decoration: none;">
-        <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
-          <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
-        </div>
+    <div class="vendor-card">
+      <a href="<?php echo esc_url($vendor_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
+        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
       </a>
-
-      <div style="padding: 25px; display: flex; flex-direction: column; flex-grow: 1;">
-        <span style="color: #D41F3C; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;"><?php echo esc_html($cuisine); ?></span>
-        <a href="<?php the_permalink(); ?>" style="text-decoration: none; color: inherit;">
-          <h3 style="color: #ffffff; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.8rem; margin: 0 0 10px 0;"><?php echo esc_html(get_field('vendor_card_title') ?: get_the_title()); ?></h3>
-        </a>
-        <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1;"><?php echo esc_html($description); ?></p>
-        
-        <a href="<?php the_permalink(); ?>" class="btn btn-outline" style="width: 100%; border: 1px solid #D41F3C; color: #ffffff; display: block; text-align: center; text-decoration: none; margin-top: auto;"><?php echo esc_html($btn_text ?: 'ORDER ONLINE'); ?></a>
-      </div>
     </div>
     <?php endif; endwhile; wp_reset_postdata(); ?>
 </div>

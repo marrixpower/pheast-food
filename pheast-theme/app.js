@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize mobile gallery filter carousel
   initGalleryFilterCarousel();
+
+  // Initialize background video autoplay for iOS / Mobile Safari
+  initHeroVideoAutoplay();
 });
 
 /**
@@ -639,4 +642,43 @@ function handleNewsletterSubmit(e) {
     showToast(`Thank you for subscribing!`);
     input.value = '';
   }
+}
+
+/**
+ * Ensure Background Video Autoplays on iOS/Mobile Safari & In-App WebViews
+ */
+function initHeroVideoAutoplay() {
+  const video = document.querySelector('.hero-bg-video');
+  if (!video) return;
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', 'true');
+
+  const playVideo = () => {
+    if (video.paused) {
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(() => {});
+      }
+    }
+  };
+
+  // Immediate attempt
+  playVideo();
+
+  // If autoplay was paused/blocked by iOS Low Power Mode, start on any first touch or scroll
+  ['touchstart', 'touchend', 'click', 'scroll'].forEach(evt => {
+    window.addEventListener(evt, playVideo, { once: true, passive: true });
+    document.addEventListener(evt, playVideo, { once: true, passive: true });
+  });
+
+  // Re-check when page becomes visible or tab gains focus
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      playVideo();
+    }
+  });
 }

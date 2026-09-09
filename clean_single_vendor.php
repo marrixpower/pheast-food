@@ -24,13 +24,22 @@ if (empty($title_accent) && empty($title_white)) {
     }
 }
 
-$cuisine = get_field('vendor_cuisine') ?: 'BOBA. TEA. DESSERTS.';
+$cuisine = get_field('vendor_hero_subtitle') ?: (get_field('vendor_cuisine') ?: 'BOBA. TEA. DESSERTS.');
 $tagline = get_field('vendor_tagline') ?: 'Taiwanese tea culture in Atlanta.';
 $btn1_text = get_field('vendor_hero_btn1_text') ?: 'ORDER ONLINE';
 $raw_btn1_link = get_field('vendor_hero_btn1_link');
+if (!empty($raw_btn1_link)) {
+    $raw_btn1_link = str_replace([' ', '%20'], '', trim($raw_btn1_link));
+}
 $btn1_link = (!empty($raw_btn1_link) && filter_var($raw_btn1_link, FILTER_VALIDATE_URL)) ? $raw_btn1_link : '';
 $btn2_text = get_field('vendor_hero_btn2_text') ?: 'VIEW MENU';
-$btn2_link = get_field('vendor_hero_btn2_link') ?: '#vendor-menu';
+$raw_btn2_link = get_field('vendor_hero_btn2_link');
+if (!empty($raw_btn2_link)) {
+    $btn2_link = str_replace([' ', '%20'], '', trim($raw_btn2_link));
+} else {
+    $btn2_link = '#vendor-menu';
+}
+$is_btn2_external = (strpos($btn2_link, 'http://') === 0 || strpos($btn2_link, 'https://') === 0);
 
 // 2. ABOUT SECTION
 $about_photo = get_field('vendor_about_photo') ?: (get_field('vendor_logo') ?: get_template_directory_uri() . '/assets/real_kungfu__71A6036.jpg');
@@ -103,7 +112,7 @@ $other_vendors = get_posts([
       }
       .about-kungfu-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(280px, 420px) 1fr;
         gap: 50px;
         align-items: center;
       }
@@ -189,7 +198,7 @@ $other_vendors = get_posts([
             <?php else: ?>
               <button type="button" class="btn btn-primary" onclick="openOrderModal('<?php echo esc_js($vendor_title); ?>')" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; background: #E30638; border: 2px solid #E30638; color: #ffffff; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; cursor: pointer; box-sizing: border-box;"><?php echo esc_html($btn1_text); ?></button>
             <?php endif; ?>
-            <a href="<?php echo esc_attr($btn2_link); ?>" class="btn btn-outline" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; background: #000000; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; text-decoration: none; box-sizing: border-box;"><?php echo esc_html($btn2_text); ?></a>
+            <a href="<?php echo esc_url($btn2_link); ?>" <?php if ($is_btn2_external): ?>target="_blank" rel="noopener noreferrer"<?php endif; ?> class="btn btn-outline" style="min-width: 175px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; background: #000000; padding: 0 20px; font-family: 'Oswald', sans-serif !important; font-weight: 700 !important; font-size: 1.05rem; letter-spacing: 1px; border-radius: 4px; text-transform: uppercase; text-decoration: none; box-sizing: border-box;"><?php echo esc_html($btn2_text); ?></a>
           </div>
         </div>
       </div>
@@ -199,13 +208,13 @@ $other_vendors = get_posts([
     </section>
 
     <!-- ABOUT VENDOR SECTION -->
-    <section id="about-vendor" class="section" style="padding: 70px 0; background: #000000;">
+    <section id="about-vendor" class="section" style="padding: 55px 0; background: #000000;">
       <div class="container" style="max-width: 1180px; padding: 0 20px;">
         <div class="about-kungfu-grid">
-          <!-- Left: Framed Storefront Photo -->
+          <!-- Left: Storefront Photo -->
           <div>
-            <div style="border: 2.5px solid #D41F3C; border-radius: 14px; padding: 10px; background: rgba(0, 0, 0, 0.6); box-shadow: 0 0 25px rgba(212, 31, 60, 0.15);">
-              <img src="<?php echo esc_url($about_photo); ?>" alt="<?php the_title_attribute(); ?> at PH'EAST" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: center; display: block; border-radius: 6px;">
+            <div style="max-width: 400px; width: 100%; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+              <img src="<?php echo esc_url($about_photo); ?>" alt="<?php the_title_attribute(); ?> at PH'EAST" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: center; display: block; border-radius: 14px;">
             </div>
           </div>
 
@@ -294,9 +303,9 @@ $other_vendors = get_posts([
                 $ov_logo = get_field('vendor_logo', $ov->ID) ?: get_the_post_thumbnail_url($ov->ID);
                 $ov_link = get_permalink($ov->ID);
             ?>
-              <div class="vendor-card" style="border-color: #000000;">
-                <a href="<?php echo esc_url($ov_link); ?>" style="display: block; text-decoration: none; cursor: pointer;">
-                  <img src="<?php echo esc_url($ov_logo); ?>" alt="<?php echo esc_attr($ov->post_title); ?>" style="width: 100%; height: auto; display: block;">
+              <div class="vendor-card">
+                <a href="<?php echo esc_url($ov_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
+                  <img src="<?php echo esc_url($ov_logo); ?>" alt="<?php echo esc_attr($ov->post_title); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
                 </a>
               </div>
             <?php endforeach; ?>

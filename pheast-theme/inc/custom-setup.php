@@ -198,6 +198,7 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_vendor_hero_title_accent', 'label' => 'Hero Title Red Accent Part (e.g. KUNG<br>FU)', 'name' => 'vendor_hero_title_accent', 'type' => 'text', 'instructions' => 'Upper red accent words. Leave empty to auto-split post title.'),
             array('key' => 'field_vendor_hero_title_white', 'label' => 'Hero Title White Part (e.g. TEA)', 'name' => 'vendor_hero_title_white', 'type' => 'text', 'instructions' => 'Lower white title words beside the stamp icon.'),
             array('key' => 'field_vendor_stamp_logo', 'label' => 'Stamp / Symbol Icon (Beside Title)', 'name' => 'vendor_stamp_logo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Symbol stamp placed next to the white title word (e.g. Kung Fu Tea stamp).'),
+            array('key' => 'field_vendor_cuisine', 'label' => 'Hero Subtitle (e.g. BAR & BEVERAGES or BOBA. TEA. DESSERTS.)', 'name' => 'vendor_cuisine', 'type' => 'text', 'default_value' => 'BOBA. TEA. DESSERTS.', 'instructions' => 'Text displayed right above the Tagline in the hero section and on directory cards.'),
             array('key' => 'field_vendor_tagline', 'label' => 'Tagline (e.g. Taiwanese tea culture in Atlanta.)', 'name' => 'vendor_tagline', 'type' => 'text', 'default_value' => 'Taiwanese tea culture in Atlanta.'),
             array('key' => 'field_vendor_hero_btn1_text', 'label' => 'Button 1 Text', 'name' => 'vendor_hero_btn1_text', 'type' => 'text', 'default_value' => 'ORDER ONLINE'),
             array('key' => 'field_vendor_hero_btn1_link', 'label' => 'Button 1 Link (Optional)', 'name' => 'vendor_hero_btn1_link', 'type' => 'text', 'instructions' => 'Leave empty to open the Order Online popup modal.'),
@@ -257,7 +258,6 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_vendor_logo', 'label' => 'Vendor Logo Image', 'name' => 'vendor_logo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Logo shown on directory card and other vendors carousel.'),
             array('key' => 'field_vendor_card_show', 'label' => 'Show Vendor Card on Website?', 'name' => 'vendor_card_show', 'type' => 'true_false', 'default_value' => 1, 'ui' => 1, 'instructions' => 'Toggle OFF to hide this vendor card from directory and home page.'),
             array('key' => 'field_vendor_card_title', 'label' => 'Card Display Title (Optional)', 'name' => 'vendor_card_title', 'type' => 'text', 'instructions' => 'Title shown on vendor card. Leave empty to use main title.'),
-            array('key' => 'field_vendor_cuisine', 'label' => 'Cuisine Type / Red Subtitle (e.g. BOBA. TEA. DESSERTS.)', 'name' => 'vendor_cuisine', 'type' => 'text', 'default_value' => 'BOBA. TEA. DESSERTS.', 'instructions' => 'Cuisine / category shown on directory cards and vendor page.'),
             array('key' => 'field_vendor_btn_text', 'label' => 'Card Button Text', 'name' => 'vendor_btn_text', 'type' => 'text', 'default_value' => 'ORDER ONLINE'),
             array('key' => 'field_vendor_hours', 'label' => 'Operating Hours (Optional)', 'name' => 'vendor_hours', 'type' => 'text'),
             array('key' => 'field_vendor_website', 'label' => 'Official Website URL (Optional)', 'name' => 'vendor_website', 'type' => 'url'),
@@ -318,9 +318,26 @@ function my_acf_add_local_field_groups() {
         'fields' => array(
             // Tab 1: Hero
             array('key' => 'field_home_tab_hero', 'label' => 'Hero Section', 'type' => 'tab'),
-            array('key' => 'field_home_hero_bg', 'label' => 'Hero Background Image', 'name' => 'home_hero_bg', 'type' => 'image', 'return_format' => 'url'),
-            array('key' => 'field_home_hero_subtitle', 'label' => 'Hero Subtitle', 'name' => 'home_hero_subtitle', 'type' => 'text', 'default_value' => 'A FAR EAST STREET FEAST.'),
-            array('key' => 'field_home_hero_title', 'label' => 'Hero Main Title', 'name' => 'home_hero_title', 'type' => 'text', 'default_value' => 'ASIAN STREET FOOD'),
+            array(
+                'key' => 'field_home_hero_video',
+                'label' => 'Hero Background Video (Фонове відео)',
+                'name' => 'home_hero_video',
+                'type' => 'file',
+                'instructions' => 'Завантажте відео-файл (MP4 або WebM) для фону першого екрана. Якщо поле порожнє, показуватиметься фонове фото.',
+                'return_format' => 'url',
+                'mime_types' => 'mp4,webm,mov,m4v',
+            ),
+            array(
+                'key' => 'field_home_hero_video_url',
+                'label' => 'Hero Video URL (Посилання на відео, якщо зовнішнє)',
+                'name' => 'home_hero_video_url',
+                'type' => 'url',
+                'instructions' => 'Або вставте пряме посилання на MP4/WebM відео.',
+            ),
+            array('key' => 'field_home_hero_bg', 'label' => 'Hero Background Image (Фонове фото / Постер)', 'name' => 'home_hero_bg', 'type' => 'image', 'instructions' => 'Фонове фото (або постер перед запуском відео)', 'return_format' => 'url'),
+            array('key' => 'field_home_hero_heading', 'label' => 'Hero Heading', 'name' => 'home_hero_heading', 'type' => 'text', 'default_value' => 'ONE FOOD HALL.<br>ENDLESS FLAVOR.'),
+            array('key' => 'field_home_hero_subtitle', 'label' => 'Hero Subtitle', 'name' => 'home_hero_subtitle', 'type' => 'text', 'default_value' => 'Asian street food. Local hawkers.'),
+            array('key' => 'field_home_hero_title', 'label' => 'Hero Main Title (Alt)', 'name' => 'home_hero_title', 'type' => 'text', 'default_value' => 'ASIAN STREET FOOD'),
             
             // Tab 2: Hawker Concept
             array('key' => 'field_home_tab_about', 'label' => 'Hawker Concept', 'type' => 'tab'),

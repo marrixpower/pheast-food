@@ -1,6 +1,7 @@
 <?php
 get_header();
 
+$hero_video = get_field('home_hero_video_url') ?: get_field('home_hero_video');
 $hero_bg = get_field('home_hero_bg') ?: get_template_directory_uri() . '/assets/_71A5775-HDR.jpg';
 $hero_title = get_field('home_hero_title') ?: "ONE FOOD HALL.<br>ENDLESS FLAVOR.";
 $hero_subtitle = get_field('home_hero_subtitle') ?: "Asian street food. Local hawkers.<br>Located at The Battery Atlanta.";
@@ -14,7 +15,14 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
     <!-- HERO -->
     <section class="hero-section hero-left">
       <div class="hero-backdrop">
-        <img src="<?php echo esc_url($hero_bg); ?>" alt="PH'EAST Exterior">
+        <?php if (!empty($hero_video)): ?>
+          <video class="hero-bg-video" autoplay loop muted playsinline webkit-playsinline="true" preload="auto" disablepictureinpicture disableremoteplayback poster="<?php echo esc_url($hero_bg); ?>">
+            <source src="<?php echo esc_url($hero_video); ?>" type="video/mp4">
+            <img src="<?php echo esc_url($hero_bg); ?>" alt="PH'EAST Exterior">
+          </video>
+        <?php else: ?>
+          <img src="<?php echo esc_url($hero_bg); ?>" alt="PH'EAST Exterior">
+        <?php endif; ?>
         <div class="overlay"></div>
       </div>
       <div class="hero-content">
