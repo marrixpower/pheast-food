@@ -176,6 +176,16 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_footer_news_heading', 'label' => 'Newsletter Heading', 'name' => 'footer_news_heading', 'type' => 'text', 'default_value' => 'STAY UPDATED'),
             array('key' => 'field_footer_news_subtext', 'label' => 'Newsletter Subtext', 'name' => 'footer_news_subtext', 'type' => 'text', 'default_value' => 'Join our mailing list for the latest news!'),
             array('key' => 'field_footer_news_placeholder', 'label' => 'Email Input Placeholder', 'name' => 'footer_news_placeholder', 'type' => 'text', 'default_value' => 'Enter your email'),
+
+            // TAB 5: Top Menu & Order Online Button
+            array('key' => 'field_global_tab_order', 'label' => '5. Top Menu Order Button', 'type' => 'tab'),
+            array(
+                'key' => 'field_global_order_link',
+                'label' => 'Direct Order Online 3rd-Party URL (Optional)',
+                'name' => 'global_order_link',
+                'type' => 'url',
+                'instructions' => 'Залиште порожнім (за замовчуванням), щоб кнопка ORDER ONLINE у верхньому меню відкривала спливаюче вікно зі списком вендорів (де кожен вендор веде на свій 3rd-party сервіс замовлення). Якщо вказати URL тут — кнопка у верхньому меню одразу переходитиме на це пряме зовнішнє посилання.',
+            ),
         ),
         'location' => array(
             array( array('param' => 'options_page', 'operator' => '==', 'value' => 'theme-general-settings') ),

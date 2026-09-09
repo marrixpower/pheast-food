@@ -87,7 +87,7 @@
       <!-- 1. VENDOR BUTTONS LIST (SHOWN FOR HEADER ORDER ONLINE BUTTON) -->
       <div id="order-modal-vendor-list">
         <h2 style="font-family: 'Oswald', sans-serif !important; font-size: 2.2rem; margin: 0 0 6px 0; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">ORDER ONLINE</h2>
-        <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 22px; line-height: 1.4;">Choose your vendor to place an order or view options:</p>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 22px; line-height: 1.4;">Select a vendor to order directly online:</p>
         
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <?php
@@ -106,12 +106,15 @@
                   if ($show === null || $show === '' || $show === true || $show == 1):
                       $rendered_any = true;
                       $btn_label = get_field('vendor_order_modal_text') ?: get_the_title();
-                      $order_link = get_field('vendor_order_modal_link');
+                      $order_link = get_field('vendor_order_modal_link') ?: get_field('vendor_hero_btn1_link');
                       $vendor_title = get_the_title();
                       
                       if (!empty($order_link) && filter_var($order_link, FILTER_VALIDATE_URL)):
           ?>
-            <a href="<?php echo esc_url($order_link); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.05rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-radius: 4px; box-sizing: border-box; transition: all 0.3s ease;"><?php echo esc_html($btn_label); ?></a>
+            <a href="<?php echo esc_url($order_link); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #ffffff; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.05rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-radius: 4px; box-sizing: border-box; transition: all 0.3s ease;">
+              <span><?php echo esc_html($btn_label); ?></span>
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.82rem; opacity: 0.75;"></i>
+            </a>
           <?php       else: ?>
             <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('<?php echo esc_js($vendor_title); ?>')" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ffffff; color: #ffffff; font-family: 'Oswald', sans-serif !important; font-size: 1.05rem; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-radius: 4px; box-sizing: border-box; cursor: pointer; transition: all 0.3s ease;"><?php echo esc_html($btn_label); ?></button>
           <?php
@@ -123,11 +126,11 @@
 
           if (!$rendered_any):
           ?>
-            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Kung Fu Tea')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🧋 KUNG FU TEA</button>
-            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Poke Burri')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🍣 POKE BURRI</button>
-            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Lifting Noodles')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🍜 LIFTING NOODLES</button>
-            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('26 Thai Kitchen')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🍲 26 THAI KITCHEN</button>
-            <button type="button" class="btn btn-outline vendor-modal-btn" onclick="openVendorInquiryFromModal('Fan T\'Asia')" style="width: 100%; height: 48px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; border-radius: 4px;">🥟 FAN T'ASIA</button>
+            <a href="https://kft.orderexperience.net/650c9c53d73592bc0e0bd5aa/menu" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; text-decoration: none; border-radius: 4px;"><span>🧋 KUNG FU TEA</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.82rem; opacity: 0.75;"></i></a>
+            <a href="https://direct.chownow.com/order/21016/locations/34996" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; text-decoration: none; border-radius: 4px;"><span>🍣 POKE BURRI</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.82rem; opacity: 0.75;"></i></a>
+            <a href="https://order.toasttab.com/online/ph-fuzion-llc-925-battery-ave-se-ste-1100" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; text-decoration: none; border-radius: 4px;"><span>🍜 LIFTING NOODLES</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.82rem; opacity: 0.75;"></i></a>
+            <a href="https://www.toasttab.com/26-thai-kitchen-the-battery/v3" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; text-decoration: none; border-radius: 4px;"><span>🍲 26 THAI KITCHEN</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.82rem; opacity: 0.75;"></i></a>
+            <a href="https://order.fantasiaga.com/order/main/soup-appetizers" target="_blank" rel="noopener noreferrer" class="btn btn-outline vendor-modal-btn" style="width: 100%; height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid #fff; color: #fff; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; text-transform: uppercase; text-decoration: none; border-radius: 4px;"><span>🥟 FAN T'ASIA</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.82rem; opacity: 0.75;"></i></a>
           <?php endif; ?>
           
           <button type="button" class="btn btn-ghost" onclick="closeOrderModal()" style="margin-top: 6px; width: 100%; height: 44px; color: rgba(255,255,255,0.7); background: transparent; border: 1px solid #333; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; border-radius: 4px; cursor: pointer;">CANCEL</button>

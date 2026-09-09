@@ -17,6 +17,7 @@
 
   <!-- NAVIGATION -->
   <header class="main-header">
+    <?php $global_order_link = get_field('global_order_link', 'option'); ?>
     <div class="container header-inner">
       <a href="<?php echo home_url('/'); ?>" class="brand-logo">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/PHEAST-logo-transparent.png" alt="PH'EAST Food Hall" style="height: 52px; width: auto; object-fit: contain;" class="logo-main">
@@ -27,7 +28,11 @@
         <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close Menu">&times;</button>
         
         <div class="mobile-menu-top-btn-wrap">
-          <button class="btn btn-primary mobile-menu-top-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+          <?php if (!empty($global_order_link)): ?>
+            <a href="<?php echo esc_url($global_order_link); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary mobile-menu-top-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ORDER ONLINE</a>
+          <?php else: ?>
+            <button class="btn btn-primary mobile-menu-top-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+          <?php endif; ?>
         </div>
 
         <div class="mobile-menu-links">
@@ -80,7 +85,11 @@
                 <a href="<?php echo esc_url(get_field('global_ig', 'option') ?: 'https://www.instagram.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="<?php echo esc_url(get_field('global_fb', 'option') ?: 'https://www.facebook.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
               </div>
-              <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+              <?php if (!empty($global_order_link)): ?>
+                <a href="<?php echo esc_url($global_order_link); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary mobile-menu-card-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ORDER ONLINE</a>
+              <?php else: ?>
+                <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
+              <?php endif; ?>
             </div>
           </div>
         </div>
@@ -88,7 +97,11 @@
 
       <!-- RIGHT HEADER CONTROLS (DESKTOP CTA + MOBILE HAMBURGER) -->
       <div style="display: flex; gap: 15px; align-items: center;">
-        <button class="btn btn-primary header-desktop-order-btn" onclick="openOrderModal()">ORDER ONLINE</button>
+        <?php if (!empty($global_order_link)): ?>
+          <a href="<?php echo esc_url($global_order_link); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary header-desktop-order-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">ORDER ONLINE</a>
+        <?php else: ?>
+          <button class="btn btn-primary header-desktop-order-btn" onclick="openOrderModal()">ORDER ONLINE</button>
+        <?php endif; ?>
         <button class="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
