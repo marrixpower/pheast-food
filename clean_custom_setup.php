@@ -424,6 +424,117 @@ function my_acf_add_local_field_groups() {
         'hide_on_screen' => array('the_content'),
     ));
 
+    // ABOUT PAGE SETTINGS
+    acf_add_local_field_group(array(
+        'key' => 'group_about_page',
+        'title' => 'About Page Settings',
+        'fields' => array(
+            // TAB 1: Hero Section
+            array('key' => 'field_about_tab_hero', 'label' => '1. Hero Section (Вступ / Перший екран)', 'type' => 'tab'),
+            array(
+                'key' => 'field_about_hero_image',
+                'label' => 'Hero Featured Image (Головне фото першого екрана)',
+                'name' => 'about_hero_image',
+                'type' => 'image',
+                'instructions' => 'Головне фото першого екрана сторінки About (за замовчуванням фото інтер\'єру).',
+                'return_format' => 'url',
+            ),
+            array(
+                'key' => 'field_about_hero_subtitle',
+                'label' => 'Hero Subtitle (Червоний підзаголовок)',
+                'name' => 'about_hero_subtitle',
+                'type' => 'text',
+                'default_value' => "ABOUT PH'EAST",
+            ),
+            array(
+                'key' => 'field_about_hero_title',
+                'label' => 'Hero Heading (Головний заголовок)',
+                'name' => 'about_hero_title',
+                'type' => 'textarea',
+                'rows' => 2,
+                'default_value' => "ASIAN STREET FOOD.<br>LOCAL SOUL.",
+                'instructions' => 'Великий заголовок (підтримує тег <br>).',
+            ),
+            array(
+                'key' => 'field_about_hero_desc',
+                'label' => 'Hero Description (Текст опису)',
+                'name' => 'about_hero_desc',
+                'type' => 'textarea',
+                'rows' => 4,
+                'default_value' => "PH'EAST is Atlanta's destination for bold Asian street food, unforgettable vibes, and a community that comes together over great food and good times.",
+            ),
+            array(
+                'key' => 'field_about_hero_banner_bg',
+                'label' => 'Hero Full-Width Banner Image (Опціональний великий банер зверху)',
+                'name' => 'about_hero_banner_bg',
+                'type' => 'image',
+                'instructions' => 'Опціонально: якщо сюди завантажити фото, у самому верху сторінки з\'явиться великий банер на всю ширину як на інших сторінках. Якщо залишити порожнім — першим екраном залишається стандартний акуратний блок.',
+                'return_format' => 'url',
+            ),
+            array(
+                'key' => 'field_about_hero_banner_title',
+                'label' => 'Full-Width Banner Title (Заголовок великого банера)',
+                'name' => 'about_hero_banner_title',
+                'type' => 'text',
+                'default_value' => "ABOUT PH'EAST",
+            ),
+            array(
+                'key' => 'field_about_hero_banner_subtitle',
+                'label' => 'Full-Width Banner Subtitle (Червоний підзаголовок банера)',
+                'name' => 'about_hero_banner_subtitle',
+                'type' => 'text',
+                'default_value' => "ASIAN STREET FOOD. LOCAL SOUL.",
+            ),
+
+            // TAB 2: Story Section
+            array('key' => 'field_about_tab_story', 'label' => '2. Our Story Section', 'type' => 'tab'),
+            array(
+                'key' => 'field_about_image',
+                'label' => 'Story Image (Фото блоку історії)',
+                'name' => 'about_image',
+                'type' => 'image',
+                'instructions' => 'Фото для блоку Our Story (за замовчуванням екстер\'єр).',
+                'return_format' => 'url',
+            ),
+            array(
+                'key' => 'field_about_subtitle',
+                'label' => 'Story Subtitle (Червоний підзаголовок)',
+                'name' => 'about_subtitle',
+                'type' => 'text',
+                'default_value' => 'OUR STORY',
+            ),
+            array(
+                'key' => 'field_about_heading',
+                'label' => 'Story Heading (Головний заголовок)',
+                'name' => 'about_heading',
+                'type' => 'textarea',
+                'rows' => 2,
+                'default_value' => "FROM THE STREETS<br>TO THE BATTERY.",
+            ),
+            array(
+                'key' => 'field_about_text1',
+                'label' => 'Story Paragraph 1',
+                'name' => 'about_text1',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => "PH'EAST was born from a love of Asian street food and the energy of night markets. We set out to create a space in Atlanta where people could experience that same energy—bold flavors, late nights, and a whole lot of heart.",
+            ),
+            array(
+                'key' => 'field_about_text2',
+                'label' => 'Story Paragraph 2',
+                'name' => 'about_text2',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => "Today, we're proud to support local vendors, showcase amazing talent, and welcome thousands of guests who make PH'EAST what it is.",
+            ),
+        ),
+        'location' => array(
+            array( array('param' => 'page_template', 'operator' => '==', 'value' => 'page-about.php') ),
+            array( array('param' => 'page', 'operator' => '==', 'value' => '6') ),
+        ),
+        'hide_on_screen' => array('the_content'),
+    ));
+
     // HOME PAGE SETTINGS (WITH TABS)
     acf_add_local_field_group(array(
         'key' => 'group_home_page',

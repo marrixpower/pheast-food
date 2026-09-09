@@ -1,47 +1,87 @@
 <?php
 /* Template Name: About Page */
 get_header();
+
+$about_page = get_page_by_path('about');
+$page_id = $about_page ? $about_page->ID : (get_the_ID() ?: 6);
+
+// Hero / First Screen Section
+$hero_subtitle = get_field('about_hero_subtitle', $page_id) ?: (get_field('about_top_subtitle', $page_id) ?: "ABOUT PH'EAST");
+$hero_title = get_field('about_hero_title', $page_id) ?: (get_field('about_top_heading', $page_id) ?: "ASIAN STREET FOOD.<br>LOCAL SOUL.");
+$hero_desc = get_field('about_hero_desc', $page_id) ?: (get_field('about_top_text', $page_id) ?: "PH'EAST is Atlanta's destination for bold Asian street food, unforgettable vibes, and a community that comes together over great food and good times.");
+$hero_image = get_field('about_hero_image', $page_id) ?: (get_field('about_top_image', $page_id) ?: get_template_directory_uri() . '/assets/foodhall-interior.jpg');
+if (is_array($hero_image)) { $hero_image = $hero_image['url']; }
+
+// Optional Full-Width Hero Banner
+$hero_banner_bg = get_field('about_hero_banner_bg', $page_id);
+if (is_array($hero_banner_bg)) { $hero_banner_bg = $hero_banner_bg['url']; }
+$hero_banner_title = get_field('about_hero_banner_title', $page_id) ?: "ABOUT PH'EAST";
+$hero_banner_subtitle = get_field('about_hero_banner_subtitle', $page_id) ?: "ASIAN STREET FOOD. LOCAL SOUL.";
+
+// Story Section (Second Row)
+$story_image = get_field('about_image', $page_id) ?: (get_field('about_story_image', $page_id) ?: get_template_directory_uri() . '/assets/venue-exterior.jpg');
+if (is_array($story_image)) { $story_image = $story_image['url']; }
+$story_subtitle = get_field('about_subtitle', $page_id) ?: "OUR STORY";
+$story_heading = get_field('about_heading', $page_id) ?: "FROM THE STREETS<br>TO THE BATTERY.";
+$story_text1 = get_field('about_text1', $page_id) ?: "PH'EAST was born from a love of Asian street food and the energy of night markets. We set out to create a space in Atlanta where people could experience that same energy—bold flavors, late nights, and a whole lot of heart.";
+$story_text2 = get_field('about_text2', $page_id) ?: "Today, we're proud to support local vendors, showcase amazing talent, and welcome thousands of guests who make PH'EAST what it is.";
 ?>
 
-
   <main>
-    <section class="about-grid-section container" style="padding: 80px 20px; display: flex; flex-direction: column; gap: 60px;">
+    <?php if (!empty($hero_banner_bg)): ?>
+      <!-- OPTIONAL FULL-WIDTH HERO BANNER -->
+      <section class="hero-section">
+        <div class="hero-backdrop">
+          <img src="<?php echo esc_url($hero_banner_bg); ?>" alt="<?php echo esc_attr($hero_banner_title); ?>">
+          <div class="overlay"></div>
+        </div>
+        <div class="hero-content">
+          <h1 class="hero-title"><?php echo esc_html($hero_banner_title); ?></h1>
+          <p class="hero-subtitle" style="font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #D41F3C;"><?php echo esc_html($hero_banner_subtitle); ?></p>
+        </div>
+        <a href="#next-section" class="hero-scroll-indicator" onclick="scrollToNextSection(event)" aria-label="Scroll to next section">
+          <i class="fa-solid fa-chevron-down"></i>
+        </a>
+      </section>
+    <?php endif; ?>
+
+    <section id="next-section" class="about-grid-section container" style="padding: 80px 20px; display: flex; flex-direction: column; gap: 60px;">
       
-      <!-- Row 1 -->
+      <!-- Row 1: Hero / Intro -->
       <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
         <!-- Left: Text -->
         <div style="flex: 1; min-width: 300px;">
-          <h3 class="reveal-element reveal-right" style="color: var(--accent-primary); font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 5px; transition-delay: 0.1s;">ABOUT PH'EAST</h3>
-          <h2 class="reveal-element reveal-left" style="font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; transition-delay: 0.3s;">ASIAN STREET FOOD.<br>LOCAL SOUL.</h2>
+          <h3 class="reveal-element reveal-right" style="color: var(--accent-primary); font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 5px; transition-delay: 0.1s;"><?php echo esc_html($hero_subtitle); ?></h3>
+          <h2 class="reveal-element reveal-left" style="font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; transition-delay: 0.3s;"><?php echo wp_kses_post($hero_title); ?></h2>
           <p class="reveal-element reveal-right" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary); transition-delay: 0.5s;">
-            PH'EAST is Atlanta's destination for bold Asian street food, unforgettable vibes, and a community that comes together over great food and good times.
+            <?php echo wp_kses_post($hero_desc); ?>
           </p>
         </div>
         <!-- Right: Image -->
         <div style="flex: 1; min-width: 300px;">
           <div class="reveal-element" style="border: 2px solid var(--accent-primary); padding: 10px; border-radius: 8px; box-shadow: 0 0 15px var(--accent-primary); transition-delay: 0.7s;">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/foodhall-interior.jpg" alt="PH'EAST Interior" style="width: 100%; border-radius: 4px; display: block;">
+            <img src="<?php echo esc_url($hero_image); ?>" alt="PH'EAST Interior" style="width: 100%; border-radius: 4px; display: block;">
           </div>
         </div>
       </div>
 
-      <!-- Row 2 -->
+      <!-- Row 2: Our Story -->
       <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap-reverse;">
         <!-- Left: Image -->
         <div style="flex: 1; min-width: 300px;">
           <div class="reveal-element" style="border: 2px solid var(--accent-primary); padding: 10px; border-radius: 8px; box-shadow: 0 0 15px var(--accent-primary);">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/venue-exterior.jpg" alt="PH'EAST Exterior" style="width: 100%; border-radius: 4px; display: block;">
+            <img src="<?php echo esc_url($story_image); ?>" alt="PH'EAST Exterior" style="width: 100%; border-radius: 4px; display: block;">
           </div>
         </div>
         <!-- Right: Text -->
         <div style="flex: 1; min-width: 300px;">
-          <h3 class="reveal-element reveal-right" style="color: var(--accent-primary); font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 5px;"><?php echo get_field("about_subtitle") ? get_field("about_subtitle") : "OUR STORY"; ?></h3>
-          <h2 class="reveal-element reveal-left" style="font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase;"><?php echo get_field("about_heading") ? get_field("about_heading") : "FROM THE STREETS<br>TO THE BATTERY."; ?></h2>
+          <h3 class="reveal-element reveal-right" style="color: var(--accent-primary); font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 5px;"><?php echo esc_html($story_subtitle); ?></h3>
+          <h2 class="reveal-element reveal-left" style="font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase;"><?php echo wp_kses_post($story_heading); ?></h2>
           <p class="reveal-element reveal-right" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 15px; color: var(--text-primary);">
-            PH'EAST was born from a love of Asian street food and the energy of night markets. We set out to create a space in Atlanta where people could experience that same energy—bold flavors, late nights, and a whole lot of heart.
+            <?php echo wp_kses_post($story_text1); ?>
           </p>
           <p class="reveal-element reveal-right" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-primary);">
-            <?php echo get_field('about_text2') ? get_field('about_text2') : "Today, we're proud to support local vendors, showcase amazing talent, and welcome thousands of guests who make PH'EAST what it is."; ?>
+            <?php echo wp_kses_post($story_text2); ?>
           </p>
         </div>
       </div>
