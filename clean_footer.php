@@ -66,14 +66,12 @@
           $social_heading = get_field('footer_social_heading', 'option') ?: 'FOLLOW <br class="footer-br">PH\'EAST';
           $ig = get_field('global_ig', 'option') ?: 'https://www.instagram.com/pheastfoodhall/';
           $fb = get_field('global_fb', 'option') ?: 'https://www.facebook.com/pheastfoodhall/';
-          $yelp = get_field('global_yelp', 'option') ?: 'https://www.yelp.com/biz/pheast-food-hall-atlanta';
           $tiktok = get_field('global_tiktok', 'option') ?: '#';
           ?>
           <h4 class="footer-heading"><?php echo wp_kses_post($social_heading); ?></h4>
           <div class="footer-social-row">
             <?php if(!empty($ig)): ?><a href="<?php echo esc_url($ig); ?>" target="_blank" class="social-circle-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a><?php endif; ?>
             <?php if(!empty($fb)): ?><a href="<?php echo esc_url($fb); ?>" target="_blank" class="social-circle-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><?php endif; ?>
-            <?php if(!empty($yelp)): ?><a href="<?php echo esc_url($yelp); ?>" target="_blank" class="social-circle-btn" aria-label="Yelp"><i class="fab fa-yelp"></i></a><?php endif; ?>
             <?php if(!empty($tiktok)): ?><a href="<?php echo esc_url($tiktok); ?>" target="_blank" class="social-circle-btn" aria-label="TikTok"><i class="fab fa-tiktok"></i></a><?php endif; ?>
           </div>
         </div>

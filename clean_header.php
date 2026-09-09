@@ -70,7 +70,6 @@
             <div class="mobile-menu-socials">
               <a href="<?php echo esc_url(get_field('global_ig', 'option') ?: 'https://www.instagram.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
               <a href="<?php echo esc_url(get_field('global_fb', 'option') ?: 'https://www.facebook.com/pheastfoodhall/'); ?>" target="_blank" class="mobile-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-              <a href="<?php echo esc_url(get_field('global_yelp', 'option') ?: 'https://www.yelp.com/biz/pheast-food-hall-atlanta'); ?>" target="_blank" class="mobile-social-link" aria-label="Yelp"><i class="fa-brands fa-yelp"></i></a>
             </div>
             <button class="btn btn-primary mobile-menu-card-btn" onclick="openOrderModal(); toggleMobileMenu();">ORDER ONLINE</button>
           </div>

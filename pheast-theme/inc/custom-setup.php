@@ -157,7 +157,6 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_footer_social_heading', 'label' => 'Social Block Heading', 'name' => 'footer_social_heading', 'type' => 'text', 'default_value' => 'FOLLOW PH\'EAST'),
             array('key' => 'field_global_ig', 'label' => 'Instagram URL', 'name' => 'global_ig', 'type' => 'url', 'default_value' => 'https://www.instagram.com/pheastfoodhall/'),
             array('key' => 'field_global_fb', 'label' => 'Facebook URL', 'name' => 'global_fb', 'type' => 'url', 'default_value' => 'https://www.facebook.com/pheastfoodhall/'),
-            array('key' => 'field_global_yelp', 'label' => 'Yelp URL', 'name' => 'global_yelp', 'type' => 'url', 'default_value' => 'https://www.yelp.com/biz/pheast-food-hall-atlanta'),
             array('key' => 'field_global_tiktok', 'label' => 'TikTok URL', 'name' => 'global_tiktok', 'type' => 'url', 'default_value' => '#'),
             
             // TAB 2: Location & Address
