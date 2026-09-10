@@ -280,6 +280,14 @@ function my_acf_add_local_field_groups() {
             array('key' => 'field_vendor_logo', 'label' => 'Vendor Logo Image', 'name' => 'vendor_logo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Logo shown on directory card and other vendors carousel.'),
             array('key' => 'field_vendor_card_show', 'label' => 'Show Vendor Card on Website?', 'name' => 'vendor_card_show', 'type' => 'true_false', 'default_value' => 1, 'ui' => 1, 'instructions' => 'Toggle OFF to hide this vendor card from directory and home page.'),
             array('key' => 'field_vendor_card_title', 'label' => 'Card Display Title (Optional)', 'name' => 'vendor_card_title', 'type' => 'text', 'instructions' => 'Title shown on vendor card. Leave empty to use main title.'),
+            array(
+                'key' => 'field_vendor_description',
+                'label' => 'Card Description Text',
+                'name' => 'vendor_description',
+                'type' => 'textarea',
+                'rows' => 3,
+                'instructions' => 'Description text shown on the vendor card in the directory (/vendor/).'
+            ),
             array('key' => 'field_vendor_btn_text', 'label' => 'Card Button Text', 'name' => 'vendor_btn_text', 'type' => 'text', 'default_value' => 'ORDER ONLINE'),
             array('key' => 'field_vendor_hours', 'label' => 'Operating Hours (Optional)', 'name' => 'vendor_hours', 'type' => 'text'),
             array('key' => 'field_vendor_website', 'label' => 'Official Website URL (Optional)', 'name' => 'vendor_website', 'type' => 'url'),
