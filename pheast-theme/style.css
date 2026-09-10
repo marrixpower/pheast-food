@@ -1024,12 +1024,18 @@ video::-webkit-media-controls {
   margin-right: auto;
 }
 
-.hero-left .hero-title {
-  text-align: left;
+.hero-left .hero-title,
+html[data-theme="bold"] .hero-left .hero-title {
+  text-align: left !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
 
-html[data-theme="bold"] .hero-left .hero-title {
-  text-align: left;
+.hero-left .hero-subtitle {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
 }
 
 .hero-buttons {
@@ -1042,7 +1048,9 @@ html[data-theme="bold"] .hero-left .hero-title {
 }
 
 .hero-left .hero-buttons {
-  justify-content: flex-start;
+  justify-content: flex-start !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 /* Hero Scroll Down Indicator - White Heartbeat Pulsing Arrow */

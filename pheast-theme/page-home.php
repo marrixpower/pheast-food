@@ -29,7 +29,7 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
         <h1 class="hero-title" style="font-size: 5.2rem; text-transform: uppercase; font-family: 'Balboa Bold', 'Balboa', 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-weight: 700; line-height: 1.05;">
           <?php echo $hero_title; ?>
         </h1>
-        <p class="hero-subtitle" style="font-size: 1.08rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.45; max-width: 680px; margin: 0 auto 30px auto; color: #ffffff;">
+        <p class="hero-subtitle" style="font-size: 1.08rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.45; max-width: 680px; margin: 0 0 30px 0; text-align: left; color: #ffffff;">
           <span style="display: block;">Asian street food. Local hawkers.</span>
           <span style="display: block;">Located at The Battery Atlanta.</span>
         </p>
