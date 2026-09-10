@@ -1291,6 +1291,10 @@ html[data-theme="app"] .section-title::after {
   transform: translateY(-10px);
 }
 
+.vendor-card:hover .vendor-card-media img {
+  transform: scale(1.04);
+}
+
 .vendor-header-art {
   height: 180px;
   background-size: cover;

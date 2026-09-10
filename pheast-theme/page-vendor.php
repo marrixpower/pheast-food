@@ -63,9 +63,9 @@ $dir_sub = get_field('vendor_page_dir_sub') ?: 'Click any vendor card to learn m
                 $vendor_permalink = get_permalink();
         ?>
         <div class="vendor-card reveal-element reveal-scale" style="background: #000000; border: 1px solid rgba(243, 15, 61, 0.3); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease; display: flex; flex-direction: column; height: 100%;">
-          <a href="<?php echo esc_url($vendor_permalink); ?>" style="display: block; text-decoration: none;">
-            <div style="background: #000; padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" style="max-width: 220px; width: 100%; height: auto; display: inline-block;">
+          <a href="<?php echo esc_url($vendor_permalink); ?>" style="display: block; text-decoration: none; overflow: hidden;">
+            <div class="vendor-card-media" style="background: #000; width: 100%; line-height: 0; overflow: hidden;">
+              <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" style="width: 100%; height: auto; display: block; transition: transform 0.4s ease;">
             </div>
           </a>
 
