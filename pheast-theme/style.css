@@ -187,7 +187,7 @@ html, body {
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -201,6 +201,8 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 a {
@@ -1178,6 +1180,7 @@ html[data-theme='app'] .hero-section::after { bottom: 20%; right: 10%; animation
 .section {
   padding: 80px 0;
   position: relative;
+  overflow-x: clip;
 }
 
 .bg-secondary-section {
@@ -2175,13 +2178,9 @@ html[data-theme="app"] .value-title { color: #000;}
    RESPONSIVE BREAKPOINTS & MOBILE ADAPTATION (390px / 393px Universal Optimization)
    ========================================================================== */
 
-html {
-  overflow-x: hidden;
-}
-
-body {
-  overflow-x: visible;
-  max-width: 100vw;
+html, body {
+  overflow-x: clip !important;
+  max-width: 100vw !important;
 }
 
 @media (max-width: 1200px) {
@@ -2222,6 +2221,11 @@ body {
 
 @media (max-width: 768px) {
   .container { max-width: 100%; padding: 0 16px; }
+  
+  .reveal-element.reveal-left,
+  .reveal-element.reveal-right {
+    transform: translateY(30px) scale(0.96) !important;
+  }
   
   .about-grid-section h2 {
     font-size: calc(3.5rem - 4px) !important;
@@ -2814,6 +2818,7 @@ body {
   width: 1060px; /* 5 cards (196px) + 4 gaps (20px) = 1060px visible width */
   max-width: calc(100% - 130px);
   margin: 0 auto;
+  overflow-x: clip;
 }
 
 .carousel-track {
@@ -3287,7 +3292,7 @@ body {
   background: #000000 !important;
   color: #ffffff;
   padding: 40px 0 15px 0;
-  overflow: visible;
+  overflow-x: clip;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
