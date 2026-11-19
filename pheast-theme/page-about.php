@@ -149,8 +149,8 @@ $story_text2 = get_field('about_text2', $page_id) ?: "Today, we're proud to supp
         <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 40px; color: #ffffff;">What People Say</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
           <div class="testimonial-card" style="background: #000000; border: 2.5px solid #D41F3C; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);">
-            <p style="font-style: italic; margin-bottom: 20px; color: #ffffff;">"Best ramen I've had outside of Japan. The broth is INSANE."</p>
-            <p style="font-weight: bold; color: #ffffff;">— Sarah M. ⭐⭐⭐⭐⭐</p>
+            <p style="font-style: italic; margin-bottom: 20px; color: #ffffff;">"Great pho with rich, flavorful broth! The chicken curry puffs were delicious and crispy. "</p>
+            <p style="font-weight: bold; color: #ffffff;">— Pang P. ⭐⭐⭐⭐⭐</p>
           </div>
           <div class="testimonial-card" style="background: #000000; border: 2.5px solid #D41F3C; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);">
             <p style="font-style: italic; margin-bottom: 20px; color: #ffffff;">"We come here every Braves game day. The energy is incredible."</p>

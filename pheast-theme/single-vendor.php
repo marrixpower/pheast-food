@@ -300,12 +300,22 @@ $other_vendors = get_posts([
           <!-- Track with Other Vendors -->
           <div class="vendors-grid carousel-track">
             <?php foreach ($other_vendors as $ov): 
-                $ov_logo = get_field('vendor_logo', $ov->ID) ?: get_the_post_thumbnail_url($ov->ID);
-                $ov_link = get_permalink($ov->ID);
+                $ov_card = get_field('vendor_card_rectangle', $ov->ID) ?: get_post_meta($ov->ID, 'vendor_card_rectangle', true);
+                if (!$ov_card) {
+                    $ov_square = get_field('vendor_logo', $ov->ID) ?: get_the_post_thumbnail_url($ov->ID);
+                    if ($ov_square && preg_match('/Vendor-Cards-(1[1-6])\.png/i', $ov_square, $m)) {
+                        $num = intval($m[1]) - 6;
+                        $ov_card = str_replace($m[0], sprintf('Vendor-Cards-%02d.png', $num), $ov_square);
+                    } else {
+                        $ov_card = $ov_square;
+                    }
+                }
+                $is_kft = (stripos($ov->post_title, 'Kung Fu') !== false);
+                $ov_link = $is_kft ? home_url('/kungfutea/') : get_permalink($ov->ID);
             ?>
               <div class="vendor-card">
                 <a href="<?php echo esc_url($ov_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
-                  <img src="<?php echo esc_url($ov_logo); ?>" alt="<?php echo esc_attr($ov->post_title); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
+                  <img src="<?php echo esc_url($ov_card); ?>" alt="<?php echo esc_attr($ov->post_title); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
                 </a>
               </div>
             <?php endforeach; ?>

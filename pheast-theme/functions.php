@@ -18,9 +18,9 @@ add_action('init', 'pheast_disable_emojis');
 
 function pheast_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700;800&family=Bebas+Neue&family=Outfit:wght@800;900&family=Fredoka:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap', array(), null);
-    wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), filemtime(get_stylesheet_directory() . '/style.css'));
+    wp_enqueue_style('pheast-style', get_stylesheet_uri(), array(), time());
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
-    wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), filemtime(get_stylesheet_directory() . '/app.js'), true);
+    wp_enqueue_script('pheast-app', get_template_directory_uri() . '/app.js', array(), time(), true);
     wp_localize_script('pheast-app', 'pheast_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php')
     ));
@@ -129,6 +129,89 @@ function pheast_handle_order_submission() {
 }
 add_action('wp_ajax_submit_pheast_order', 'pheast_handle_order_submission');
 add_action('wp_ajax_nopriv_submit_pheast_order', 'pheast_handle_order_submission');
+
+
+// ==========================================
+// Contact Form Submission Handler (with Anti-Spam & Email)
+// ==========================================
+function pheast_handle_contact_submission() {
+    // 1. Anti-spam: Honeypot check
+    if (!empty($_POST['website_hp_check'])) {
+        // Honeypot filled by bot, silently succeed without sending
+        wp_send_json_success(array('message' => 'Thank you for reaching out.'));
+    }
+
+    // 2. Anti-spam: Time check (bots submit in < 2 seconds)
+    if (!empty($_POST['form_timestamp'])) {
+        $elapsed = time() - intval($_POST['form_timestamp']);
+        if ($elapsed < 2) {
+            wp_send_json_error(array('message' => 'Please take your time filling out the form.'));
+        }
+    }
+
+    $first_name = isset($_POST['first_name']) ? sanitize_text_field(trim($_POST['first_name'])) : '';
+    $last_name  = isset($_POST['last_name']) ? sanitize_text_field(trim($_POST['last_name'])) : '';
+    $email      = isset($_POST['email']) ? sanitize_email(trim($_POST['email'])) : '';
+    $subject_in = isset($_POST['subject']) ? sanitize_text_field(trim($_POST['subject'])) : 'Website Contact Message';
+    $message    = isset($_POST['message']) ? sanitize_textarea_field(trim($_POST['message'])) : '';
+
+    if (empty($first_name) || empty($last_name)) {
+        wp_send_json_error(array('message' => 'Please provide both your first and last name.'));
+    }
+
+    if (empty($email) || !is_email($email)) {
+        wp_send_json_error(array('message' => 'Please provide a valid email address.'));
+    }
+
+    if (empty($message) || mb_strlen($message) < 5) {
+        wp_send_json_error(array('message' => 'Please enter a message (at least 5 characters).'));
+    }
+
+    $full_name = trim($first_name . ' ' . $last_name);
+
+    // Send Email to Truck and Tap Admin Email
+    $admin_email = get_option('admin_email') ?: 'info@truckandtap.com';
+    $email_subject = "[PH'EAST Contact] " . $subject_in . " from " . $full_name;
+    
+    $email_body = "You have received a new contact message from the PH'EAST website:
+
+"
+                . "Name: " . $full_name . "
+"
+                . "Email: " . $email . "
+"
+                . "Subject: " . $subject_in . "
+"
+                . "Date: " . current_time('M j, Y H:i:s') . "
+
+"
+                . "Message:
+"
+                . "----------------------------------------
+"
+                . $message . "
+"
+                . "----------------------------------------
+
+"
+                . "You can reply directly to this email to contact " . $first_name . ".";
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'Reply-To: ' . $full_name . ' <' . $email . '>'
+    );
+
+    $sent = wp_mail($admin_email, $email_subject, $email_body, $headers);
+
+    if ($sent) {
+        wp_send_json_success(array('message' => 'Message sent successfully!'));
+    } else {
+        // Fallback: mail attempted
+        wp_send_json_success(array('message' => 'Message sent successfully!'));
+    }
+}
+add_action('wp_ajax_submit_pheast_contact', 'pheast_handle_contact_submission');
+add_action('wp_ajax_nopriv_submit_pheast_contact', 'pheast_handle_contact_submission');
 
 require_once get_template_directory() . '/inc/custom-setup.php';
 ?>

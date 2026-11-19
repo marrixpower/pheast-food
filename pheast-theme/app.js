@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize gallery pagination & batching
   initGalleryPagination();
+
+  // Initialize auto-scrolling events carousel
+  initAutoEventsCarousel();
 });
 
 /**
@@ -430,7 +433,7 @@ function initAutoCarousel() {
     stopAutoScroll();
     autoCarouselTimer = setInterval(() => {
       slideCarousel(1);
-    }, 2500); // Smooth auto-scroll every 2.5 seconds
+    }, 2800); // Smooth auto-scroll every 2.8 seconds
   }
 
   function stopAutoScroll() {
@@ -447,8 +450,16 @@ function initAutoCarousel() {
   container.addEventListener('mouseleave', startAutoScroll);
   container.addEventListener('touchstart', stopAutoScroll, { passive: true });
   container.addEventListener('touchend', () => {
-    setTimeout(startAutoScroll, 3000);
+    setTimeout(startAutoScroll, 3500);
   }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoScroll();
+    } else {
+      startAutoScroll();
+    }
+  });
 }
 
 /**
@@ -539,6 +550,49 @@ function slideEventsCarousel(direction) {
   });
 }
 
+/**
+ * Auto-Scroll Carousel Manager for Events Track
+ */
+let autoEventsTimer = null;
+
+function initAutoEventsCarousel() {
+  const container = document.querySelector('.events-carousel-container');
+  const track = document.querySelector('.events-track');
+  if (!container || !track) return;
+
+  function startAutoScroll() {
+    stopAutoScroll();
+    autoEventsTimer = setInterval(() => {
+      slideEventsCarousel(1);
+    }, 3000); // Smooth auto-scroll every 3.0 seconds
+  }
+
+  function stopAutoScroll() {
+    if (autoEventsTimer) {
+      clearInterval(autoEventsTimer);
+      autoEventsTimer = null;
+    }
+  }
+
+  startAutoScroll();
+
+  // Pause on hover or user touch interaction for smooth UX
+  container.addEventListener('mouseenter', stopAutoScroll);
+  container.addEventListener('mouseleave', startAutoScroll);
+  container.addEventListener('touchstart', stopAutoScroll, { passive: true });
+  container.addEventListener('touchend', () => {
+    setTimeout(startAutoScroll, 3500);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoScroll();
+    } else {
+      startAutoScroll();
+    }
+  });
+}
+
 window.onclick = function(event) {
   const modal = document.getElementById('order-modal');
   if (event.target === modal) {
@@ -568,8 +622,8 @@ function initScrollAnimations() {
   // Auto-apply specific reveal classes for variety
   const animMap = [
     { selector: 'section h2:not(.hero-title)', type: 'reveal-left' },
-    { selector: 'section h3', type: 'reveal-right' },
-    { selector: 'section p:not(.footer-subtext):not(.hero-subtitle)', type: 'reveal-right' },
+    { selector: 'section h3:not(.event-name)', type: 'reveal-right' },
+    { selector: 'section p:not(.footer-subtext):not(.hero-subtitle):not(.event-time)', type: 'reveal-right' },
     { selector: '.vendor-card, .gallery-photo-item, .gallery-item, .filter-pills .pill', type: 'reveal-scale' },
     { selector: '.about-grid-section img', type: '' },
     { selector: '.hawker-image-col img', type: 'reveal-left' },

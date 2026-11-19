@@ -107,22 +107,109 @@ $faq_title = get_field('contact_faq_title') ?: "FREQUENTLY ASKED QUESTIONS";
         <!-- Left: Form -->
         <div style="flex: 1.5; min-width: 300px;">
           <h2 style="font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 1px;"><?php echo esc_html($form_title); ?></h2>
-          <form onsubmit="event.preventDefault(); showToast('Message sent successfully! We will get back to you soon.'); this.reset();">
+          <form id="pheast-contact-form" onsubmit="handleContactSubmit(event)" style="position: relative;">
+            <!-- Honeypot anti-spam fields -->
+            <div style="display:none !important; visibility:hidden; opacity:0; position:absolute; left:-9999px;">
+              <input type="text" name="website_hp_check" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="form_timestamp" value="<?php echo time(); ?>">
+            </div>
+
             <div style="display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap;">
-              <input type="text" placeholder="First Name" class="form-control" style="flex: 1; min-width: 140px; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
-              <input type="text" placeholder="Last Name" class="form-control" style="flex: 1; min-width: 140px; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
+              <input type="text" name="first_name" placeholder="First Name" class="form-control" style="flex: 1; min-width: 140px; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
+              <input type="text" name="last_name" placeholder="Last Name" class="form-control" style="flex: 1; min-width: 140px; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
             </div>
             <div style="margin-bottom: 15px;">
-              <input type="email" placeholder="Email Address" class="form-control" style="width: 100%; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
+              <input type="email" name="email" placeholder="Email Address" class="form-control" style="width: 100%; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
             </div>
             <div style="margin-bottom: 15px;">
-              <input type="text" placeholder="Subject" class="form-control" style="width: 100%; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
+              <input type="text" name="subject" placeholder="Subject" class="form-control" style="width: 100%; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px;" required>
             </div>
             <div style="margin-bottom: 25px;">
-              <textarea placeholder="Your Message" class="form-control" rows="5" style="width: 100%; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px; resize: vertical;" required></textarea>
+              <textarea name="message" placeholder="Your Message" class="form-control" rows="5" style="width: 100%; padding: 12px; background: #000000; border: 1px solid #333; color: white; border-radius: 4px; resize: vertical;" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="padding: 12px 24px; font-size: 1rem; border-radius: 4px; background-color: #D41F3C; color: white; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase;">SEND MESSAGE</button>
+            <button type="submit" id="contact-submit-btn" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 180px; padding: 12px 24px; font-size: 1rem; border-radius: 4px; background-color: #D41F3C; color: white; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: all 0.3s ease;">
+              <span>SEND MESSAGE</span>
+            </button>
+
+            <!-- Success confirmation animation overlay -->
+            <div id="contact-confirmation-overlay" style="display: none; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.95); border: 2px solid #28a745; border-radius: 8px; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; z-index: 10; animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1);">
+              <div style="width: 70px; height: 70px; border-radius: 50%; background: #28a745; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 0 25px rgba(40, 167, 69, 0.6); animation: bounceIn 0.6s ease;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <h3 style="font-family: 'Bebas Kai', sans-serif; font-size: 2.2rem; color: #ffffff; letter-spacing: 1px; margin-bottom: 10px;">MESSAGE SENT!</h3>
+              <p style="color: #cccccc; font-size: 1.05rem; max-width: 360px; line-height: 1.5; margin-bottom: 20px;">Thank you for contacting us. We have received your message and will get back to you shortly.</p>
+              <button type="button" onclick="resetContactForm()" style="background: transparent; border: 1px solid #555; color: #ffffff; padding: 8px 20px; border-radius: 4px; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; transition: all 0.2s ease;">Send Another</button>
+            </div>
           </form>
+
+          <style>
+            @keyframes fadeInScale {
+              from { opacity: 0; transform: scale(0.95); }
+              to { opacity: 1; transform: scale(1); }
+            }
+            @keyframes bounceIn {
+              0% { transform: scale(0.3); opacity: 0; }
+              50% { transform: scale(1.1); }
+              70% { transform: scale(0.9); }
+              100% { transform: scale(1); opacity: 1; }
+            }
+            .btn-loading {
+              opacity: 0.7;
+              pointer-events: none;
+            }
+          </style>
+
+          <script>
+            function handleContactSubmit(e) {
+              e.preventDefault();
+              const form = document.getElementById('pheast-contact-form');
+              const btn = document.getElementById('contact-submit-btn');
+              const originalBtnText = btn.innerHTML;
+              
+              btn.classList.add('btn-loading');
+              btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>SENDING...</span>';
+
+              const formData = new FormData(form);
+              formData.append('action', 'submit_pheast_contact');
+
+              fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                method: 'POST',
+                body: formData
+              })
+              .then(res => res.json())
+              .then(data => {
+                btn.classList.remove('btn-loading');
+                btn.innerHTML = originalBtnText;
+
+                if (data.success) {
+                  const overlay = document.getElementById('contact-confirmation-overlay');
+                  if (overlay) {
+                    overlay.style.display = 'flex';
+                  }
+                  if (typeof showToast === 'function') {
+                    showToast('Message sent successfully!');
+                  }
+                  form.reset();
+                } else {
+                  alert(data.data && data.data.message ? data.data.message : 'Error sending message. Please try again.');
+                }
+              })
+              .catch(err => {
+                btn.classList.remove('btn-loading');
+                btn.innerHTML = originalBtnText;
+                alert('Connection error. Please try again later.');
+              });
+            }
+
+            function resetContactForm() {
+              const overlay = document.getElementById('contact-confirmation-overlay');
+              if (overlay) {
+                overlay.style.display = 'none';
+              }
+            }
+          </script>
         </div>
 
         <!-- Right: Vendor Phone List -->

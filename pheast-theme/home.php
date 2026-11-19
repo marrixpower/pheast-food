@@ -70,58 +70,119 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
 
           <div class="vendors-grid carousel-track">
             <?php
-            $vendors_query = new WP_Query(array(
-                'post_type'      => 'vendor',
-                'posts_per_page' => -1,
-                'orderby'        => 'menu_order title',
-                'order'          => 'ASC'
-            ));
-            if ($vendors_query->have_posts()):
-                while ($vendors_query->have_posts()): $vendors_query->the_post();
-                    $logo = get_field('vendor_logo');
-                    if (!$logo && has_post_thumbnail()) {
-                        $logo = get_the_post_thumbnail_url(get_the_ID(), 'full');
+            $home_vendor_cards = get_field('home_vendor_cards');
+            
+            $resolve_vendor_link = function($att_id, $img_url, $title_or_alt, $default_index) {
+                if ($att_id) {
+                    $att_post = get_post($att_id);
+                    if ($att_post) {
+                        $caption = trim($att_post->post_excerpt);
+                        $desc = trim($att_post->post_content);
+                        if (!empty($caption) && (filter_var($caption, FILTER_VALIDATE_URL) || strpos($caption, '/') === 0)) {
+                            return $caption;
+                        }
+                        if (!empty($desc) && (filter_var($desc, FILTER_VALIDATE_URL) || strpos($desc, '/') === 0)) {
+                            return $desc;
+                        }
                     }
-                    $is_kft = (stripos(get_the_title(), 'Kung Fu') !== false);
-                    $vendor_link = $is_kft ? home_url('/kungfutea/') : get_permalink();
+                }
+                $str = strtolower($img_url . ' ' . $title_or_alt);
+                if (strpos($str, '05') !== false || strpos($str, 'taps') !== false) {
+                    return home_url('/vendors/taps-pheast/');
+                }
+                if (strpos($str, '06') !== false || strpos($str, 'kungfu') !== false || strpos($str, 'kung fu') !== false || strpos($str, 'boba') !== false) {
+                    return home_url('/kungfutea/');
+                }
+                if (strpos($str, '07') !== false || strpos($str, 'poke') !== false || strpos($str, 'burri') !== false) {
+                    return home_url('/vendors/poke-burri/');
+                }
+                if (strpos($str, '08') !== false || strpos($str, 'fuzion') !== false || strpos($str, 'noodle') !== false || strpos($str, 'ramen') !== false) {
+                    return home_url('/vendors/lifting-noodles-ramen/');
+                }
+                if (strpos($str, '09') !== false || strpos($str, 'thai') !== false || strpos($str, '26') !== false) {
+                    return home_url('/vendors/26-thai-kitchen-bar/');
+                }
+                if (strpos($str, '10') !== false || strpos($str, 'fan') !== false || strpos($str, 'tasia') !== false) {
+                    return home_url('/vendors/fan-tasia/');
+                }
+                static $cached_vendors = null;
+                if ($cached_vendors === null) {
+                    $cached_vendors = get_posts([
+                        'post_type' => 'vendor',
+                        'posts_per_page' => -1,
+                        'orderby' => 'menu_order',
+                        'order' => 'ASC'
+                    ]);
+                }
+                if (!empty($cached_vendors) && isset($cached_vendors[$default_index])) {
+                    $v = $cached_vendors[$default_index];
+                    $is_kft = (stripos($v->post_title, 'Kung Fu') !== false);
+                    return $is_kft ? home_url('/kungfutea/') : get_permalink($v->ID);
+                }
+                return home_url('/vendor/');
+            };
+
+            if (!empty($home_vendor_cards)):
+                foreach ($home_vendor_cards as $idx => $card):
+                    $card_url = '';
+                    $card_alt = "PH'EAST Vendor";
+                    $card_id = 0;
+                    if (is_array($card)) {
+                        $card_url = $card['url'];
+                        $card_alt = !empty($card['alt']) ? $card['alt'] : (!empty($card['title']) ? $card['title'] : $card_alt);
+                        $card_id = !empty($card['ID']) ? $card['ID'] : 0;
+                    } elseif (is_numeric($card)) {
+                        $card_id = (int)$card;
+                        $card_url = wp_get_attachment_image_url($card, 'full');
+                        $alt = get_post_meta($card, '_wp_attachment_image_alt', true);
+                        if ($alt) $card_alt = $alt;
+                    } else {
+                        $card_url = $card;
+                    }
+                    if (!$card_url) continue;
+                    $vendor_link = $resolve_vendor_link($card_id, $card_url, $card_alt, $idx);
             ?>
             <div class="vendor-card">
-              <a href="<?php echo esc_url($vendor_link); ?>" style="display: block; text-decoration: none; cursor: pointer;">
-                <?php if ($logo): ?>
-                  <img src="<?php echo esc_url($logo); ?>" alt="<?php the_title_attribute(); ?>" style="width: 100%; height: auto; display: block;">
-                <?php else: ?>
-                  <div style="padding: 30px 15px; text-align: center; color: #000; font-family: 'Bebas Kai', sans-serif; font-size: 1.6rem; border: 2px dashed #D41F3C; border-radius: 8px;">
-                    <?php the_title(); ?>
-                  </div>
-                <?php endif; ?>
+              <a href="<?php echo esc_url($vendor_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
+                <img src="<?php echo esc_url($card_url); ?>" alt="<?php echo esc_attr($card_alt); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
               </a>
             </div>
             <?php
-                endwhile;
-                wp_reset_postdata();
+                endforeach;
             else:
+                $vendors_query = new WP_Query(array(
+                    'post_type' => 'vendor',
+                    'posts_per_page' => -1,
+                    'orderby' => 'menu_order',
+                    'order' => 'ASC'
+                ));
+                $fallback_idx = 0;
+                while ($vendors_query->have_posts()): $vendors_query->the_post();
+                    $card_url = get_field('vendor_card_rectangle') ?: get_post_meta(get_the_ID(), 'vendor_card_rectangle', true);
+                    if (!$card_url) {
+                        $square = get_field('vendor_logo') ?: get_the_post_thumbnail_url();
+                        if ($square && preg_match('/Vendor-Cards-(1[1-6])\.png/i', $square, $m)) {
+                            $num = intval($m[1]) - 6;
+                            $card_url = str_replace($m[0], sprintf('Vendor-Cards-%02d.png', $num), $square);
+                        } else {
+                            $card_url = sprintf('https://snow-quetzal-139443.hostingersite.com/wp-content/uploads/2026/09/Vendor-Cards-%02d.png', $fallback_idx + 5);
+                        }
+                    }
+                    $is_kft = (stripos(get_the_title(), 'Kung Fu') !== false);
+                    $vendor_link = $is_kft ? home_url('/kungfutea/') : get_permalink();
+                    $fallback_idx++;
             ?>
             <div class="vendor-card">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_taps.png?v=6" alt="TAPs @ PH'EAST" style="width: 100%; height: auto; display: block;">
-            </div>
-            <div class="vendor-card">
-              <a href="<?php echo home_url('/vendor/kung-fu-tea'); ?>" style="display: block; text-decoration: none; cursor: pointer;">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_kungfutea.png?v=6" alt="Kung Fu Tea" style="width: 100%; height: auto; display: block;">
+              <a href="<?php echo esc_url($vendor_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
+                <img src="<?php echo esc_url($card_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
               </a>
             </div>
-            <div class="vendor-card">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_pokeburri.png?v=6" alt="Poke Burri" style="width: 100%; height: auto; display: block;">
-            </div>
-            <div class="vendor-card">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_liftingnoodles.png?v=6" alt="Lifting Noodles Ramen" style="width: 100%; height: auto; display: block;">
-            </div>
-            <div class="vendor-card">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_26thai.png?v=6" alt="26 Thai Kitchen & Bar" style="width: 100%; height: auto; display: block;">
-            </div>
-            <div class="vendor-card">
-              <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_fantasia.png?v=6" alt="Fan T'Asia" style="width: 100%; height: auto; display: block;">
-            </div>
-            <?php endif; ?>
+            <?php endwhile; wp_reset_postdata(); endif; ?>
+          </div>
+          <div class="carousel-mobile-swipe-hint vendors-mobile-swipe-hint">
+            <i class="fa-solid fa-arrows-left-right"></i>
+            <span>Swipe for more vendors</span>
+            <i class="fa-solid fa-chevron-right pulse-arrow"></i>
           </div>
         </div>
       </div>
@@ -202,11 +263,11 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
     </section>
 
     <!-- EVENTS SECTION -->
-    <section class="section bg-light-events" style="padding: 20px 0; background: #ffffff; color: #000000;">
+    <section class="section bg-light-events upcoming-events" style="padding: 20px 0; background: #ffffff; color: #000000;">
       <div class="container" style="max-width: 1180px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
-          <h2 style="margin: 0; font-size: 3.2rem; color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 1px;">UPCOMING EVENTS</h2>
-          <a href="<?php echo home_url('/events'); ?>" style="color: #000000; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 1.5px;">
+        <div class="events-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
+          <h2 class="events-section-title" style="margin: 0; font-size: 3.2rem; color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 1px;">UPCOMING EVENTS</h2>
+          <a href="<?php echo home_url('/events'); ?>" class="events-view-all-link" style="color: #000000; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 1.5px;">
             VIEW ALL EVENTS
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
               <line x1="4" y1="12" x2="20" y2="12"></line>
@@ -256,18 +317,20 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
                     if (!empty($raw_date)) {
                         $timestamp = strtotime($raw_date);
                         if (!$timestamp) {
-                            $dt = DateTime::createFromFormat('Ymd', $raw_date);
+                            $dt = DateTime::createFromFormat('F j, Y', $raw_date);
+                            if (!$dt) $dt = DateTime::createFromFormat('Ymd', $raw_date);
+                            if (!$dt) $dt = DateTime::createFromFormat('m/d/Y', $raw_date);
                             if ($dt) $timestamp = $dt->getTimestamp();
                         }
                         if ($timestamp) {
-                            $day = strtoupper(date('D', $timestamp));
-                            $date_num = date('j', $timestamp);
+                            $day = strtoupper(date('l', $timestamp));
+                            $date_num = strtoupper(date('F j', $timestamp));
                         } else {
                             $date_num = strtoupper($raw_date);
                         }
                     }
             ?>
-            <a href="<?php echo esc_url($event_link); ?>" class="event-mock-card" style="text-decoration: none; color: inherit; display: block;">
+            <a href="<?php echo esc_url($event_link); ?>" class="event-mock-card">
               <div class="event-date-box">
                 <span class="day"><?php echo esc_html($day); ?></span>
                 <span class="date"><?php echo esc_html($date_num); ?></span>
@@ -286,8 +349,8 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
             ?>
             <div class="event-mock-card">
               <div class="event-date-box">
-                <span class="day">MON</span>
-                <span class="date">31</span>
+                <span class="day">MONDAY</span>
+                <span class="date">MAY 31</span>
               </div>
               <div class="event-info-box">
                 <h3 class="event-name">TRIVIA NIGHT</h3>
@@ -296,8 +359,8 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
             </div>
             <div class="event-mock-card">
               <div class="event-date-box">
-                <span class="day">WED</span>
-                <span class="date">2</span>
+                <span class="day">WEDNESDAY</span>
+                <span class="date">JUNE 2</span>
               </div>
               <div class="event-info-box">
                 <h3 class="event-name">BRAVES<br>HOME GAME</h3>
@@ -306,8 +369,8 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
             </div>
             <div class="event-mock-card">
               <div class="event-date-box">
-                <span class="day">THUR</span>
-                <span class="date">3</span>
+                <span class="day">THURSDAY</span>
+                <span class="date">JUNE 3</span>
               </div>
               <div class="event-info-box">
                 <h3 class="event-name">KARAOKE<br>NIGHT</h3>
@@ -316,8 +379,8 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
             </div>
             <div class="event-mock-card">
               <div class="event-date-box">
-                <span class="day">SAT</span>
-                <span class="date">5</span>
+                <span class="day">SATURDAY</span>
+                <span class="date">JUNE 5</span>
               </div>
               <div class="event-info-box">
                 <h3 class="event-name">LIVE MUSIC</h3>
@@ -326,8 +389,8 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
             </div>
             <div class="event-mock-card">
               <div class="event-date-box">
-                <span class="day">SUN</span>
-                <span class="date">6</span>
+                <span class="day">SUNDAY</span>
+                <span class="date">JUNE 6</span>
               </div>
               <div class="event-info-box">
                 <h3 class="event-name">SUNDAY<br>DJ SET</h3>
@@ -355,6 +418,11 @@ $concept_text = get_field('home_concept_text') ?: "PH'EAST is where you come tog
               </div>
             </div>
             <?php endif; ?>
+          </div>
+          <div class="carousel-mobile-swipe-hint events-mobile-swipe-hint">
+            <i class="fa-solid fa-arrows-left-right"></i>
+            <span>Swipe for more events</span>
+            <i class="fa-solid fa-chevron-right pulse-arrow"></i>
           </div>
         </div>
       </div>

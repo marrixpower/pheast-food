@@ -100,18 +100,20 @@ $book_link = get_field('events_book_link', $page_id) ?: (get_field('events_book_
                     if (!empty($raw_date)) {
                         $timestamp = strtotime($raw_date);
                         if (!$timestamp) {
-                            $dt = DateTime::createFromFormat('Ymd', $raw_date);
+                            $dt = DateTime::createFromFormat('F j, Y', $raw_date);
+                            if (!$dt) $dt = DateTime::createFromFormat('Ymd', $raw_date);
+                            if (!$dt) $dt = DateTime::createFromFormat('m/d/Y', $raw_date);
                             if ($dt) $timestamp = $dt->getTimestamp();
                         }
                         if ($timestamp) {
-                            $day = strtoupper(date('l', $timestamp));     // e.g. MONDAY
-                            $date_num = strtoupper(date('M j', $timestamp)); // e.g. MAY 31
+                            $day = strtoupper(date('l', $timestamp));     // e.g. WEDNESDAY
+                            $date_num = strtoupper(date('F j', $timestamp)); // e.g. JUNE 2
                         } else {
                             $date_num = strtoupper($raw_date);
                         }
                     }
             ?>
-            <a href="<?php echo esc_url($event_link); ?>" class="event-mock-card" style="text-decoration: none; color: inherit; display: block;">
+            <a href="<?php echo esc_url($event_link); ?>" class="event-mock-card">
               <div class="event-date-box">
                 <span class="day"><?php echo esc_html($day); ?></span>
                 <span class="date"><?php echo esc_html($date_num); ?></span>
@@ -130,6 +132,11 @@ $book_link = get_field('events_book_link', $page_id) ?: (get_field('events_book_
                 echo '<p style="padding: 20px; font-weight: bold; color: #000;">No upcoming events currently scheduled. Check back soon!</p>';
             endif;
             ?>
+          </div>
+          <div class="carousel-mobile-swipe-hint events-mobile-swipe-hint">
+            <i class="fa-solid fa-arrows-left-right"></i>
+            <span>Swipe for more events</span>
+            <i class="fa-solid fa-chevron-right pulse-arrow"></i>
           </div>
         </div>
       </div>

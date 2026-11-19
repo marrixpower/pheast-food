@@ -62,41 +62,122 @@ $hero_bg = get_field('home_hero_bg') ?: (get_template_directory_uri() . '/assets
         
 <div class="vendors-grid carousel-track">
     <?php
-    $vendors_query = new WP_Query(array(
-        'post_type' => 'vendor',
-        'posts_per_page' => -1,
-        'orderby' => 'menu_order',
-        'order' => 'ASC'
-    ));
-    while( $vendors_query->have_posts() ): $vendors_query->the_post();
-        $show_card = get_field('vendor_card_show');
-        if ($show_card !== false && $show_card !== '0' && $show_card !== 0):
-        $logo_url = get_field('vendor_logo');
-        if (!$logo_url && has_post_thumbnail()) {
-            $logo_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+    $home_vendor_cards = get_field('home_vendor_cards');
+    
+    $resolve_vendor_link = function($att_id, $img_url, $title_or_alt, $default_index) {
+        if ($att_id) {
+            $att_post = get_post($att_id);
+            if ($att_post) {
+                $caption = trim($att_post->post_excerpt);
+                $desc = trim($att_post->post_content);
+                if (!empty($caption) && (filter_var($caption, FILTER_VALIDATE_URL) || strpos($caption, '/') === 0)) {
+                    return $caption;
+                }
+                if (!empty($desc) && (filter_var($desc, FILTER_VALIDATE_URL) || strpos($desc, '/') === 0)) {
+                    return $desc;
+                }
+            }
         }
-        if (!$logo_url) {
-            $logo_url = get_post_meta(get_the_ID(), 'demo_logo_url', true);
+        $filename = basename(parse_url($img_url, PHP_URL_PATH));
+        $str = strtolower($filename . ' ' . $title_or_alt);
+        if (strpos($str, '-05') !== false || strpos($str, 'taps') !== false) {
+            return home_url('/vendors/taps-pheast/');
         }
-        $cuisine = get_field('vendor_cuisine') ?: 'ASIAN STREET FOOD';
-        $description = get_field('vendor_description');
-        if (empty($description)) {
-            $description = wp_strip_all_tags(strip_shortcodes(get_the_content()));
+        if (strpos($str, '-06') !== false || strpos($str, 'kungfu') !== false || strpos($str, 'kung fu') !== false || strpos($str, 'boba') !== false) {
+            return home_url('/vendors/kung-fu-tea/');
         }
-        $btn_text = get_field('vendor_btn_text') ?: 'ORDER ONLINE';
-        $btn_type = get_field('vendor_btn_type') ?: 'modal';
-        $btn_link = get_field('vendor_btn_link');
-        
-        $is_kft = (stripos(get_the_title(), 'Kung Fu') !== false);
-        $vendor_link = $is_kft ? home_url('/kungfutea/') : get_permalink();
+        if (strpos($str, '-07') !== false || strpos($str, 'poke') !== false || strpos($str, 'burri') !== false) {
+            return home_url('/vendors/poke-burri/');
+        }
+        if (strpos($str, '-08') !== false || strpos($str, 'fuzion') !== false || strpos($str, 'noodle') !== false || strpos($str, 'ramen') !== false) {
+            return home_url('/vendors/ph-fuzion/');
+        }
+        if (strpos($str, '-09') !== false || strpos($str, 'thai') !== false || strpos($str, '26') !== false) {
+            return home_url('/vendors/26-thai-kitchen-bar/');
+        }
+        if (strpos($str, '-10') !== false || strpos($str, 'fan') !== false || strpos($str, 'tasia') !== false) {
+            return home_url('/vendors/fan-tasia/');
+        }
+        static $cached_vendors = null;
+        if ($cached_vendors === null) {
+            $cached_vendors = get_posts([
+                'post_type' => 'vendor',
+                'posts_per_page' => -1,
+                'orderby' => 'menu_order',
+                'order' => 'ASC'
+            ]);
+        }
+        if (!empty($cached_vendors) && isset($cached_vendors[$default_index])) {
+            $v = $cached_vendors[$default_index];
+            $is_kft = (stripos($v->post_title, 'Kung Fu') !== false);
+            return $is_kft ? home_url('/kungfutea/') : get_permalink($v->ID);
+        }
+        return home_url('/vendor/');
+    };
+
+    if (!empty($home_vendor_cards)):
+        foreach ($home_vendor_cards as $idx => $card):
+            $card_url = '';
+            $card_alt = "PH'EAST Vendor";
+            $card_id = 0;
+            if (is_array($card)) {
+                $card_url = $card['url'];
+                $card_alt = !empty($card['alt']) ? $card['alt'] : (!empty($card['title']) ? $card['title'] : $card_alt);
+                $card_id = !empty($card['ID']) ? $card['ID'] : 0;
+            } elseif (is_numeric($card)) {
+                $card_id = (int)$card;
+                $card_url = wp_get_attachment_image_url($card, 'full');
+                $alt = get_post_meta($card, '_wp_attachment_image_alt', true);
+                if ($alt) $card_alt = $alt;
+            } else {
+                $card_url = $card;
+            }
+            if (!$card_url) continue;
+            $vendor_link = $resolve_vendor_link($card_id, $card_url, $card_alt, $idx);
     ?>
     <div class="vendor-card">
       <a href="<?php echo esc_url($vendor_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
-        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
+        <img src="<?php echo esc_url($card_url); ?>" alt="<?php echo esc_attr($card_alt); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
       </a>
     </div>
-    <?php endif; endwhile; wp_reset_postdata(); ?>
+    <?php
+        endforeach;
+    else:
+        $vendors_query = new WP_Query(array(
+            'post_type' => 'vendor',
+            'posts_per_page' => -1,
+            'orderby' => 'menu_order',
+            'order' => 'ASC'
+        ));
+        $fallback_idx = 0;
+        while ($vendors_query->have_posts()): $vendors_query->the_post();
+            $card_url = get_field('vendor_card_rectangle') ?: get_post_meta(get_the_ID(), 'vendor_card_rectangle', true);
+            if (!$card_url) {
+                $square = get_field('vendor_logo') ?: get_the_post_thumbnail_url();
+                if ($square && preg_match('/Vendor-Cards-(1[1-6])\.png/i', $square, $m)) {
+                    $num = intval($m[1]) - 6;
+                    $card_url = str_replace($m[0], sprintf('Vendor-Cards-%02d.png', $num), $square);
+                } else {
+                    $card_url = sprintf('https://snow-quetzal-139443.hostingersite.com/wp-content/uploads/2026/09/Vendor-Cards-%02d.png', $fallback_idx + 5);
+                }
+            }
+            $is_kft = (stripos(get_the_title(), 'Kung Fu') !== false);
+            $vendor_link = $is_kft ? home_url('/kungfutea/') : get_permalink();
+            $fallback_idx++;
+    ?>
+    <div class="vendor-card">
+      <a href="<?php echo esc_url($vendor_link); ?>" style="display: block; width: 100%; height: 100%; text-decoration: none; cursor: pointer;">
+        <img src="<?php echo esc_url($card_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="vendor-card-img" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px;">
+      </a>
+    </div>
+    <?php endwhile; wp_reset_postdata(); endif; ?>
 </div>
+
+        <div class="carousel-mobile-swipe-hint vendors-mobile-swipe-hint">
+          <i class="fa-solid fa-arrows-left-right"></i>
+          <span>Swipe for more vendors</span>
+          <i class="fa-solid fa-chevron-right pulse-arrow"></i>
+        </div>
 
       </div>
     </div>
@@ -188,11 +269,11 @@ $hero_bg = get_field('home_hero_bg') ?: (get_template_directory_uri() . '/assets
   </section>
 
   <!-- EVENTS SECTION -->
-  <section class="section bg-light-events" style="padding: 20px 0; background: #ffffff; color: #000000;">
+  <section class="section bg-light-events upcoming-events" style="padding: 20px 0; background: #ffffff; color: #000000;">
     <div class="container" style="max-width: 1180px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
-        <h2 style="margin: 0; font-size: 3.2rem; color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 1px;">UPCOMING EVENTS</h2>
-        <a href="<?php echo home_url('/events'); ?>" style="color: #000000; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 1.5px;">
+      <div class="events-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
+        <h2 class="events-section-title" style="margin: 0; font-size: 3.2rem; color: #D41F3C; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 1px;">UPCOMING EVENTS</h2>
+        <a href="<?php echo home_url('/events'); ?>" class="events-view-all-link" style="color: #000000; font-family: 'Bebas Kai', 'Bebas Kai Regular', 'Bebas Neue', sans-serif; font-size: 3.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 1.5px;">
           VIEW ALL EVENTS
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
             <line x1="4" y1="12" x2="20" y2="12"></line>
@@ -226,34 +307,81 @@ $hero_bg = get_field('home_hero_bg') ?: (get_template_directory_uri() . '/assets
 <div class="events-track">
     <?php
     $events_query = new WP_Query(array('post_type' => 'event', 'posts_per_page' => -1));
-    while( $events_query->have_posts() ): $events_query->the_post();
-        $raw_date = get_field('event_date'); 
-        if($raw_date) {
-            $dt = DateTime::createFromFormat('F j, Y', $raw_date);
-            if($dt) {
-                $day = $dt->format('D');
-                $date_num = $dt->format('j');
-            } else {
-                $day = 'TBD';
-                $date_num = '--';
+    if ($events_query->have_posts()):
+        while( $events_query->have_posts() ): $events_query->the_post();
+            $raw_date = get_field('event_date'); 
+            $time = get_field('event_time');
+            $event_link = get_field('event_link') ?: get_permalink();
+            $day = 'EVENT';
+            $date_num = 'UPCOMING';
+            if($raw_date) {
+                $timestamp = strtotime($raw_date);
+                if(!$timestamp) {
+                    $dt = DateTime::createFromFormat('F j, Y', $raw_date);
+                    if(!$dt) $dt = DateTime::createFromFormat('Ymd', $raw_date);
+                    if(!$dt) $dt = DateTime::createFromFormat('m/d/Y', $raw_date);
+                    if(!$dt) $dt = DateTime::createFromFormat('d/m/Y', $raw_date);
+                    if($dt) $timestamp = $dt->getTimestamp();
+                }
+                if($timestamp) {
+                    $day = strtoupper(date('l', $timestamp));
+                    $date_num = strtoupper(date('F j', $timestamp));
+                } else {
+                    $date_num = strtoupper($raw_date);
+                }
             }
-        } else {
-            $day = 'TBD';
-            $date_num = '--';
-        }
     ?>
-    <div class="event-mock-card">
+    <a href="<?php echo esc_url($event_link); ?>" class="event-mock-card">
         <div class="event-date-box">
-            <span class="day"><?php echo strtoupper($day); ?></span>
-            <span class="date"><?php echo $date_num; ?></span>
+            <span class="day"><?php echo esc_html($day); ?></span>
+            <span class="date"><?php echo esc_html($date_num); ?></span>
         </div>
         <div class="event-info-box">
             <h3 class="event-name"><?php the_title(); ?></h3>
-            <p class="event-time"><?php echo esc_html(get_field('event_time')); ?></p>
+            <?php if ($time): ?>
+                <p class="event-time"><?php echo esc_html($time); ?></p>
+            <?php endif; ?>
+        </div>
+    </a>
+    <?php endwhile; wp_reset_postdata(); else: ?>
+    <div class="event-mock-card">
+        <div class="event-date-box">
+            <span class="day">WEDNESDAY</span>
+            <span class="date">JUNE 2</span>
+        </div>
+        <div class="event-info-box">
+            <h3 class="event-name">BRAVES<br>HOME GAME</h3>
+            <p class="event-time">6:00 PM</p>
         </div>
     </div>
-    <?php endwhile; wp_reset_postdata(); ?>
+    <div class="event-mock-card">
+        <div class="event-date-box">
+            <span class="day">THURSDAY</span>
+            <span class="date">JUNE 3</span>
+        </div>
+        <div class="event-info-box">
+            <h3 class="event-name">KARAOKE<br>NIGHT</h3>
+            <p class="event-time">7-11 PM</p>
+        </div>
+    </div>
+    <div class="event-mock-card">
+        <div class="event-date-box">
+            <span class="day">SATURDAY</span>
+            <span class="date">JUNE 5</span>
+        </div>
+        <div class="event-info-box">
+            <h3 class="event-name">LIVE MUSIC</h3>
+            <p class="event-time">5-9 PM</p>
+        </div>
+    </div>
+    <?php endif; ?>
 </div>
+
+        <div class="carousel-mobile-swipe-hint events-mobile-swipe-hint">
+          <i class="fa-solid fa-arrows-left-right"></i>
+          <span>Swipe for more events</span>
+          <i class="fa-solid fa-chevron-right pulse-arrow"></i>
+        </div>
 
       </div>
     </div>
